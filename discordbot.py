@@ -9,7 +9,7 @@ import time
 client = discord.Client()
 
 muted = False
-timestamp = round(time.time())
+game = discord.Game(name = 'Liquipedia', url = 'http://wiki.teamliquid.net', type = 1)
 
 wikibaseurl = 'http://wiki.teamliquid.net/'
 wikis = [
@@ -25,7 +25,12 @@ wikis = [
 	'warcraft',
 	'fighters',
 	'rocketleague',
-	'clashroyale'
+	'clashroyale',
+	'crossfire',
+	'battlerite',
+	'trackmania',
+	'diabotical',
+	'teamfortress'
 ]
 botroles = {
 	'starcraft': 'Starcraft',
@@ -40,20 +45,27 @@ botroles = {
 	'warcraft': 'Warcraft',
 	'fighters': 'Fighters',
 	'rocketleague': 'Rocket League',
-	'clashroyale': 'Clash Royale'
+	'clashroyale': 'Clash Royale',
+	'crossfire': 'CrossFire',
+	'battlerite': 'Battlerite',
+	'trackmania': 'TrackMania',
+	'diabotical': 'Diabotical',
+	'teamfortress': 'Team Fortress'
 }
-newchannelmessage = {}
+countchannelmessagemax = 100
+countchannelmessage = {}
 for wiki in wikis:
-	newchannelmessage[wiki] = False
+	countchannelmessage[wiki] = 0
 
 def pendingchanges(wiki, displaynochanges):
 	global wikibaseurl
 	global wikis
-	global newchannelmessage
+	global countchannelmessage
+	global countchannelmessagemax
 	result = ''
 	if wiki in wikis:
-		if newchannelmessage[wiki] or displaynochanges:
-			newchannelmessage[wiki] = False
+		if countchannelmessage[wiki] >= countchannelmessagemax or displaynochanges:
+			countchannelmessage[wiki] = 0
 			url = wikibaseurl + wiki + '/api.php?action=query&format=json&list=oldreviewedpages&ornamespace=0|10&orlimit=' + str(random.randrange(200, 500, 1))
 			jsonobj = requests.get(url).json()
 			results = jsonobj['query']['oldreviewedpages']
@@ -69,9 +81,9 @@ def pendingchanges(wiki, displaynochanges):
 					countstr = 'over 200'
 				else:
 					countstr = str(count)
-				result = '**Pages with pending changes**: ' + wikibaseurl + wiki + '/Special:PendingChanges (' + countstr + ' page' + plural + ' pending)'
+				result = '**Pages with pending changes**: <' + wikibaseurl + wiki + '/Special:PendingChanges> (' + countstr + ' page' + plural + ' pending)'
 				for i in range(0, min(count, 5)):
-					result += '\n' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + ' (diff: ' + str(results[i]['diff_size']) + ', since: ' + results[i]['pending_since'][0:10] + ')'
+					result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '> (diff: ' + str(results[i]['diff_size']) + ', since: ' + results[i]['pending_since'][0:10] + ')'
 	else:
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
@@ -79,11 +91,12 @@ def pendingchanges(wiki, displaynochanges):
 def unreviewedpages(wiki, displaynochanges):
 	global wikibaseurl
 	global wikis
-	global newchannelmessage
+	global countchannelmessage
+	global countchannelmessagemax
 	result = ''
 	if wiki in wikis:
-		if newchannelmessage[wiki] or displaynochanges:
-			newchannelmessage[wiki] = False
+		if countchannelmessage[wiki] >= countchannelmessagemax or displaynochanges:
+			countchannelmessage[wiki] = 0
 			url = wikibaseurl + wiki + '/api.php?action=query&format=json&list=unreviewedpages&urfilterredir=nonredirects&urnamespace=0|10&urlimit=' + str(random.randrange(200, 500, 1))
 			jsonobj = requests.get(url).json()
 			results = jsonobj['query']['unreviewedpages']
@@ -99,20 +112,27 @@ def unreviewedpages(wiki, displaynochanges):
 					countstr = 'over 200'
 				else:
 					countstr = str(count)
-				result = '**Unreviewed pages**: ' + wikibaseurl + wiki + '/Special:UnreviewedPages (' + countstr + ' page' + plural + ' pending)'
+				result = '**Unreviewed pages**: <' + wikibaseurl + wiki + '/Special:UnreviewedPages> (' + countstr + ' page' + plural + ' pending)'
 				for i in range(0, min(count, 5)):
-					result += '\n' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_')
+					result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '>'
 	else:
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
 
 @client.async_event
+def on_ready():
+	global game
+	yield from client.change_status(game)
+
+@client.async_event
 def on_message(message):
 	global muted
-	global timestamp
-	global newchannelmessage
+	global countchannelmessage
+	global countchannelmessagemax
 	global botroles
-	newchannelmessage[message.channel.name] = True
+	global wikis
+	if message.channel.name in wikis:
+		countchannelmessage[message.channel.name] += 1
 	if message.content == '!fobot' or message.content.startswith('!fobot'):
 		if not muted:
 			if message.content == '!fobot liquipedia':
@@ -174,7 +194,7 @@ def on_message(message):
 			muted = False
 			yield from client.send_message(message.channel, '*Bot is unmuted now!*')
 		elif message.content.startswith('!fobot addrole '):
-			roleid = name=message.content.replace('!fobot addrole ', '')
+			roleid = message.content.replace('!fobot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
@@ -186,7 +206,7 @@ def on_message(message):
 			else:
 				yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
 		elif message.content.startswith('!fobot removerole '):
-			roleid = name=message.content.replace('!fobot removerole ', '')
+			roleid = message.content.replace('!fobot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
@@ -197,20 +217,17 @@ def on_message(message):
 					yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
 			else:
 				yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
-	if timestamp + (2 * 3600) < round(time.time()):
-		timestamp = round(time.time())
-		wiki = wikis[random.randrange(0, len(wikis), 1)]
-		channels = message.server.channels
-		channel = discord.utils.get(channels, name=wiki)
-		if channel != None:
-			type = random.randrange(0, 2, 1)
-			if type == 0:	
-				result = pendingchanges(wiki, False)
-				if result != '':
-					yield from client.send_message(channel, result)
-			elif type == 1:	
-				result = unreviewedpages(wiki, False)
-				if result != '':
-					yield from client.send_message(channel, result)
+	if message.channel.name in wikis:
+		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
+			if message.channel.name != None:
+				type = random.randrange(0, 2, 1)
+				if type == 0:	
+					result = pendingchanges(message.channel.name, False)
+					if result != '':
+						yield from client.send_message(message.channel, result)
+				elif type == 1:	
+					result = unreviewedpages(message.channel.name, False)
+					if result != '':
+						yield from client.send_message(message.channel, result)
 
 client.run('token')
