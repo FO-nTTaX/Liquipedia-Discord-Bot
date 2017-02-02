@@ -30,7 +30,9 @@ wikis = [
 	'battlerite',
 	'trackmania',
 	'diabotical',
-	'teamfortress'
+	'teamfortress',
+	'leagueoflegends',
+	'worldofwarcraft'
 ]
 botroles = {
 	'bw': 'Starcraft,
