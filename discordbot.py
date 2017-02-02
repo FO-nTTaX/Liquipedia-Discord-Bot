@@ -161,7 +161,7 @@ def on_message(message):
 	global wikis
 	if message.channel.name in wikis:
 		countchannelmessage[message.channel.name] += 1
-	if message.content == '!sendhelp':
+	if message.content == '!sendhelp' or message.content == '!sendbeatles':
 		if not muted:
 			yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=yWP6Qki8mWc')
 	if message.content == '!fobot' or message.content.startswith('!fobot'):
