@@ -40,6 +40,7 @@ botroles = {
 	'starcraft': 'Starcraft',
 	'sc2': 'Starcraft 2',
 	'dedgame': 'Starcraft 2',
+	'dedgaem': 'Starcraft 2',
 	'starcraft2': 'Starcraft 2',
 	'dota': 'Dota 2',
 	'dota2': 'Dota 2',
