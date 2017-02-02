@@ -245,6 +245,8 @@ def on_message(message):
 					yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
 			else:
 				yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
+	if 'liquidpedia' in message.content.lower():
+		yield from client.send_message(message.channel, 'It\'s **Liquipedia**, only ond d in the word!')
 	if message.channel.name in wikis:
 		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
 			if message.channel.name != None:
