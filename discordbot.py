@@ -38,6 +38,7 @@ wikis = [
 ]
 botroles = {
 	'bw': 'Starcraft',
+	'broodbar': 'Starcraft',
 	'sc': 'Starcraft',
 	'starcraft': 'Starcraft',
 	'sc2': 'Starcraft 2',
@@ -58,6 +59,7 @@ botroles = {
 	'overwatch': 'Overwatch',
 	'commons': 'Commons',
 	'war3': 'Warcraft',
+	'wc3': 'Warcraft',
 	'warcraft3': 'Warcraft',
 	'warcraft': 'Warcraft',
 	'fgc': 'Fighters',
