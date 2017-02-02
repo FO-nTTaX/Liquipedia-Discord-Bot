@@ -6,6 +6,8 @@ import requests
 import json
 import time
 
+token = 'token'
+
 client = discord.Client()
 
 muted = False
@@ -254,4 +256,4 @@ def on_message(message):
 					if result != '':
 						yield from client.send_message(message.channel, result)
 
-client.run('token')
+client.run(token)
