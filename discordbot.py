@@ -30,27 +30,50 @@ wikis = [
 	'battlerite',
 	'trackmania',
 	'diabotical',
-	'teamfortress'
+	'teamfortress',
+	'leagueoflegends',
+	'worldofwarcraft'
 ]
 botroles = {
+	'bw': 'Starcraft',
+	'sc': 'Starcraft',
 	'starcraft': 'Starcraft',
+	'sc2': 'Starcraft 2',
+	'dedgame': 'Starcraft 2',
 	'starcraft2': 'Starcraft 2',
+	'dota': 'Dota 2',
 	'dota2': 'Dota 2',
+	'hs': 'Hearthstone',
 	'hearthstone': 'Hearthstone',
+	'hots': 'Heroes',
 	'heroes': 'Heroes',
 	'smash': 'Smash',
+	'cs': 'Counter-Strike',
+	'csgo': 'Counter-Strike',
 	'counterstrike': 'Counter-Strike',
+	'ow': 'Overwatch',
 	'overwatch': 'Overwatch',
 	'commons': 'Commons',
+	'war3': 'Warcraft',
+	'warcraft3': 'Warcraft',
 	'warcraft': 'Warcraft',
+	'fgc': 'Fighters',
 	'fighters': 'Fighters',
+	'rl': 'Rocket League',
 	'rocketleague': 'Rocket League',
+	'clash': 'Clash Royale',
 	'clashroyale': 'Clash Royale',
 	'crossfire': 'CrossFire',
 	'battlerite': 'Battlerite',
 	'trackmania': 'TrackMania',
 	'diabotical': 'Diabotical',
-	'teamfortress': 'Team Fortress'
+	'tf': 'Team Fortress',
+	'tf2': 'Team Fortress',
+	'teamfortress': 'Team Fortress',
+	'lol': 'League of Legends',
+	'leagueoflegends': 'League of Legends',
+	'wow': 'World of Warcraft',
+	'worldofwarcraft': 'World of Warcraft'
 }
 countchannelmessagemax = 100
 countchannelmessage = {}
