@@ -34,7 +34,8 @@ wikis = [
 	'diabotical',
 	'teamfortress',
 	'leagueoflegends',
-	'worldofwarcraft'
+	'worldofwarcraft',
+	'fifa'
 ]
 botroles = {
 	'bw': 'Starcraft',
@@ -56,8 +57,8 @@ botroles = {
 	'ssbm' : 'Smash',
 	'sm4sh' : 'Smash',
 	'ssb4' : 'Smash',
-	'smash 64' : 'Smash',
-	'project m' : 'Smash',
+	'smash64' : 'Smash',
+	'projectm' : 'Smash',
 	'pm' : 'Smash',
 	'cs': 'Counter-Strike',
 	'csgo': 'Counter-Strike',
@@ -71,7 +72,7 @@ botroles = {
 	'warcraft': 'Warcraft',
 	'fgc': 'Fighters',
 	'fighters': 'Fighters',
-	'street fighter': 'Fighters',
+	'streetfighter': 'Fighters',
 	'rl': 'Rocket League',
 	'rocketleague': 'Rocket League',
 	'clash': 'Clash Royale',
@@ -92,6 +93,18 @@ countchannelmessagemax = 100
 countchannelmessage = {}
 for wiki in wikis:
 	countchannelmessage[wiki] = 0
+lies = [
+	'Liquipedia is not awesome... (good that this is a lie ^^)',
+	'salle is a young girl',
+	'Pizza is bad and no one likes it',
+	'salle\'s ideas are always realistic',
+	'Chrome is a decent browser',
+]
+
+def lie():
+	global lies
+	i = random.randrange(0, len(lies), 1)
+	return lies[i]
 
 def pendingchanges(wiki, displaynochanges):
 	global wikibaseurl
@@ -184,7 +197,7 @@ def on_message(message):
 			elif message.content == '!fobot help':
 				yield from client.send_message(message.channel, '**FO-BoT Commands**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Manual')
 			elif message.content == '!fobot lie':
-				yield from client.send_message(message.channel, 'Liquipedia is not awesome... (good that this is a lie ^^)')
+				yield from client.send_message(message.channel, lie())
 			elif message.content.startswith('!fobot talk ') and message.server == None and message.author.id == '138719439834185728':
 				yield from client.send_message(message.channel, 'Hello ' + message.author.name)
 			elif message.content == '!fobot coder':
@@ -230,7 +243,7 @@ def on_message(message):
 			muted = False
 			yield from client.send_message(message.channel, '*Bot is unmuted now!*')
 		elif message.content.startswith('!fobot addrole '):
-			roleid = message.content.replace('!fobot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').lower()
+			roleid = message.content.replace('!fobot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
@@ -242,7 +255,7 @@ def on_message(message):
 			else:
 				yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
 		elif message.content.startswith('!fobot removerole '):
-			roleid = message.content.replace('!fobot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').lower()
+			roleid = message.content.replace('!fobot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
@@ -254,7 +267,7 @@ def on_message(message):
 			else:
 				yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
 	if 'liquidpedia' in message.content.lower():
-		yield from client.send_message(message.channel, 'It\'s **Liquipedia**, only ond d in the word!')
+		yield from client.send_message(message.channel, 'It is **Liquipedia**, only one d in the word!')
 	if message.channel.name in wikis:
 		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
 			if message.channel.name != None:
