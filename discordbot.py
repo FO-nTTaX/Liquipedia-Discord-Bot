@@ -52,6 +52,7 @@ botroles = {
 	'hearthstone': 'Hearthstone',
 	'hots': 'Heroes',
 	'heroes': 'Heroes',
+	'heroesofthestorm': 'Heroes',
 	'smash': 'Smash',
 	'ssb' : 'Smash',
 	'ssbm' : 'Smash',
