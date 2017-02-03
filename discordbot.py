@@ -52,6 +52,13 @@ botroles = {
 	'hots': 'Heroes',
 	'heroes': 'Heroes',
 	'smash': 'Smash',
+	'ssb' : 'Smash',
+	'ssbm' : 'Smash',
+	'sm4sh' : 'Smash',
+	'ssb4' : 'Smash',
+	'smash 64' : 'Smash',
+	'project m' : 'Smash',
+	'pm' : 'Smash',
 	'cs': 'Counter-Strike',
 	'csgo': 'Counter-Strike',
 	'counterstrike': 'Counter-Strike',
@@ -64,6 +71,7 @@ botroles = {
 	'warcraft': 'Warcraft',
 	'fgc': 'Fighters',
 	'fighters': 'Fighters',
+	'street fighter': 'Fighters',
 	'rl': 'Rocket League',
 	'rocketleague': 'Rocket League',
 	'clash': 'Clash Royale',
@@ -251,11 +259,11 @@ def on_message(message):
 		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
 			if message.channel.name != None:
 				type = random.randrange(0, 2, 1)
-				if type == 0:	
+				if type == 0:
 					result = pendingchanges(message.channel.name, False)
 					if result != '':
 						yield from client.send_message(message.channel, result)
-				elif type == 1:	
+				elif type == 1:
 					result = unreviewedpages(message.channel.name, False)
 					if result != '':
 						yield from client.send_message(message.channel, result)
