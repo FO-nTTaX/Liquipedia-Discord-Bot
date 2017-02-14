@@ -39,12 +39,10 @@ wikis = [
 ]
 botroles = {
 	'bw': 'Starcraft',
-	'broodbar': 'Starcraft',
+	'broodwar': 'Starcraft',
 	'sc': 'Starcraft',
 	'starcraft': 'Starcraft',
 	'sc2': 'Starcraft 2',
-	'dedgame': 'Starcraft 2',
-	'dedgaem': 'Starcraft 2',
 	'starcraft2': 'Starcraft 2',
 	'dota': 'Dota 2',
 	'dota2': 'Dota 2',
@@ -169,6 +167,33 @@ def unreviewedpages(wiki, displaynochanges):
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
 
+def search(wiki, searchstring):
+	global wikibaseurl
+	global wikis
+	global countchannelmessage
+	global countchannelmessagemax
+	result = ''
+	if wiki in wikis:
+		countchannelmessage[wiki] = 0
+		url = wikibaseurl + wiki + '/api.php?action=query&format=json&list=search&srlimit=5&srsearch=' + searchstring
+		jsonobj = requests.get(url).json()
+		results = jsonobj['query']['search']
+		count = jsonobj['query']['searchinfo']['totalhits']
+		if count == 0:
+			result = 'No results for **' + searchstring + '** on ' + wiki
+		elif count > 0:
+			plural = 's'
+			if count == 1:
+				plural = ''
+			else:
+				countstr = str(count)
+			result = '**Search results**: <' + wikibaseurl + wiki + '/index.php?title=Special%3ASearch&profile=default&search=' + searchs$
+			for i in range(0, min(count, 5)):
+				result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '>'
+	else:
+		result = wikibaseurl + wiki + ' is not a wiki url we have!'
+	return result
+
 @client.async_event
 def on_ready():
 	global game
@@ -219,6 +244,10 @@ def on_message(message):
 					yield from client.send_message(message.channel, result)
 			elif message.content.startswith('!fobot unreviewedpages '):
 				result = unreviewedpages(message.content.replace('!fobot unreviewedpages ', ''), True)
+				if result != '':
+					yield from client.send_message(message.channel, result)
+			elif message.content.startswith('!fobot search '):
+				result = search(message.channel.name, message.content.replace('!fobot search ', ''))
 				if result != '':
 					yield from client.send_message(message.channel, result)
 			elif message.content.startswith('!fobot dice '):
