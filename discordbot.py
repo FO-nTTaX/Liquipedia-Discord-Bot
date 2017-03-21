@@ -35,13 +35,15 @@ wikis = [
 	'teamfortress',
 	'leagueoflegends',
 	'worldofwarcraft',
-	'fifa'
+	'fifa',
+	'pokemon'
 ]
 botroles = {
 	'bw': 'Starcraft',
 	'broodwar': 'Starcraft',
 	'sc': 'Starcraft',
 	'starcraft': 'Starcraft',
+	'starcraftbroodwar': 'Starcraft',
 	'sc2': 'Starcraft 2',
 	'starcraft2': 'Starcraft 2',
 	'dota': 'Dota 2',
@@ -160,7 +162,7 @@ def unreviewedpages(wiki, displaynochanges):
 					countstr = 'over 200'
 				else:
 					countstr = str(count)
-				result = '**Unreviewed pages**: <' + wikibaseurl + wiki + '/Special:UnreviewedPages> (' + countstr + ' page' + plural + ' pending)'
+				result = '**Unreviewed pages**: <' + wikibaseurl + wiki + '/Special:UnreviewedPages> (' + countstr + ' page' + plural + ' unreviewed)'
 				for i in range(0, min(count, 5)):
 					result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '>'
 	else:
@@ -187,7 +189,7 @@ def search(wiki, searchstring):
 				plural = ''
 			else:
 				countstr = str(count)
-			result = '**Search results**: <' + wikibaseurl + wiki + '/index.php?title=Special%3ASearch&profile=default&search=' + searchs$
+			result = '**Search results**: <' + wikibaseurl + wiki + '/index.php?title=Special%3ASearch&profile=default&search=' + searchstring.replace(' ', '+') + '&fulltext=Search> (' + countstr + ' page' + plural + ')'
 			for i in range(0, min(count, 5)):
 				result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '>'
 	else:
