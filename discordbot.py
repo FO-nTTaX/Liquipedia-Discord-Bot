@@ -64,6 +64,8 @@ botroles = {
 	'cs': 'Counter-Strike',
 	'csgo': 'Counter-Strike',
 	'counterstrike': 'Counter-Strike',
+	'counterstrikeglobaloffensive': 'Counter-Strike',
+	'counterstrike:globaloffensive': 'Counter-Strike',
 	'ow': 'Overwatch',
 	'overwatch': 'Overwatch',
 	'commons': 'Commons',
@@ -88,7 +90,9 @@ botroles = {
 	'lol': 'League of Legends',
 	'leagueoflegends': 'League of Legends',
 	'wow': 'World of Warcraft',
-	'worldofwarcraft': 'World of Warcraft'
+	'worldofwarcraft': 'World of Warcraft',
+	'pokemon': 'Pokémon',
+	'pokémon': 'Pokémon'
 }
 countchannelmessagemax = 100
 countchannelmessage = {}
