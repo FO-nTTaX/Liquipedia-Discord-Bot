@@ -36,7 +36,8 @@ wikis = [
 	'leagueoflegends',
 	'worldofwarcraft',
 	'fifa',
-	'pokemon'
+	'pokemon',
+	'quake'
 ]
 botroles = {
 	'bw': 'Starcraft',
@@ -92,7 +93,8 @@ botroles = {
 	'wow': 'World of Warcraft',
 	'worldofwarcraft': 'World of Warcraft',
 	'pokemon': 'Pokémon',
-	'pokémon': 'Pokémon'
+	'pokémon': 'Pokémon',
+	'quake': 'Quake'
 }
 countchannelmessagemax = 100
 countchannelmessage = {}
@@ -236,6 +238,15 @@ def on_message(message):
 				yield from client.send_message(message.channel, 'FO-BoT was coded by **FO-nTTaX**')
 			elif message.content == '!fobot ranking':
 				yield from client.send_message(message.channel, '**Liquipedia ranking**: http://www.tolueno.fr/liquipedia/editcount/')
+			elif message.content == '!fobot thinking':
+				yield from client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
+			elif message.content == '!fobot lickypiddy':
+				lickypiddywiki = 'commons'
+				if message.channel.name in wikis:
+					lickypiddywiki = message.channel.name
+				else:
+					lickypiddywiki = 'commons'
+				yield from client.send_message(message.channel, 'http://wiki.teamliquid.net/' + lickypiddywiki + '/Special:Lickypiddy')
 			elif message.content == '!fobot pendingchanges':
 				result = pendingchanges(message.channel.name, True)
 				if result != '':
@@ -303,7 +314,7 @@ def on_message(message):
 			else:
 				yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
 	if 'liquidpedia' in message.content.lower():
-		yield from client.send_message(message.channel, 'It is **Liquipedia**, only one d in the word!')
+		yield from client.send_message(message.channel, 'It is **Liquipedia**, only one d in the name!')
 	if message.channel.name in wikis:
 		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
 			if message.channel.name != None:
