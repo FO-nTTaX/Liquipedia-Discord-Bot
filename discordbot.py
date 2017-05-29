@@ -37,7 +37,8 @@ wikis = [
 	'worldofwarcraft',
 	'fifa',
 	'pokemon',
-	'quake'
+	'quake',
+	'rainbowsix'
 ]
 botroles = {
 	'bw': 'Starcraft',
@@ -92,9 +93,13 @@ botroles = {
 	'leagueoflegends': 'League of Legends',
 	'wow': 'World of Warcraft',
 	'worldofwarcraft': 'World of Warcraft',
-	'pokemon': 'PokÃ©mon',
-	'pokÃ©mon': 'PokÃ©mon',
-	'quake': 'Quake'
+	'pokemon': 'Pokémon',
+	'pokémon': 'Pokémon',
+	'quake': 'Quake',
+	'r6': 'Rainbow Six',
+	'r6s': 'Rainbow Six',
+	'rainbow6': 'Rainbow Six',
+	'rainbowsix': 'Rainbow Six'
 }
 countchannelmessagemax = 100
 countchannelmessage = {}
@@ -223,11 +228,11 @@ def on_message(message):
 			elif message.content == '!fobot guides':
 				yield from client.send_message(message.channel, '**Liquipedia-Guides**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Guides')
 			elif message.content == '!fobot hype':
-				yield from client.send_message(message.channel, '**\\\\Ãœ/ HYPE \\\\Ãœ/** http://stuff.gramma.name/hype/')
+				yield from client.send_message(message.channel, '**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/')
 			elif message.content == '!fobot todo':
 				yield from client.send_message(message.channel, '**Liquipedia-To Do Lists**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#To_Do_Lists')
 			elif message.content == '!fobot dance':
-				yield from client.send_message(message.channel, '**EVERYBODY DANCE \\\\Ãœ/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*')
+				yield from client.send_message(message.channel, '**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*')
 			elif message.content == '!fobot help':
 				yield from client.send_message(message.channel, '**FO-BoT Commands**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Manual')
 			elif message.content == '!fobot lie':
