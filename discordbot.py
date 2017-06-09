@@ -1,5 +1,8 @@
 # -*- coding: latin-1 -*-
 
+# License MIT
+# Copyright 2016-2017 Alex Winkler
+
 import discord
 import random
 import requests
