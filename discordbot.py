@@ -96,9 +96,10 @@ botroles = {
 	'leagueoflegends': 'League of Legends',
 	'wow': 'World of Warcraft',
 	'worldofwarcraft': 'World of Warcraft',
-	'pokemon': 'Pokémon',
-	'pokémon': 'Pokémon',
+	'pokemon': 'PokÃ©mon',
+	'pokÃ©mon': 'PokÃ©mon',
 	'quake': 'Quake',
+	'fifa': 'FIFA',
 	'r6': 'Rainbow Six',
 	'r6s': 'Rainbow Six',
 	'rainbow6': 'Rainbow Six',
@@ -114,6 +115,12 @@ lies = [
 	'Pizza is bad and no one likes it',
 	'salle\'s ideas are always realistic',
 	'Chrome is a decent browser',
+	'blame swampflare',
+	'The revision system of Liquipedia is useless, just kill the history',
+	'I played Half Life 3 recently, it sucked',
+	'WarCraft 4 is just about to be released',
+	'Dota 2 is so tiny, we should focus on big esports like Nokia Snake instead',
+	'https://files.catbox.moe/o8tify.gif',
 ]
 
 def lie():
@@ -231,11 +238,11 @@ def on_message(message):
 			elif message.content == '!fobot guides':
 				yield from client.send_message(message.channel, '**Liquipedia-Guides**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Guides')
 			elif message.content == '!fobot hype':
-				yield from client.send_message(message.channel, '**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/')
+				yield from client.send_message(message.channel, '**\\\\Ãœ/ HYPE \\\\Ãœ/** http://stuff.gramma.name/hype/')
 			elif message.content == '!fobot todo':
 				yield from client.send_message(message.channel, '**Liquipedia-To Do Lists**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#To_Do_Lists')
 			elif message.content == '!fobot dance':
-				yield from client.send_message(message.channel, '**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*')
+				yield from client.send_message(message.channel, '**EVERYBODY DANCE \\\\Ãœ/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*')
 			elif message.content == '!fobot help':
 				yield from client.send_message(message.channel, '**FO-BoT Commands**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Manual')
 			elif message.content == '!fobot lie':
@@ -245,7 +252,7 @@ def on_message(message):
 			elif message.content == '!fobot coder':
 				yield from client.send_message(message.channel, 'FO-BoT was coded by **FO-nTTaX**')
 			elif message.content == '!fobot ranking':
-				yield from client.send_message(message.channel, '**Liquipedia ranking**: http://www.tolueno.fr/liquipedia/editcount/')
+				yield from client.send_message(message.channel, '**Liquipedia ranking**: http://wiki.teamliquid.net/statistics/')
 			elif message.content == '!fobot thinking':
 				yield from client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
 			elif message.content == '!fobot lickypiddy':
