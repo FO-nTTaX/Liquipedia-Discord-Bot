@@ -105,6 +105,9 @@ botroles = {
 	'rainbow6': 'Rainbow Six',
 	'rainbowsix': 'Rainbow Six'
 }
+sbotroles = {
+	'randomstats': 'Random Stats of the Day'
+}
 countchannelmessagemax = 100
 countchannelmessage = {}
 for wiki in wikis:
@@ -228,6 +231,7 @@ def on_message(message):
 	global countchannelmessage
 	global countchannelmessagemax
 	global botroles
+	global sbotroles
 	global wikis
 	if message.channel.name in wikis:
 		countchannelmessage[message.channel.name] += 1
@@ -324,6 +328,31 @@ def on_message(message):
 				if hasattr(message.author, 'roles'):
 					yield from client.remove_roles(message.author, role)
 					yield from client.send_message(message.channel, '**Success**: Role removed')
+				else:
+					yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
+			else:
+				yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
+	elif message.content == '!sallebot' or message.content.startswith('!sallebot'):
+		if message.content.startswith('!sallebot addrole '):
+			roleid = message.content.replace('!sallebot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
+			if roleid in sbotroles:
+				rolename = sbotroles[roleid]
+				role = discord.utils.get(message.server.roles, name=rolename)
+				if hasattr(message.author, 'roles'):
+					yield from client.add_roles(message.author, role)
+					yield from client.send_message(message.channel, 'Since sallebot is lazy... I added the role for you :P')
+				else:
+					yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
+			else:
+				yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
+		elif message.content.startswith('!sallebot removerole '):
+			roleid = message.content.replace('!sallebot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
+			if roleid in sbotroles:
+				rolename = sbotroles[roleid]
+				role = discord.utils.get(message.server.roles, name=rolename)
+				if hasattr(message.author, 'roles'):
+					yield from client.remove_roles(message.author, role)
+					yield from client.send_message(message.channel, 'Since sallebot is lazy... I removed the role for you :P')
 				else:
 					yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
 			else:
