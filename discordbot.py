@@ -106,7 +106,8 @@ botroles = {
 	'rainbowsix': 'Rainbow Six'
 }
 sbotroles = {
-	'randomstats': 'Random Stats of the Day'
+	'randomstats': 'Random Stats of the Day',
+	'randomstatsoftheday': 'Random Stats of the Day'
 }
 countchannelmessagemax = 100
 countchannelmessage = {}
