@@ -103,7 +103,8 @@ botroles = {
 	'r6': 'Rainbow Six',
 	'r6s': 'Rainbow Six',
 	'rainbow6': 'Rainbow Six',
-	'rainbowsix': 'Rainbow Six'
+	'rainbowsix': 'Rainbow Six',
+	'rainbowsixsiege': 'Rainbow Six'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
