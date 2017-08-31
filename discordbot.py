@@ -41,7 +41,8 @@ wikis = [
 	'fifa',
 	'pokemon',
 	'quake',
-	'rainbowsix'
+	'rainbowsix',
+	'pubg'
 ]
 botroles = {
 	'bw': 'Starcraft',
@@ -51,6 +52,7 @@ botroles = {
 	'starcraftbroodwar': 'Starcraft',
 	'sc2': 'Starcraft 2',
 	'starcraft2': 'Starcraft 2',
+	'starcraftii': 'Starcraft 2',
 	'dota': 'Dota 2',
 	'dota2': 'Dota 2',
 	'hs': 'Hearthstone',
@@ -92,6 +94,7 @@ botroles = {
 	'tf': 'Team Fortress',
 	'tf2': 'Team Fortress',
 	'teamfortress': 'Team Fortress',
+	'teamfortress2': 'Team Fortress',
 	'lol': 'League of Legends',
 	'leagueoflegends': 'League of Legends',
 	'wow': 'World of Warcraft',
@@ -103,8 +106,10 @@ botroles = {
 	'r6': 'Rainbow Six',
 	'r6s': 'Rainbow Six',
 	'rainbow6': 'Rainbow Six',
+	'rainbow6siege': 'Rainbow Six',
 	'rainbowsix': 'Rainbow Six',
-	'rainbowsixsiege': 'Rainbow Six'
+	'rainbowsixsiege': 'Rainbow Six',
+	'pubg': 'PUBG'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
