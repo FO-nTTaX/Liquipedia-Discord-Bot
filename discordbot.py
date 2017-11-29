@@ -1,4 +1,4 @@
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 
 # License MIT
 # Copyright 2016-2017 Alex Winkler
@@ -99,8 +99,8 @@ botroles = {
 	'leagueoflegends': 'League of Legends',
 	'wow': 'World of Warcraft',
 	'worldofwarcraft': 'World of Warcraft',
-	'pokemon': 'Pokꮯn',
-	'pokꮯn': 'Pokꮯn',
+	'pokemon': 'Pokémon',
+	'pokémon': 'Pokémon',
 	'quake': 'Quake',
 	'fifa': 'FIFA',
 	'r6': 'Rainbow Six',
@@ -249,11 +249,11 @@ def on_message(message):
 			elif message.content == '!fobot guides':
 				yield from client.send_message(message.channel, '**Liquipedia-Guides**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Guides')
 			elif message.content == '!fobot hype':
-				yield from client.send_message(message.channel, '**\\\\ܯ HYPE \\\\ܯ** http://stuff.gramma.name/hype/')
+				yield from client.send_message(message.channel, '**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/')
 			elif message.content == '!fobot todo':
 				yield from client.send_message(message.channel, '**Liquipedia-To Do Lists**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#To_Do_Lists')
 			elif message.content == '!fobot dance':
-				yield from client.send_message(message.channel, '**EVERYBODY DANCE \\\\ܯ**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*')
+				yield from client.send_message(message.channel, '**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*')
 			elif message.content == '!fobot help':
 				yield from client.send_message(message.channel, '**FO-BoT Commands**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Manual')
 			elif message.content == '!fobot lie':
