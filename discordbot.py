@@ -61,14 +61,14 @@ botroles = {
 	'heroes': 'Heroes',
 	'heroesofthestorm': 'Heroes',
 	'smash': 'Smash',
-	'ssb' : 'Smash',
-	'ssbm' : 'Smash',
+	'ssb': 'Smash',
+	'ssbm': 'Smash',
 	'melee': 'Smash',
-	'sm4sh' : 'Smash',
-	'ssb4' : 'Smash',
-	'smash64' : 'Smash',
-	'projectm' : 'Smash',
-	'pm' : 'Smash',
+	'sm4sh': 'Smash',
+	'ssb4': 'Smash',
+	'smash64': 'Smash',
+	'projectm': 'Smash',
+	'pm': 'Smash',
 	'cs': 'Counter-Strike',
 	'csgo': 'Counter-Strike',
 	'counterstrike': 'Counter-Strike',
@@ -229,6 +229,35 @@ def search(wiki, searchstring):
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
 
+def die(sides): #My sides are killing me
+	try:
+		s = int(sides)
+		if s > 0:
+			result = 'Your ' + str(s) + '-sided die threw a ' + str(random.randrange(1, s + 1, 1)) + '.'
+		else:
+			result = 'Please use a positive whole number > 0.'
+	except ValueError:
+		result = 'Please use a positive whole number > 0.'
+	return result
+
+def dice(sides, count=1):
+	try:
+		s = int(sides)
+		c = int(count)
+		if s > 0:
+			if c == 1:
+				result = die(s)
+			elif c > 1:
+				rolls = [random.randrange(1, s + 1, 1) for _ in range(c)]
+				result = 'Your ' + str(c) + ' ' + str(s) + '-sided dice threw ' + str(rolls) + ' for a total of ' + str(sum(rolls)) + '.'
+			else:
+				result = 'Please use two positive whole numbers > 0.'
+		else:
+			result = 'Please use two positive whole numbers > 0.'
+	except ValueError:
+		result = 'Please use two positive whole numbers > 0.'
+	return result
+
 @client.async_event
 def on_ready():
 	global game
@@ -295,16 +324,21 @@ def on_message(message):
 				result = search(message.channel.name, message.content.replace('!fobot search ', ''))
 				if result != '':
 					yield from client.send_message(message.channel, result)
+			elif message.content.startswith('!fobot die '):
+				number = message.content.replace('!fobot die ', '')
+				result = die(number)
+				if result != '':
+					yield from client.send_message(message.channel, result)
 			elif message.content.startswith('!fobot dice '):
-				number = message.content.replace('!fobot dice ', '')
-				try:
-					numberint = int(number)
-					if numberint > 0:
-						yield from client.send_message(message.channel, 'Your ' + str(numberint) + " sided dice threw a " + str(random.randrange(1, numberint + 1, 1)))
-					else:
-						yield from client.send_message(message.channel, 'Please use a positive whole number > 0.')
-				except ValueError:
-					yield from client.send_message(message.channel, 'Please use a positive whole number > 0.')
+				numbers = message.content.replace('!fobot dice ', '').split(' ')
+				if len(numbers) == 1:
+					result = die(numbers[0])
+				elif len(numbers) == 2:
+					result = dice(numbers[0], numbers[1])
+				else:
+					result = 'Please use two positive whole numbers > 0.'
+				if result != '':
+					yield from client.send_message(message.channel, result)
 #			elif message.content.startswith('!fobot follow '):
 #				yield from client.send_message(message.channel, 'TODO')
 #			elif message.content.startswith('!fobot unfollow '):
