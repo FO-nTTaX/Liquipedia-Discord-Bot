@@ -297,6 +297,8 @@ def on_message(message):
 				yield from client.send_message(message.channel, '**Liquipedia ranking**: http://wiki.teamliquid.net/statistics/')
 			elif message.content == '!fobot thinking':
 				yield from client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
+			elif message.content == '!fobot blame':
+				yield from client.send_message(message.channel, '**#blamesalle**')
 			elif message.content == '!fobot lickypiddy':
 				lickypiddywiki = 'commons'
 				if message.channel.name in wikis:
