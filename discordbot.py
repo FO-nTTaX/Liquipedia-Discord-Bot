@@ -261,7 +261,7 @@ def dice(sides, count=1):
 @client.async_event
 def on_ready():
 	global game
-	yield from client.change_status(game)
+	yield from client.change_presence(game=game)
 
 @client.async_event
 def on_message(message):
