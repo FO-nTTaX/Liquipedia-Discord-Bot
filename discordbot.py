@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2018 Alex Winkler
-# Version 2.0.1
+# Version 2.0.2
 
 import discord
 import random
@@ -230,6 +230,35 @@ def search(wiki, searchstring):
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
 
+def die(sides): #My sides are killing me
+	try:
+		s = int(sides)
+		if s > 0:
+			result = 'Your ' + str(s) + '-sided die threw a ' + str(random.randrange(1, s + 1, 1)) + '.'
+		else:
+			result = 'Please use a positive whole number > 0.'
+	except ValueError:
+		result = 'Please use a positive whole number > 0.'
+	return result
+
+def dice(sides, count=1):
+	try:
+		s = int(sides)
+		c = int(count)
+		if s > 0:
+			if c == 1:
+				result = die(s)
+			elif c > 1:
+				rolls = [random.randrange(1, s + 1, 1) for _ in range(c)]
+				result = 'Your ' + str(c) + ' ' + str(s) + '-sided dice threw ' + str(rolls) + ' for a total of ' + str(sum(rolls)) + '.'
+			else:
+				result = 'Please use two positive whole numbers > 0.'
+		else:
+			result = 'Please use two positive whole numbers > 0.'
+	except ValueError:
+		result = 'Please use two positive whole numbers > 0.'
+	return result
+
 @client.event
 async def on_ready():
 	global game
@@ -302,16 +331,21 @@ async def on_message(message):
 				result = search(message.channel.name, message.content.replace('!fobot search ', ''))
 				if result != '':
 					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+			elif message.content.startswith('!fobot die '):
+				number = message.content.replace('!fobot die ', '')
+				result = die(number)
+				if result != '':
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=result))
 			elif message.content.startswith('!fobot dice '):
-				number = message.content.replace('!fobot dice ', '')
-				try:
-					numberint = int(number)
-					if numberint > 0:
-						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='Your ' + str(numberint) + " sided dice threw a " + str(random.randrange(1, numberint + 1, 1))))
-					else:
-						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='Please use a positive whole number > 0.'))
-				except ValueError:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='Please use a positive whole number > 0.'))
+				numbers = message.content.replace('!fobot dice ', '').split(' ')
+				if len(numbers) == 1:
+					result = die(numbers[0])
+				elif len(numbers) == 2:
+					result = dice(numbers[0], numbers[1])
+				else:
+					result = 'Please use two positive whole numbers > 0.'
+				if result != '':
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=result))
 			elif message.content == '!fobot':
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
 			elif message.content == '!fobot mute':
