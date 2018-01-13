@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
 
 # License MIT
-# Copyright 2016-2017 Alex Winkler
+# Copyright 2016-2018 Alex Winkler
+# Version 2.0.0
 
 import discord
 import random
 import requests
 import json
 import time
+import urllib
 
 token = 'token'
 
 client = discord.Client()
 
 muted = False
-game = discord.Game(name = 'Liquipedia', url = 'http://wiki.teamliquid.net', type = 1)
+game = discord.Game(name = 'Liquipedia', url = 'http://liquipedia.net', type = 1)
 
-wikibaseurl = 'http://wiki.teamliquid.net/'
+wikibaseurl = 'http://liquipedia.net/'
 wikis = [
 	'starcraft',
 	'starcraft2',
@@ -61,14 +63,13 @@ botroles = {
 	'heroes': 'Heroes',
 	'heroesofthestorm': 'Heroes',
 	'smash': 'Smash',
-	'ssb': 'Smash',
-	'ssbm': 'Smash',
-	'melee': 'Smash',
-	'sm4sh': 'Smash',
-	'ssb4': 'Smash',
-	'smash64': 'Smash',
-	'projectm': 'Smash',
-	'pm': 'Smash',
+	'ssb' : 'Smash',
+	'ssbm' : 'Smash',
+	'sm4sh' : 'Smash',
+	'ssb4' : 'Smash',
+	'smash64' : 'Smash',
+	'projectm' : 'Smash',
+	'pm' : 'Smash',
 	'cs': 'Counter-Strike',
 	'csgo': 'Counter-Strike',
 	'counterstrike': 'Counter-Strike',
@@ -84,7 +85,6 @@ botroles = {
 	'fgc': 'Fighters',
 	'fighters': 'Fighters',
 	'streetfighter': 'Fighters',
-	'sf': 'Fighters',
 	'rl': 'Rocket League',
 	'rocketleague': 'Rocket League',
 	'clash': 'Clash Royale',
@@ -164,9 +164,9 @@ def pendingchanges(wiki, displaynochanges):
 					countstr = 'over 200'
 				else:
 					countstr = str(count)
-				result = '**Pages with pending changes**: <' + wikibaseurl + wiki + '/Special:PendingChanges> (' + countstr + ' page' + plural + ' pending)'
+				result = '**[Pages with pending changes](' + wikibaseurl + wiki + '/Special:PendingChanges)**: (' + countstr + ' page' + plural + ' pending)'
 				for i in range(0, min(count, 5)):
-					result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '> (diff: ' + str(results[i]['diff_size']) + ', since: ' + results[i]['pending_since'][0:10] + ')'
+					result += '\n- [' + results[i]['title'] + '](' + wikibaseurl + wiki + '/' + urllib.parse.quote(results[i]['title'].replace(' ', '_')) + ') (diff: ' + str(results[i]['diff_size']) + ', since: ' + results[i]['pending_since'][0:10] + ')'
 	else:
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
@@ -195,9 +195,9 @@ def unreviewedpages(wiki, displaynochanges):
 					countstr = 'over 200'
 				else:
 					countstr = str(count)
-				result = '**Unreviewed pages**: <' + wikibaseurl + wiki + '/Special:UnreviewedPages> (' + countstr + ' page' + plural + ' unreviewed)'
+				result = '**[Unreviewed pages](' + wikibaseurl + wiki + '/Special:UnreviewedPages)**: (' + countstr + ' page' + plural + ' unreviewed)'
 				for i in range(0, min(count, 5)):
-					result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '>'
+					result += '\n- [' + results[i]['title'] + '](' + wikibaseurl + wiki + '/' + urllib.parse.quote(results[i]['title'].replace(' ', '_')) + ')'
 	else:
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
@@ -222,49 +222,20 @@ def search(wiki, searchstring):
 				plural = ''
 			else:
 				countstr = str(count)
-			result = '**Search results**: <' + wikibaseurl + wiki + '/index.php?title=Special%3ASearch&profile=default&search=' + searchstring.replace(' ', '+') + '&fulltext=Search> (' + countstr + ' page' + plural + ')'
+			result = '**[Search results](' + wikibaseurl + wiki + '/index.php?title=Special%3ASearch&profile=default&search=' + searchstring.replace(' ', '+') + '&fulltext=Search)**: (' + countstr + ' page' + plural + ')'
 			for i in range(0, min(count, 5)):
-				result += '\n<' + wikibaseurl + wiki + '/' + results[i]['title'].replace(' ', '_') + '>'
+				result += '\n- [' + results[i]['title'] + '](' + wikibaseurl + wiki + '/' + urllib.parse.quote(results[i]['title'].replace(' ', '_')) + ')'
 	else:
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
 
-def die(sides): #My sides are killing me
-	try:
-		s = int(sides)
-		if s > 0:
-			result = 'Your ' + str(s) + '-sided die threw a ' + str(random.randrange(1, s + 1, 1)) + '.'
-		else:
-			result = 'Please use a positive whole number > 0.'
-	except ValueError:
-		result = 'Please use a positive whole number > 0.'
-	return result
-
-def dice(sides, count=1):
-	try:
-		s = int(sides)
-		c = int(count)
-		if s > 0:
-			if c == 1:
-				result = die(s)
-			elif c > 1:
-				rolls = [random.randrange(1, s + 1, 1) for _ in range(c)]
-				result = 'Your ' + str(c) + ' ' + str(s) + '-sided dice threw ' + str(rolls) + ' for a total of ' + str(sum(rolls)) + '.'
-			else:
-				result = 'Please use two positive whole numbers > 0.'
-		else:
-			result = 'Please use two positive whole numbers > 0.'
-	except ValueError:
-		result = 'Please use two positive whole numbers > 0.'
-	return result
-
-@client.async_event
-def on_ready():
+@client.event
+async def on_ready():
 	global game
-	yield from client.change_presence(game=game)
+	await client.change_presence(game=game)
 
-@client.async_event
-def on_message(message):
+@client.event
+async def on_message(message):
 	global muted
 	global countchannelmessage
 	global countchannelmessagemax
@@ -276,107 +247,102 @@ def on_message(message):
 	if message.content == '!fobot' or message.content.startswith('!fobot'):
 		if not muted:
 			if message.content == '!fobot liquipedia':
-				yield from client.send_message(message.channel, '**Liquipedia** is awesome! Use !fobot help to see the manual.')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
 			elif message.content == '!fobot guides':
-				yield from client.send_message(message.channel, '**Liquipedia-Guides**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Guides')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: http://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
 			elif message.content == '!fobot hype':
-				yield from client.send_message(message.channel, '**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/'))
 			elif message.content == '!fobot todo':
-				yield from client.send_message(message.channel, '**Liquipedia-To Do Lists**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#To_Do_Lists')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-To Do Lists**: http://liquipedia.net/starcraft2/User:FO-BoT#To_Do_Lists'))
 			elif message.content == '!fobot dance':
-				yield from client.send_message(message.channel, '**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*'))
 			elif message.content == '!fobot help':
-				yield from client.send_message(message.channel, '**FO-BoT Commands**: http://wiki.teamliquid.net/starcraft2/User:FO-BoT#Manual')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**FO-BoT Commands**: http://liquipedia.net/starcraft2/User:FO-BoT#Manual'))
 			elif message.content == '!fobot lie':
-				yield from client.send_message(message.channel, lie())
+				response = lie()
+				if '.' in response:
+					await client.send_message(message.channel, response)
+				else: 
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=response))
 			elif message.content.startswith('!fobot talk ') and message.server == None and message.author.id == '138719439834185728':
-				yield from client.send_message(message.channel, 'Hello ' + message.author.name)
+				await client.send_message(message.channel, 'Hello ' + message.author.name)
 			elif message.content == '!fobot coder':
-				yield from client.send_message(message.channel, 'FO-BoT was coded by **FO-nTTaX**')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
 			elif message.content == '!fobot ranking':
-				yield from client.send_message(message.channel, '**Liquipedia ranking**: http://wiki.teamliquid.net/statistics/')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: http://liquipedia.net/statistics/'))
 			elif message.content == '!fobot thinking':
-				yield from client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
+				await client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
 			elif message.content == '!fobot blame':
-				yield from client.send_message(message.channel, '**#blamesalle**')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
 			elif message.content == '!fobot lickypiddy':
 				lickypiddywiki = 'commons'
 				if message.channel.name in wikis:
 					lickypiddywiki = message.channel.name
 				else:
 					lickypiddywiki = 'commons'
-				yield from client.send_message(message.channel, 'http://wiki.teamliquid.net/' + lickypiddywiki + '/Special:Lickypiddy')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='[\\\\Ü/ All glory Lickypiddy \\\\Ü/](http://liquipedia.net/' + lickypiddywiki + '/Special:Lickypiddy)'))
 			elif message.content == '!fobot pendingchanges':
 				result = pendingchanges(message.channel.name, True)
 				if result != '':
-					yield from client.send_message(message.channel, result)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot pendingchanges '):
 				result = pendingchanges(message.content.replace('!fobot pendingchanges ', ''), True)
 				if result != '':
-					yield from client.send_message(message.channel, result)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content == '!fobot unreviewedpages':
 				result = unreviewedpages(message.channel.name, True)
 				if result != '':
-					yield from client.send_message(message.channel, result)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot unreviewedpages '):
 				result = unreviewedpages(message.content.replace('!fobot unreviewedpages ', ''), True)
 				if result != '':
-					yield from client.send_message(message.channel, result)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot search '):
 				result = search(message.channel.name, message.content.replace('!fobot search ', ''))
 				if result != '':
-					yield from client.send_message(message.channel, result)
-			elif message.content.startswith('!fobot die '):
-				number = message.content.replace('!fobot die ', '')
-				result = die(number)
-				if result != '':
-					yield from client.send_message(message.channel, result)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot dice '):
-				numbers = message.content.replace('!fobot dice ', '').split(' ')
-				if len(numbers) == 1:
-					result = die(numbers[0])
-				elif len(numbers) == 2:
-					result = dice(numbers[0], numbers[1])
-				else:
-					result = 'Please use two positive whole numbers > 0.'
-				if result != '':
-					yield from client.send_message(message.channel, result)
-#			elif message.content.startswith('!fobot follow '):
-#				yield from client.send_message(message.channel, 'TODO')
-#			elif message.content.startswith('!fobot unfollow '):
-#				yield from client.send_message(message.channel, 'TODO')
+				number = message.content.replace('!fobot dice ', '')
+				try:
+					numberint = int(number)
+					if numberint > 0:
+						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='Your ' + str(numberint) + " sided dice threw a " + str(random.randrange(1, numberint + 1, 1))))
+					else:
+						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='Please use a positive whole number > 0.'))
+				except ValueError:
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='Please use a positive whole number > 0.'))
 			elif message.content == '!fobot':
-				yield from client.send_message(message.channel, '**Liquipedia** is awesome! Use !fobot help to see the manual.')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
 			elif message.content == '!fobot mute':
 				muted = True
-				yield from client.send_message(message.channel, '*Bot is muted now!*')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is muted now!*'))
 		if message.content == '!fobot unmute':
 			muted = False
-			yield from client.send_message(message.channel, '*Bot is unmuted now!*')
+			await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is unmuted now!*'))
 		elif message.content.startswith('!fobot addrole '):
 			roleid = message.content.replace('!fobot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					yield from client.add_roles(message.author, role)
-					yield from client.send_message(message.channel, '**Success**: Role added')
+					await client.add_roles(message.author, role)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role added to ' + message.author.name))
 				else:
-					yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
 			else:
-				yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
 		elif message.content.startswith('!fobot removerole '):
 			roleid = message.content.replace('!fobot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					yield from client.remove_roles(message.author, role)
-					yield from client.send_message(message.channel, '**Success**: Role removed')
+					await client.remove_roles(message.author, role)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role removed from ' + message.author.name))
 				else:
-					yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
 			else:
-				yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
 	elif message.content == '!sallebot' or message.content.startswith('!sallebot'):
 		if message.content.startswith('!sallebot addrole '):
 			roleid = message.content.replace('!sallebot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
@@ -384,26 +350,26 @@ def on_message(message):
 				rolename = sbotroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					yield from client.add_roles(message.author, role)
-					yield from client.send_message(message.channel, 'Since sallebot is lazy... I added the role for you :P')
+					await client.add_roles(message.author, role)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I added the role for you :P'))
 				else:
-					yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
 			else:
-				yield from client.send_message(message.channel, '**Error**: You can\'t add that role')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
 		elif message.content.startswith('!sallebot removerole '):
 			roleid = message.content.replace('!sallebot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in sbotroles:
 				rolename = sbotroles[roleid]
 				role = discord.utils.get(message.server.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					yield from client.remove_roles(message.author, role)
-					yield from client.send_message(message.channel, 'Since sallebot is lazy... I removed the role for you :P')
+					await client.remove_roles(message.author, role)
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I removed the role for you :P'))
 				else:
-					yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
 			else:
-				yield from client.send_message(message.channel, '**Error**: You can\'t remove that role')
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
 	if 'liquidpedia' in message.content.lower():
-		yield from client.send_message(message.channel, 'It is **Liquipedia**, only one d in the name!')
+		await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='It is **Liquipedia**, only one d in the name!'))
 	if message.channel.name in wikis:
 		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
 			if message.channel.name != None:
@@ -411,10 +377,10 @@ def on_message(message):
 				if type == 0:
 					result = pendingchanges(message.channel.name, False)
 					if result != '':
-						yield from client.send_message(message.channel, result)
+						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 				elif type == 1:
 					result = unreviewedpages(message.channel.name, False)
 					if result != '':
-						yield from client.send_message(message.channel, result)
+						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 
 client.run(token)
