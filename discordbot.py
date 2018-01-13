@@ -47,6 +47,7 @@ wikis = [
 	'pubg'
 ]
 botroles = {
+	'templates': 'Templates',
 	'bw': 'Starcraft',
 	'broodwar': 'Starcraft',
 	'sc': 'Starcraft',
