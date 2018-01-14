@@ -293,7 +293,7 @@ async def on_message(message):
 				if '.' in response:
 					await client.send_message(message.channel, response)
 				else: 
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=response))
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=response))
 			elif message.content.startswith('!fobot talk ') and message.server == None and message.author.id == '138719439834185728':
 				await client.send_message(message.channel, 'Hello ' + message.author.name)
 			elif message.content == '!fobot coder':
