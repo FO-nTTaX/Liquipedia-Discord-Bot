@@ -339,7 +339,11 @@ async def on_message(message):
 			elif message.content.startswith('!fobot dice '):
 				numbers = message.content.replace('!fobot dice ', '').split(' ')
 				if len(numbers) == 1:
-					result = die(numbers[0])
+					swamp = numbers[0].split('d')
+					if len(swamp) == 2:
+						result = dice(*swamp)
+					else:
+						result = die(numbers[0])
 				elif len(numbers) == 2:
 					result = dice(numbers[0], numbers[1])
 				else:
