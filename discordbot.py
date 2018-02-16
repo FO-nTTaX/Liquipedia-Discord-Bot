@@ -2,16 +2,15 @@
 
 # License MIT
 # Copyright 2016-2018 Alex Winkler
-# Version 2.0.2
+# Version 2.0.3
 
+import discordbottoken
 import discord
 import random
 import requests
 import json
 import time
 import urllib
-
-token = 'token'
 
 client = discord.Client()
 
@@ -424,4 +423,4 @@ async def on_message(message):
 					if result != '':
 						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 
-client.run(token)
+client.run(discordbottoken.token)
