@@ -302,6 +302,8 @@ async def on_message(message):
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: http://liquipedia.net/statistics/'))
 			elif message.content == '!fobot thinking':
 				await client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
+			elif message.content == '!fobot brutal savage rekt':
+				await client.send_message(message.channel, 'https://thumbs.gfycat.com/NippyKindLangur-mobile.mp4')	
 			elif message.content == '!fobot blame':
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
 			elif message.content == '!fobot lickypiddy':
