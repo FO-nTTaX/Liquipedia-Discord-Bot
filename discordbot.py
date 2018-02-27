@@ -366,11 +366,11 @@ async def on_message(message):
 				role = discord.utils.get(message.server.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
 					await client.add_roles(message.author, role)
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role added to ' + message.author.name))
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + role.name + '" added to "' + message.author.name + '"'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 		elif message.content.startswith('!fobot removerole '):
 			roleid = message.content.replace('!fobot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
@@ -378,11 +378,11 @@ async def on_message(message):
 				role = discord.utils.get(message.server.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
 					await client.remove_roles(message.author, role)
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role removed from ' + message.author.name))
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + role.name + '" removed from "' + message.author.name + '"'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 	elif message.content == '!sallebot' or message.content.startswith('!sallebot'):
 		if message.content.startswith('!sallebot addrole '):
 			roleid = message.content.replace('!sallebot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
@@ -393,9 +393,9 @@ async def on_message(message):
 					await client.add_roles(message.author, role)
 					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I added the role for you :P'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to ' + message.author.name))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 		elif message.content.startswith('!sallebot removerole '):
 			roleid = message.content.replace('!sallebot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in sbotroles:
@@ -405,9 +405,9 @@ async def on_message(message):
 					await client.remove_roles(message.author, role)
 					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I removed the role for you :P'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from ' + message.author.name))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 	if 'liquidpedia' in message.content.lower():
 		await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='It is **Liquipedia**, only one d in the name!'))
 	if message.channel.name in wikis:
