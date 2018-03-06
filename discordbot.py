@@ -289,7 +289,7 @@ async def on_message(message):
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**FO-BoT Commands**: http://liquipedia.net/starcraft2/User:FO-BoT#Manual'))
 			elif message.content == '!fobot lie':
 				response = lie()
-				if '.' in response:
+				if 'http' in response:
 					await client.send_message(message.channel, response)
 				else: 
 					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=response))
