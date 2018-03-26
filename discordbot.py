@@ -43,7 +43,12 @@ wikis = [
 	'pokemon',
 	'quake',
 	'rainbowsix',
-	'pubg'
+	'pubg',
+	'artifact',
+	'paladins',
+	'battalion',
+	'fortnite',
+	'arenaofvalor'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -111,7 +116,13 @@ botroles = {
 	'rainbow6siege': 'Rainbow Six',
 	'rainbowsix': 'Rainbow Six',
 	'rainbowsixsiege': 'Rainbow Six',
-	'pubg': 'PUBG'
+	'pubg': 'PUBG',
+	'artifact': 'Artifact',
+	'paladins': 'Paladins',
+	'battalion': 'Battalion',
+	'battalion1944': 'Battalion',
+	'fortnite': 'Fortnite',
+	'arenaofvalor': 'Arena of Valor'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
