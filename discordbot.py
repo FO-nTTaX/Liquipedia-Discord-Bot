@@ -302,7 +302,7 @@ async def on_message(message):
 				response = lie()
 				if 'http' in response:
 					await client.send_message(message.channel, response)
-				else: 
+				else:
 					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=response))
 			elif message.content.startswith('!fobot talk ') and message.server == None and message.author.id == '138719439834185728':
 				await client.send_message(message.channel, 'Hello ' + message.author.name)
@@ -313,7 +313,7 @@ async def on_message(message):
 			elif message.content == '!fobot thinking':
 				await client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
 			elif message.content == '!fobot brutal savage rekt':
-				await client.send_message(message.channel, 'https://thumbs.gfycat.com/NippyKindLangur-mobile.mp4')	
+				await client.send_message(message.channel, 'https://thumbs.gfycat.com/NippyKindLangur-mobile.mp4')
 			elif message.content == '!fobot blame':
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
 			elif message.content == '!fobot lickypiddy':
