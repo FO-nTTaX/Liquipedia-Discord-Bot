@@ -15,9 +15,9 @@ import urllib
 client = discord.Client()
 
 muted = False
-game = discord.Game(name = 'Liquipedia', url = 'http://liquipedia.net', type = 1)
+game = discord.Game(name = 'Liquipedia', url = 'https://liquipedia.net', type = 1)
 
-wikibaseurl = 'http://liquipedia.net/'
+wikibaseurl = 'https://liquipedia.net/'
 wikis = [
 	'starcraft',
 	'starcraft2',
@@ -289,15 +289,15 @@ async def on_message(message):
 			if message.content == '!fobot liquipedia':
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
 			elif message.content == '!fobot guides':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: http://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
 			elif message.content == '!fobot hype':
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/'))
 			elif message.content == '!fobot todo':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-To Do Lists**: http://liquipedia.net/starcraft2/User:FO-BoT#To_Do_Lists'))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-To Do Lists**: https://liquipedia.net/starcraft2/User:FO-BoT#To_Do_Lists'))
 			elif message.content == '!fobot dance':
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*'))
 			elif message.content == '!fobot help':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**FO-BoT Commands**: http://liquipedia.net/starcraft2/User:FO-BoT#Manual'))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**FO-BoT Commands**: https://liquipedia.net/starcraft2/User:FO-BoT#Manual'))
 			elif message.content == '!fobot lie':
 				response = lie()
 				if 'http' in response:
@@ -309,7 +309,7 @@ async def on_message(message):
 			elif message.content == '!fobot coder':
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
 			elif message.content == '!fobot ranking':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: http://liquipedia.net/statistics/'))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: https://liquipedia.net/statistics/'))
 			elif message.content == '!fobot thinking':
 				await client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
 			elif message.content == '!fobot brutal savage rekt':
@@ -322,7 +322,7 @@ async def on_message(message):
 					lickypiddywiki = message.channel.name
 				else:
 					lickypiddywiki = 'commons'
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='[\\\\Ü/ All glory Lickypiddy \\\\Ü/](http://liquipedia.net/' + lickypiddywiki + '/Special:Lickypiddy)'))
+				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='[\\\\Ü/ All glory Lickypiddy \\\\Ü/](https://liquipedia.net/' + lickypiddywiki + '/Special:Lickypiddy)'))
 			elif message.content == '!fobot pendingchanges':
 				result = pendingchanges(message.channel.name, True)
 				if result != '':
