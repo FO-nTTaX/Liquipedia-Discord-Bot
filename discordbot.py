@@ -15,7 +15,7 @@ import urllib
 client = discord.Client()
 
 muted = False
-game = discord.Game(name = 'Liquipedia', url = 'https://liquipedia.net', type = 1)
+game = discord.Game(name='Liquipedia', url='https://liquipedia.net', type=1)
 
 wikibaseurl = 'https://liquipedia.net/'
 wikis = [
