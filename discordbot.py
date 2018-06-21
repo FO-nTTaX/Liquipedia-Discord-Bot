@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2018 Alex Winkler
-# Version 2.0.3
+# Version 2.0.4
 
 import discordbottoken
 import discord
