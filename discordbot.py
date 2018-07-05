@@ -123,7 +123,8 @@ botroles = {
 	'battalion': 'Battalion',
 	'battalion1944': 'Battalion',
 	'fortnite': 'Fortnite',
-	'arenaofvalor': 'Arena of Valor'
+	'arenaofvalor': 'Arena of Valor',
+	'criticalops': 'Critical Ops'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
