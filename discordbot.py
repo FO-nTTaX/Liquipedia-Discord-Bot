@@ -325,6 +325,13 @@ async def on_message(message):
 				else:
 					lickypiddywiki = 'commons'
 				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='[\\\\Ü/ All glory Lickypiddy \\\\Ü/](https://liquipedia.net/' + lickypiddywiki + '/Special:Lickypiddy)'))
+			elif message.content.startswith('!fobot notability'):
+				if message.content.replace('!fobot notability ', '') in wikis:
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='[Notability Guidelines](https://liquipedia.net/' + message.content.replace('!fobot notability ', '') + '/Liquipedia:Notability_Guidelines)'))
+				elif message.channel.name in wikis:
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='[Notability Guidelines](https://liquipedia.net/' + message.channel.name + '/Liquipedia:Notability_Guidelines)'))
+				else:
+					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='No wiki specified'))
 			elif message.content == '!fobot pendingchanges':
 				result = pendingchanges(message.channel.name, True)
 				if result != '':
