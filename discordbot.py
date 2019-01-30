@@ -49,7 +49,10 @@ wikis = [
 	'paladins',
 	'battalion',
 	'fortnite',
-	'arenaofvalor'
+	'arenaofvalor',
+	'criticalops',
+	'magic',
+	'callofduty'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -124,7 +127,12 @@ botroles = {
 	'battalion1944': 'Battalion',
 	'fortnite': 'Fortnite',
 	'arenaofvalor': 'Arena of Valor',
-	'criticalops': 'Critical Ops'
+	'criticalops': 'Critical Ops',
+	'callofduty': 'Call of Duty',
+	'cod': 'Call of Duty',
+	'magic': 'Magic',
+	'mtg': 'Magic',
+	'magicthegathering': 'Magic'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
