@@ -52,7 +52,8 @@ wikis = [
 	'arenaofvalor',
 	'criticalops',
 	'magic',
-	'callofduty'
+	'callofduty',
+	'apexlegends'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -132,7 +133,9 @@ botroles = {
 	'cod': 'Call of Duty',
 	'magic': 'Magic',
 	'mtg': 'Magic',
-	'magicthegathering': 'Magic'
+	'magicthegathering': 'Magic',
+	'apex': 'Apex Legends',
+	'apexlegends': 'Apex Legends'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
