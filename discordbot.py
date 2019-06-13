@@ -54,7 +54,8 @@ wikis = [
 	'magic',
 	'callofduty',
 	'apexlegends',
-	'autochess'
+	'autochess',
+	'simracing'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -139,7 +140,9 @@ botroles = {
 	'magicthegathering': 'Magic',
 	'apex': 'Apex Legends',
 	'apexlegends': 'Apex Legends',
-	'autochess': 'Auto Chess'
+	'autochess': 'Auto Chess',
+	'simracing': 'Sim Racing',
+	'racing': 'Sim Racing'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
