@@ -55,7 +55,8 @@ wikis = [
 	'callofduty',
 	'apexlegends',
 	'autochess',
-	'simracing'
+	'simracing',
+	'underlords'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -142,7 +143,10 @@ botroles = {
 	'apexlegends': 'Apex Legends',
 	'autochess': 'Auto Chess',
 	'simracing': 'Sim Racing',
-	'racing': 'Sim Racing'
+	'racing': 'Sim Racing',
+	'underlords': 'Underlords',
+	'dotaunderlords': 'Underlords',
+	'dota2underlords': 'Underlords'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
@@ -292,7 +296,7 @@ def dice(sides, count=1):
 @client.event
 async def on_ready():
 	global game
-	await client.change_presence(game=game)
+	await client.change_presence(activity=game)
 
 @client.event
 async def on_message(message):
@@ -307,74 +311,74 @@ async def on_message(message):
 	if message.content == '!fobot' or message.content.startswith('!fobot'):
 		if not muted:
 			if message.content == '!fobot liquipedia':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
 			elif message.content == '!fobot guides':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
 			elif message.content == '!fobot hype':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/'))
 			elif message.content == '!fobot todo':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-To Do Lists**: https://liquipedia.net/starcraft2/User:FO-BoT#To_Do_Lists'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-To Do Lists**: https://liquipedia.net/starcraft2/User:FO-BoT#To_Do_Lists'))
 			elif message.content == '!fobot dance':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*'))
 			elif message.content == '!fobot help':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**FO-BoT Commands**: https://liquipedia.net/starcraft2/User:FO-BoT#Manual'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**FO-BoT Commands**: https://liquipedia.net/starcraft2/User:FO-BoT#Manual'))
 			elif message.content == '!fobot lie':
 				response = lie()
-				if 'http' in response:
-					await client.send_message(message.channel, response)
+				if '.' in response:
+					await message.channel.send(response)
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=response))
-			elif message.content.startswith('!fobot talk ') and message.server == None and message.author.id == '138719439834185728':
-				await client.send_message(message.channel, 'Hello ' + message.author.name)
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description=response))
+			elif message.content.startswith('!fobot talk ') and message.guild == None and message.author.id == '138719439834185728':
+				await message.channel.send('Hello ' + message.author.name)
 			elif message.content == '!fobot coder':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
 			elif message.content == '!fobot ranking':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: https://liquipedia.net/statistics/'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: https://liquipedia.net/statistics/'))
 			elif message.content == '!fobot thinking':
-				await client.send_message(message.channel, 'https://files.catbox.moe/o8tify.gif')
+				await message.channel.send('https://files.catbox.moe/o8tify.gif')
 			elif message.content == '!fobot brutal savage rekt':
-				await client.send_message(message.channel, 'https://thumbs.gfycat.com/NippyKindLangur-mobile.mp4')
+				await message.channel.send('https://thumbs.gfycat.com/NippyKindLangur-mobile.mp4')
 			elif message.content == '!fobot blame':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
 			elif message.content == '!fobot lickypiddy':
 				lickypiddywiki = 'commons'
 				if message.channel.name in wikis:
 					lickypiddywiki = message.channel.name
 				else:
 					lickypiddywiki = 'commons'
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description='[\\\\Ü/ All glory Lickypiddy \\\\Ü/](https://liquipedia.net/' + lickypiddywiki + '/Special:Lickypiddy)'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='[\\\\Ü/ All glory Lickypiddy \\\\Ü/](https://liquipedia.net/' + lickypiddywiki + '/Special:Lickypiddy)'))
 			elif message.content.startswith('!fobot notability'):
 				if message.content.replace('!fobot notability ', '') in wikis:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='[Notability Guidelines](https://liquipedia.net/' + message.content.replace('!fobot notability ', '') + '/Liquipedia:Notability_Guidelines)'))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='[Notability Guidelines](https://liquipedia.net/' + message.content.replace('!fobot notability ', '') + '/Liquipedia:Notability_Guidelines)'))
 				elif message.channel.name in wikis:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='[Notability Guidelines](https://liquipedia.net/' + message.channel.name + '/Liquipedia:Notability_Guidelines)'))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='[Notability Guidelines](https://liquipedia.net/' + message.channel.name + '/Liquipedia:Notability_Guidelines)'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='No wiki specified'))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='No wiki specified'))
 			elif message.content == '!fobot pendingchanges':
 				result = pendingchanges(message.channel.name, True)
 				if result != '':
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot pendingchanges '):
 				result = pendingchanges(message.content.replace('!fobot pendingchanges ', ''), True)
 				if result != '':
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content == '!fobot unreviewedpages':
 				result = unreviewedpages(message.channel.name, True)
 				if result != '':
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot unreviewedpages '):
 				result = unreviewedpages(message.content.replace('!fobot unreviewedpages ', ''), True)
 				if result != '':
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot search '):
 				result = search(message.channel.name, message.content.replace('!fobot search ', ''))
 				if result != '':
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 			elif message.content.startswith('!fobot die '):
 				number = message.content.replace('!fobot die ', '')
 				result = die(number)
 				if result != '':
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=result))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description=result))
 			elif message.content.startswith('!fobot dice '):
 				numbers = message.content.replace('!fobot dice ', '').split(' ')
 				if len(numbers) == 1:
@@ -388,70 +392,70 @@ async def on_message(message):
 				else:
 					result = 'Please use two positive whole numbers > 0.'
 				if result != '':
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x663399), description=result))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description=result))
 			elif message.content == '!fobot':
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome! Use !fobot help to see the manual.'))
 			elif message.content == '!fobot mute':
 				muted = True
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is muted now!*'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is muted now!*'))
 		if message.content == '!fobot unmute':
 			muted = False
-			await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is unmuted now!*'))
+			await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is unmuted now!*'))
 		elif message.content.startswith('!fobot addrole '):
 			roleid = message.content.replace('!fobot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
-				role = discord.utils.get(message.server.roles, name=rolename)
+				role = discord.utils.get(message.guild.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					await client.add_roles(message.author, role)
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + role.name + '" added to "' + message.author.name + '"'))
+					await message.author.add_roles(role)
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + role.name + '" added to "' + message.author.name + '"'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 		elif message.content.startswith('!fobot removerole '):
 			roleid = message.content.replace('!fobot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
 				rolename = botroles[roleid]
-				role = discord.utils.get(message.server.roles, name=rolename)
+				role = discord.utils.get(message.guild.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					await client.remove_roles(message.author, role)
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + role.name + '" removed from "' + message.author.name + '"'))
+					await message.author.remove_roles(role)
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + role.name + '" removed from "' + message.author.name + '"'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 	elif message.content == '!sallebot' or message.content.startswith('!sallebot'):
 		if message.content.startswith('!sallebot addrole '):
 			roleid = message.content.replace('!sallebot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in sbotroles:
 				rolename = sbotroles[roleid]
-				role = discord.utils.get(message.server.roles, name=rolename)
+				role = discord.utils.get(message.guild.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					await client.add_roles(message.author, role)
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I added the role for you :P'))
+					await message.author.add_roles(role)
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I added the role for you :P'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t add that role to "' + message.author.name + '"'))
 		elif message.content.startswith('!sallebot removerole '):
 			roleid = message.content.replace('!sallebot removerole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in sbotroles:
 				rolename = sbotroles[roleid]
-				role = discord.utils.get(message.server.roles, name=rolename)
+				role = discord.utils.get(message.guild.roles, name=rolename)
 				if hasattr(message.author, 'roles'):
-					await client.remove_roles(message.author, role)
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I removed the role for you :P'))
+					await message.author.remove_roles(role)
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Since sallebot is lazy... I removed the role for you :P'))
 				else:
-					await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
+					await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 			else:
-				await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can\'t remove that role from "' + message.author.name + '"'))
 	if 'liquidpedia' in message.content.lower():
-		await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0xff0000), description='It is **Liquipedia**, only one d in the name!'))
+		await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='It is **Liquipedia**, only one d in the name! Naughty-counter of ' + message.author.name + ' has been incremented.'))
 	if (datetime.datetime.utcnow() - message.author.joined_at).days <= 7:
 		for role in message.role_mentions:
 			if role.name == 'Liquipedia Staff' or role.name == 'Admins':
-				await client.send_message(message.channel, 'Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Staff. If your issue is not of private nature, please just write it in the channel for the game it is about. If it is a private issue, please say so and we can move to private discussion.')
+				await message.channel.send('Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Staff. If your issue is not of private nature, please just write it in the channel for the game it is about.')
 	if message.channel.name in wikis:
 		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
 			if message.channel.name != None:
@@ -459,10 +463,10 @@ async def on_message(message):
 				if type == 0:
 					result = pendingchanges(message.channel.name, False)
 					if result != '':
-						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+						await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 				elif type == 1:
 					result = unreviewedpages(message.channel.name, False)
 					if result != '':
-						await client.send_message(message.channel, embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
+						await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 
 client.run(discordbottoken.token)
