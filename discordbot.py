@@ -56,7 +56,10 @@ wikis = [
 	'apexlegends',
 	'autochess',
 	'simracing',
-	'underlords'
+	'underlords',
+	'teamfighttactics',
+	'brawlstars',
+	'runeterra'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -146,7 +149,12 @@ botroles = {
 	'racing': 'Sim Racing',
 	'underlords': 'Underlords',
 	'dotaunderlords': 'Underlords',
-	'dota2underlords': 'Underlords'
+	'dota2underlords': 'Underlords',
+	'tft': 'Teamfight Tactics',
+	'teamfighttactics': 'Teamfight Tactics',
+	'brawlstars': 'Brawl Stars',
+	'runeterra': 'Runeterra',
+	'legendsofruneterra': 'Runeterra'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
