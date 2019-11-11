@@ -154,7 +154,8 @@ botroles = {
 	'teamfighttactics': 'Teamfight Tactics',
 	'brawlstars': 'Brawl Stars',
 	'runeterra': 'Runeterra',
-	'legendsofruneterra': 'Runeterra'
+	'legendsofruneterra': 'Runeterra',
+	'cs predictions': 'CS Predictions'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
