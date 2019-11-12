@@ -155,7 +155,7 @@ botroles = {
 	'brawlstars': 'Brawl Stars',
 	'runeterra': 'Runeterra',
 	'legendsofruneterra': 'Runeterra',
-	'cs predictions': 'CS Predictions'
+	'cspredictions': 'CS Predictions'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
