@@ -464,7 +464,7 @@ async def on_message(message):
 		await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='It is **Liquipedia**, only one d in the name! Naughty-counter of ' + message.author.name + ' has been incremented.'))
 	if (datetime.datetime.utcnow() - message.author.joined_at).days <= 7:
 		for role in message.role_mentions:
-			if role.name == 'Liquipedia Staff' or role.name == 'Admins':
+			if role.name == 'Liquipedia Admins':
 				await message.channel.send('Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Staff. If your issue is not of private nature, please just write it in the channel for the game it is about.')
 	if message.channel.name in wikis:
 		if countchannelmessage[message.channel.name] >= countchannelmessagemax:
