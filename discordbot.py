@@ -155,7 +155,7 @@ botroles = {
 	'teamfighttactics': 'Teamfight Tactics',
 	'brawlstars': 'Brawl Stars',
 	'runeterra': 'Runeterra',
-	'legendsofruneterra': 'Runeterra',,
+	'legendsofruneterra': 'Runeterra',
 	'valorant': 'VALORANT',
 	'cspredictions': 'CS Predictions',
 	'gamenight': 'Game Night',
