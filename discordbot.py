@@ -59,7 +59,8 @@ wikis = [
 	'teamfighttactics',
 	'brawlstars',
 	'runeterra',
-	'valorant'
+	'valorant',
+	'freefire'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -156,6 +157,7 @@ botroles = {
 	'runeterra': 'Runeterra',
 	'legendsofruneterra': 'Runeterra',
 	'valorant': 'VALORANT',
+	'freefire': 'Free Fire',
 	'cspredictions': 'CS Predictions',
 	'gamenight': 'Game Night',
 	'announcements': 'Announcements'
