@@ -60,7 +60,8 @@ wikis = [
 	'brawlstars',
 	'runeterra',
 	'valorant',
-	'freefire'
+	'freefire',
+	'ageofempires'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -158,6 +159,10 @@ botroles = {
 	'legendsofruneterra': 'Runeterra',
 	'valorant': 'VALORANT',
 	'freefire': 'Free Fire',
+	'ageofempires': 'Age of Empires',
+	'ageofempires2': 'Age of Empires',
+	'aoe': 'Age of Empires',
+	'aoe2': 'Age of Empires',
 	'cspredictions': 'CS Predictions',
 	'gamenight': 'Game Night',
 	'announcements': 'Announcements'
