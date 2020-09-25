@@ -188,6 +188,7 @@ lies = [
 	'WarCraft 4 is just about to be released',
 	'Dota 2 is so tiny, we should focus on big esports like Nokia Snake instead',
 	'https://files.catbox.moe/o8tify.gif',
+	'Swampflare never laundered memory in his Lithuanian bakery!',
 ]
 
 def lie():
@@ -360,6 +361,9 @@ async def on_message(message):
 				await message.channel.send('https://thumbs.gfycat.com/NippyKindLangur-mobile.mp4')
 			elif message.content == '!fobot blame':
 				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
+			elif message.content == '!fobot justask':
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='If you need help with something or just have a question, please post the question in the channel for the relevant wiki.' + 
+				' Asking if someone can help only costs you extra time, and you usually don\'t even need an admin!'))
 			elif message.content == '!fobot lickypiddy':
 				lickypiddywiki = 'commons'
 				if message.channel.name in wikis:
