@@ -61,7 +61,8 @@ wikis = [
 	'runeterra',
 	'valorant',
 	'freefire',
-	'ageofempires'
+	'ageofempires',
+	'wildrift'
 ]
 botroles = {
 	'templates': 'Templates',
@@ -164,6 +165,7 @@ botroles = {
 	'ageofempires2': 'Age of Empires',
 	'aoe': 'Age of Empires',
 	'aoe2': 'Age of Empires',
+	'wildrift': 'Wild Rift',
 	'cspredictions': 'CS Predictions',
 	'gamenight': 'Game Night',
 	'announcements': 'Announcements'
