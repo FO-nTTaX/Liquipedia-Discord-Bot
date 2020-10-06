@@ -143,6 +143,9 @@ botroles = {
 	'criticalops': 'Critical Ops',
 	'callofduty': 'Call of Duty',
 	'cod': 'Call of Duty',
+	'callofdutymobile': 'Call of Duty',
+	'codm': 'Call of Duty',
+	'codmobile': 'Call of Duty',
 	'magic': 'Magic',
 	'mtg': 'Magic',
 	'magicthegathering': 'Magic',
@@ -168,11 +171,17 @@ botroles = {
 	'wildrift': 'Wild Rift',
 	'cspredictions': 'CS Predictions',
 	'gamenight': 'Game Night',
-	'announcements': 'Announcements'
+	'announcements': 'Announcements',
+	'randomstats': 'Random Stats of the Day',
+	'randomstatsoftheday': 'Random Stats of the Day'
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
 	'randomstatsoftheday': 'Random Stats of the Day'
+}
+wikiroles = {
+	'editor': 'Editor',
+	'reviewer': 'Reviewer'
 }
 countchannelmessagemax = 100
 countchannelmessage = {}
@@ -287,6 +296,19 @@ def search(wiki, searchstring):
 		result = wikibaseurl + wiki + ' is not a wiki url we have!'
 	return result
 
+def getwikiroles(discordid):
+	global wikibaseurl
+	url = wikibaseurl + 'commons/api.php?format=json&action=teamliquidintegration-discordids'
+	payload = {
+		'discordid': discordid,
+		'apikey': discordbottoken.apikey
+	}
+	jsonobj = requests.post(url, data=payload).json()
+	if 'error' in jsonobj:
+		return False
+	else:
+		return [jsonobj['teamliquidintegration-discordids']['groups'],jsonobj['teamliquidintegration-discordids']['silverplus']]
+
 def die(sides): #My sides are killing me
 	try:
 		s = int(sides)
@@ -328,6 +350,7 @@ async def on_message(message):
 	global countchannelmessagemax
 	global botroles
 	global sbotroles
+	global wikiroles
 	global wikis
 	if message.channel.name in wikis:
 		countchannelmessage[message.channel.name] += 1
@@ -427,6 +450,27 @@ async def on_message(message):
 		if message.content == '!fobot unmute':
 			muted = False
 			await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is unmuted now!*'))
+		elif message.content == '!fobot discordid':
+			await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='User "' + message.author.name + '" has ID "' + str(message.author.id) + '"'))
+		elif message.content == '!fobot wikiroles':
+			data = getwikiroles(message.author.id)
+			if data == False:
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Could not find user with ID "' + str(message.author.id) + '" on wiki'))
+			else:
+				wikigroups = data[0]
+				silverplus = data[1]
+				for roleid in wikigroups:
+					if roleid in wikiroles:
+						rolename = wikiroles[roleid]
+						role = discord.utils.get(message.guild.roles, name=rolename)
+						if roleid == 'editor':
+							await message.author.add_roles(role)
+						elif roleid == 'reviewer':
+							await message.author.add_roles(role)
+				if silverplus == 1:
+					role = discord.utils.get(message.guild.roles, name='Silver Plus')
+					await message.author.add_roles(role)
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Wiki Roles added to "' + message.author.name + '"'))
 		elif message.content.startswith('!fobot addrole '):
 			roleid = message.content.replace('!fobot addrole ', '').replace('-', '').replace(' ', '').replace('<', '').replace('>', '').replace(':', '').lower()
 			if roleid in botroles:
