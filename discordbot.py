@@ -605,7 +605,7 @@ async def on_message(message):
 						await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 
 @bot.command(
-	help='Deletes messages of the specified channel. If no channel is specified it will purge the channel the command was issued in.\nUsage: "!fobot purge <channelname> <amount of messages to be deleted>"',
+	help='Deletes the specified amount of messages of the specified channel. If no channel is specified it will purge the channel the command was issued in.\nUsage: "!fobot purge <channelname> <amount of messages to be deleted>"',
         brief='Deletes all messages of the specified channel.'
 )
 async def purge(ctx, channel_name=None, number=100):
@@ -628,15 +628,18 @@ async def create(ctx, member: discord.Member):
             await ctx.send('You do not have permission to use this command.')
     else:
         guild = ctx.message.guild
-        admin_role = discord.utils.get(guild.roles, name="Admins")
+        admin_role1 = discord.utils.get(guild.roles, name="Admins")
+	admin_role2 = discord.utils.get(guild.roles, name="Liquipedia Staff")
         private_role = discord.utils.get(guild.roles, name="Private Chat")
         overwrites = {
             guild.default_role: discord.PermissionOverwrite(read_messages=False),
             guild.me: discord.PermissionOverwrite(read_messages=True),
-            admin_role: discord.PermissionOverwrite(read_messages=True),
+            admin_role1: discord.PermissionOverwrite(read_messages=True),
+            admin_role2: discord.PermissionOverwrite(read_messages=True),
             member: discord.PermissionOverwrite(read_messages=True)
         }
         await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=bot.get_channel(int(discordbottoken.privcat)))
+	await ctx.send('This channel was created to discuss the private request of ' + member.mention)
         await ctx.message.delete()
 
 @bot.command(
