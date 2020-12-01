@@ -630,7 +630,6 @@ async def create(ctx, member: discord.Member):
         guild = ctx.message.guild
         admin_role1 = discord.utils.get(guild.roles, name="Admins")
 	admin_role2 = discord.utils.get(guild.roles, name="Liquipedia Staff")
-        private_role = discord.utils.get(guild.roles, name="Private Chat")
         overwrites = {
             guild.default_role: discord.PermissionOverwrite(read_messages=False),
             guild.me: discord.PermissionOverwrite(read_messages=True),
