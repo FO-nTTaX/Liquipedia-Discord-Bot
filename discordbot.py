@@ -629,7 +629,7 @@ async def create(ctx, member: discord.Member):
     else:
         guild = ctx.message.guild
         admin_role1 = discord.utils.get(guild.roles, name="Admins")
-	admin_role2 = discord.utils.get(guild.roles, name="Liquipedia Staff")
+        admin_role2 = discord.utils.get(guild.roles, name="Liquipedia Staff")
         overwrites = {
             guild.default_role: discord.PermissionOverwrite(read_messages=False),
             guild.me: discord.PermissionOverwrite(read_messages=True),
@@ -638,7 +638,7 @@ async def create(ctx, member: discord.Member):
             member: discord.PermissionOverwrite(read_messages=True)
         }
         await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=bot.get_channel(int(discordbottoken.privcat)))
-	await ctx.send('This channel was created to discuss the private request of ' + member.mention)
+        await ctx.send('This channel was created to discuss the private request of ' + member.mention)
         await ctx.message.delete()
 
 @bot.command(
