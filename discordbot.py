@@ -13,6 +13,7 @@ import time
 import datetime
 import urllib
 from discord.ext import commands
+import asyncio
 
 bot = commands.Bot(command_prefix = '!fobot ')
 client = bot
@@ -247,6 +248,16 @@ wikiroles = {
 	'editor': 'Editor',
 	'reviewer': 'Reviewer'
 }
+blacklisted=[
+	"https://drive.google.com/file/d/1dSO7W1WJiRcvWfOPoq6DjLDIvkFzyYn1",
+	"It seems that despite how much evidence I've provided"
+	#more blacklisted strings here (can also be added via "!fobot blacklist <string>" - can be removed via "!fobot remove_blacklist <string>")
+]
+blacklisteduser=[
+        "Moataz"
+	#more blacklisted usernames here (can also be added via "!fobot blacklist_user <username>" - can be removed via "!fobot remove_blacklist_user <username>")
+]
+reactionspammers=[]
 countchannelmessagemax = 100
 countchannelmessage = {}
 for wiki in wikis:
@@ -402,11 +413,31 @@ def dice(sides, count=1):
 		result = 'Please use two positive whole numbers > 0.'
 	return result
 
+def check_blacklisted(msg):
+	for phrase in blacklisted:
+		if phrase in msg: return True
+
 @client.event
 async def on_ready():
 	global game
 	await client.change_presence(activity=game)
-
+	while True:
+		await asyncio.sleep(60)#sets the time after which the reaction spamm list is cleared
+		reactionspammers.clear()
+                
+@client.event
+async def on_reaction_add(reaction, user):
+	#check if user joind within last 7 days
+	if (datetime.datetime.utcnow() - user.joined_at).days <= 7:
+		counter = 1
+		#count reactions of that user within the last 60 second intervall (time defined above in on_ready event)
+		for id in reactionspammers:
+			if id == user.id: counter+=1
+		reactionspammers.append(user.id)
+		#take action if > 5 reactions were made in the last 60 second intervall (time defined above in on_ready event)
+		if counter > 5:
+			await reaction.message.guild.ban(user, reason="automated ban, reaction spam")
+                        
 @client.event
 async def on_message(message):
 	global muted
@@ -416,6 +447,9 @@ async def on_message(message):
 	global sbotroles
 	global wikiroles
 	global wikis
+	if message.author.name in blacklisteduser or check_blacklisted(message.content) or (len(message.role_mentions) + len(message.mentions)) > 3:
+		if (datetime.datetime.utcnow() - message.author.joined_at).days <= 7:
+			await message.guild.ban(message.author, reason="automated ban, usage of blacklisted username/phrase or mass ping")
 	if message.channel.name in wikis:
 		countchannelmessage[message.channel.name] += 1
 	if message.content == '!fobot' or message.content.startswith('!fobot'):
@@ -700,11 +734,63 @@ async def kill_channel(ctx, channel_name=None):
                         
             await channel.delete()
 
+@bot.command(
+	help='Adds a string to the blacklisted strings.\nUsage: "!fobot blacklist <string>"',
+        brief='Adds a string to the blacklisted strings.'
+)
+async def blacklist(ctx, *, strg):
+    user = ctx.message.author
+    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+            await ctx.send('You do not have permission to use this command.')
+    else:
+        if strg != None:
+            blacklisted.append(strg)
+            await ctx.send(strg + ' now blacklisted.')
+
+@bot.command(
+	help='Removes a string to the blacklisted strings.\nUsage: "!fobot remove_blacklist <string>"',
+        brief='Removes a string to the blacklisted strings.'
+)
+async def remove_blacklist(ctx, *, strg=None):
+    user = ctx.message.author
+    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+            await ctx.send('You do not have permission to use this command.')
+    else:
+        if strg != None and strg in blacklisted:
+            blacklisted.remove(strg)
+            await ctx.send('"' + strg + '" now removed from blacklist.')
+
+@bot.command(
+	help='Adds a username to the blacklisted usernames.\nUsage: "!fobot blacklist_user <username>"',
+        brief='Adds a string to the blacklisted strings.'
+)
+async def blacklist_user(ctx, username=None):
+    user = ctx.message.author
+    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+            await ctx.send('You do not have permission to use this command.')
+    else:
+        if username != None:
+            blacklisteduser.append(username)
+            await ctx.send(username + ' now blacklisted.')
+
+@bot.command(
+	help='Removes a username to the blacklisted usernames.\nUsage: "!fobot remove_blacklist_user <username>"',
+        brief='Removes a string to the blacklisted strings.'
+)
+async def remove_blacklist_user(ctx, username=None):
+    user = ctx.message.author
+    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+            await ctx.send('You do not have permission to use this command.')
+    else:
+        if username != None and strg in blacklisted:
+            blacklisteduser.remove(username)
+            await ctx.send(username + ' now removed from blacklist.')
+
 #@create.error
 async def create_error(ctx, error):
     if isinstance(error, commands.BadArgument):
-        await ctx.send('Invalid username.')
+        await ctx.send('Invalid argument.')
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Please specify a username.')
+        await ctx.send('Please specify an argument.')
 
 bot.run(discordbottoken.token)
