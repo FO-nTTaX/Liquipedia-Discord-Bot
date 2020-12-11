@@ -15,7 +15,10 @@ import urllib
 from discord.ext import commands
 import asyncio
 
-bot = commands.Bot(command_prefix = '!fobot ')
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix = '!fobot ', intents=intents)
 client = bot
 
 muted = False
@@ -424,6 +427,13 @@ async def on_ready():
 	while True:
 		await asyncio.sleep(60)#sets the time after which the reaction spamm list is cleared
 		reactionspammers.clear()
+
+@client.event
+async def on_member_join(member):
+	#check if user account was created within last day
+	if (datetime.datetime.utcnow() - member.created_at).days <= 1:
+		role = discord.utils.get(member.guild.roles, name="Muted")
+		await member.add_roles(role)
                 
 @client.event
 async def on_reaction_add(reaction, user):
