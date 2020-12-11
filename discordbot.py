@@ -649,158 +649,156 @@ async def on_message(message):
 						await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 
 @bot.command(
-        help='Deletes the specified amount of messages of the specified channel. If no channel is specified it will purge the channel the command was issued in.\nUsage: "!fobot purge <channelname> <amount of messages to be deleted>"',
-        brief='Deletes all messages of the specified channel.'
+	help='Deletes the specified amount of messages of the specified channel. If no channel is specified it will purge the channel the command was issued in.\nUsage: "!fobot purge <channelname> <amount of messages to be deleted>"',
+	brief='Deletes all messages of the specified channel.'
 )
 async def purge(ctx, channel_name=None, number=100):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        if channel_name == None: channel = ctx.channel
-        else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
-        if channel == None: await ctx.send('Invalid channel.')
-        await channel.purge(limit=number)
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if channel_name == None: channel = ctx.channel
+		else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
+		if channel == None: await ctx.send('Invalid channel.')
+		await channel.purge(limit=number)
 
 @bot.command(
-        help='Creates a temp. private channel and invites the specified user to it.\nUsage: "!fobot create <user>"',
-        brief='Creates a temp. private channel and invites the specified user to it.'
+	help='Creates a temp. private channel and invites the specified user to it.\nUsage: "!fobot create <user>"',
+	brief='Creates a temp. private channel and invites the specified user to it.'
 )
 async def create(ctx, member: discord.Member):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        guild = ctx.message.guild
-        admin_role1 = discord.utils.get(guild.roles, name="Admins")
-        admin_role2 = discord.utils.get(guild.roles, name="Liquipedia Staff")
-        overwrites = {
-            guild.default_role: discord.PermissionOverwrite(read_messages=False),
-            guild.me: discord.PermissionOverwrite(read_messages=True),
-            admin_role1: discord.PermissionOverwrite(read_messages=True),
-            admin_role2: discord.PermissionOverwrite(read_messages=True),
-            member: discord.PermissionOverwrite(read_messages=True)
-        }
-        await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=bot.get_channel(int(discordbottoken.privcat)))
-        await ctx.send('This channel was created to discuss the private request of ' + member.mention)
-        await ctx.message.delete()
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		guild = ctx.message.guild
+		admin_role1 = discord.utils.get(guild.roles, name="Admins")
+		admin_role2 = discord.utils.get(guild.roles, name="Liquipedia Staff")
+		overwrites = {
+			guild.default_role: discord.PermissionOverwrite(read_messages=False),
+			guild.me: discord.PermissionOverwrite(read_messages=True),
+ 			admin_role1: discord.PermissionOverwrite(read_messages=True),
+			admin_role2: discord.PermissionOverwrite(read_messages=True),
+			member: discord.PermissionOverwrite(read_messages=True)
+		}
+		await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=bot.get_channel(int(discordbottoken.privcat)))
+		await ctx.send('This channel was created to discuss the private request of ' + member.mention)
+		await ctx.message.delete()
 
 @bot.command(
-        help='Copies the specified channel (up to 10,000 msgs) to "Private_chat_log". If no channel is specified it will copy the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot copy <channelname>"',
-        brief='Copies the specified channel to "Private_chat_log".'
+	help='Copies the specified channel (up to 10,000 msgs) to "Private_chat_log". If no channel is specified it will copy the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot copy <channelname>"',
+	brief='Copies the specified channel to "Private_chat_log".'
 )
 async def copy(ctx, channel_name=None):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        if channel_name == None: channel = ctx.channel
-        else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
-        if channel == None or not channel.name.startswith('temp_'): await ctx.send('Invalid channel.')
-        else:
-            epmty_array = []
-            logtarget = bot.get_channel(discordbottoken.logtarget)
-            async for message in channel.history(limit=10000, oldest_first='true'):
-                time = message.created_at
-                embed = discord.Embed(
-                    title=message.author.display_name + ' on ' + str(time)[:-7] + ' UTC:',
-                    color=discord.Color.blue(),
-                    description=message.content
-                    )
-                await logtarget.send(embed=embed)
-                if message.attachments != epmty_array:
-                    files = message.attachments
-                    for file in files:
-                        await logtarget.send(file.url)
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if channel_name == None: channel = ctx.channel
+		else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
+		if channel == None or not channel.name.startswith('temp_'): await ctx.send('Invalid channel.')
+		else:
+			epmty_array = []
+			logtarget = bot.get_channel(discordbottoken.logtarget)
+			async for message in channel.history(limit=10000, oldest_first='true'):
+				time = message.created_at
+				embed = discord.Embed(
+					title=message.author.display_name + ' on ' + str(time)[:-7] + ' UTC:',
+					color=discord.Color.blue(),
+					description=message.content
+				)
+				await logtarget.send(embed=embed)
+				if message.attachments != epmty_array:
+				files = message.attachments
+				for file in files:
+					await logtarget.send(file.url)
 
 @bot.command(
-        help='Copies the specified channel to "Private_chat_log" and deletes it thereafter. If no channel is specified it defaults to the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot kill_channel <channelname>"',
-        brief='Copies the specified channel to "Private_chat_log" and deletes it thereafter.'
+	help='Copies the specified channel to "Private_chat_log" and deletes it thereafter. If no channel is specified it defaults to the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot kill_channel <channelname>"',
+	brief='Copies the specified channel to "Private_chat_log" and deletes it thereafter.'
 )
 async def kill_channel(ctx, channel_name=None):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        if channel_name == None: channel = ctx.channel
-        else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
-        if channel == None or not channel.name.startswith('temp_'): await ctx.send('Invalid channel.')
-        else:
-            epmty_array = []
-            logtarget = bot.get_channel(discordbottoken.logtarget)
-            async for message in channel.history(limit=10000, oldest_first='true'):
-                time = message.created_at
-                embed = discord.Embed(
-                    title=message.author.name + ' on ' + str(time)[:-7] + ' UTC:',
-                    color=discord.Color.blue(),
-                    description=message.content
-                    )
-                await logtarget.send(embed=embed)
-                if message.attachments != epmty_array:
-                    files = message.attachments
-                    for file in files:
-                        await logtarget.send(file.url)
-                else:None
-                        
-            await channel.delete()
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if channel_name == None: channel = ctx.channel
+		else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
+		if channel == None or not channel.name.startswith('temp_'): await ctx.send('Invalid channel.')
+		else:
+			epmty_array = []
+			logtarget = bot.get_channel(discordbottoken.logtarget)
+			async for message in channel.history(limit=10000, oldest_first='true'):
+				time = message.created_at
+				embed = discord.Embed(
+					title=message.author.name + ' on ' + str(time)[:-7] + ' UTC:',
+					color=discord.Color.blue(),
+					description=message.content
+				)
+				await logtarget.send(embed=embed)
+				if message.attachments != epmty_array:
+					files = message.attachments
+					for file in files:
+						await logtarget.send(file.url)
+				else:None
+			await channel.delete()
 
 @bot.command(
-        help='Adds a string to the blacklisted strings.\nUsage: "!fobot blacklist <string>"',
-        brief='Adds a string to the blacklisted strings.'
+	help='Adds a string to the blacklisted strings.\nUsage: "!fobot blacklist <string>"',
+	brief='Adds a string to the blacklisted strings.'
 )
 async def blacklist(ctx, *, strg):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        if strg != None:
-            blacklisted.append(strg)
-            await ctx.send(strg + ' now blacklisted.')
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if strg != None:
+			blacklisted.append(strg)
+			await ctx.send(strg + ' now blacklisted.')
 
 @bot.command(
-        help='Removes a string to the blacklisted strings.\nUsage: "!fobot remove_blacklist <string>"',
-        brief='Removes a string to the blacklisted strings.'
+	help='Removes a string to the blacklisted strings.\nUsage: "!fobot remove_blacklist <string>"',
+	brief='Removes a string to the blacklisted strings.'
 )
 async def remove_blacklist(ctx, *, strg=None):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        if strg != None and strg in blacklisted:
-            blacklisted.remove(strg)
-            await ctx.send('"' + strg + '" now removed from blacklist.')
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if strg != None and strg in blacklisted:
+		blacklisted.remove(strg)
+		await ctx.send('"' + strg + '" now removed from blacklist.')
 
 @bot.command(
-        help='Adds a username to the blacklisted usernames.\nUsage: "!fobot blacklist_user <username>"',
-        brief='Adds a string to the blacklisted strings.'
+	help='Adds a username to the blacklisted usernames.\nUsage: "!fobot blacklist_user <username>"',
+	brief='Adds a string to the blacklisted strings.'
 )
 async def blacklist_user(ctx, username=None):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        if username != None:
-            blacklisteduser.append(username)
-            await ctx.send(username + ' now blacklisted.')
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if username != None:
+		blacklisteduser.append(username)
+		await ctx.send(username + ' now blacklisted.')
 
 @bot.command(
-        help='Removes a username to the blacklisted usernames.\nUsage: "!fobot remove_blacklist_user <username>"',
-        brief='Removes a string to the blacklisted strings.'
+	help='Removes a username to the blacklisted usernames.\nUsage: "!fobot remove_blacklist_user <username>"',
+	brief='Removes a string to the blacklisted strings.'
 )
 async def remove_blacklist_user(ctx, username=None):
-    user = ctx.message.author
-    if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-            await ctx.send('You do not have permission to use this command.')
-    else:
-        if username != None and strg in blacklisted:
-            blacklisteduser.remove(username)
-            await ctx.send(username + ' now removed from blacklist.')
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	elif username != None and strg in blacklisted:
+		blacklisteduser.remove(username)
+		await ctx.send(username + ' now removed from blacklist.')
 
 #@create.error
 async def create_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('Invalid argument.')
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Please specify an argument.')
+	if isinstance(error, commands.BadArgument):
+		await ctx.send('Invalid argument.')
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('Please specify an argument.')
 
 bot.run(discordbottoken.token)
