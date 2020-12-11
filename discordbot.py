@@ -649,7 +649,7 @@ async def on_message(message):
 						await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 
 @bot.command(
-	help='Deletes the specified amount of messages of the specified channel. If no channel is specified it will purge the channel the command was issued in.\nUsage: "!fobot purge <channelname> <amount of messages to be deleted>"',
+        help='Deletes the specified amount of messages of the specified channel. If no channel is specified it will purge the channel the command was issued in.\nUsage: "!fobot purge <channelname> <amount of messages to be deleted>"',
         brief='Deletes all messages of the specified channel.'
 )
 async def purge(ctx, channel_name=None, number=100):
@@ -663,7 +663,7 @@ async def purge(ctx, channel_name=None, number=100):
         await channel.purge(limit=number)
 
 @bot.command(
-	help='Creates a temp. private channel and invites the specified user to it.\nUsage: "!fobot create <user>"',
+        help='Creates a temp. private channel and invites the specified user to it.\nUsage: "!fobot create <user>"',
         brief='Creates a temp. private channel and invites the specified user to it.'
 )
 async def create(ctx, member: discord.Member):
@@ -686,7 +686,7 @@ async def create(ctx, member: discord.Member):
         await ctx.message.delete()
 
 @bot.command(
-	help='Copies the specified channel (up to 10,000 msgs) to "Private_chat_log". If no channel is specified it will copy the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot copy <channelname>"',
+        help='Copies the specified channel (up to 10,000 msgs) to "Private_chat_log". If no channel is specified it will copy the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot copy <channelname>"',
         brief='Copies the specified channel to "Private_chat_log".'
 )
 async def copy(ctx, channel_name=None):
@@ -714,7 +714,7 @@ async def copy(ctx, channel_name=None):
                         await logtarget.send(file.url)
 
 @bot.command(
-	help='Copies the specified channel to "Private_chat_log" and deletes it thereafter. If no channel is specified it defaults to the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot kill_channel <channelname>"',
+        help='Copies the specified channel to "Private_chat_log" and deletes it thereafter. If no channel is specified it defaults to the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot kill_channel <channelname>"',
         brief='Copies the specified channel to "Private_chat_log" and deletes it thereafter.'
 )
 async def kill_channel(ctx, channel_name=None):
@@ -745,7 +745,7 @@ async def kill_channel(ctx, channel_name=None):
             await channel.delete()
 
 @bot.command(
-	help='Adds a string to the blacklisted strings.\nUsage: "!fobot blacklist <string>"',
+        help='Adds a string to the blacklisted strings.\nUsage: "!fobot blacklist <string>"',
         brief='Adds a string to the blacklisted strings.'
 )
 async def blacklist(ctx, *, strg):
@@ -758,7 +758,7 @@ async def blacklist(ctx, *, strg):
             await ctx.send(strg + ' now blacklisted.')
 
 @bot.command(
-	help='Removes a string to the blacklisted strings.\nUsage: "!fobot remove_blacklist <string>"',
+        help='Removes a string to the blacklisted strings.\nUsage: "!fobot remove_blacklist <string>"',
         brief='Removes a string to the blacklisted strings.'
 )
 async def remove_blacklist(ctx, *, strg=None):
@@ -771,7 +771,7 @@ async def remove_blacklist(ctx, *, strg=None):
             await ctx.send('"' + strg + '" now removed from blacklist.')
 
 @bot.command(
-	help='Adds a username to the blacklisted usernames.\nUsage: "!fobot blacklist_user <username>"',
+        help='Adds a username to the blacklisted usernames.\nUsage: "!fobot blacklist_user <username>"',
         brief='Adds a string to the blacklisted strings.'
 )
 async def blacklist_user(ctx, username=None):
@@ -784,7 +784,7 @@ async def blacklist_user(ctx, username=None):
             await ctx.send(username + ' now blacklisted.')
 
 @bot.command(
-	help='Removes a username to the blacklisted usernames.\nUsage: "!fobot remove_blacklist_user <username>"',
+        help='Removes a username to the blacklisted usernames.\nUsage: "!fobot remove_blacklist_user <username>"',
         brief='Removes a string to the blacklisted strings.'
 )
 async def remove_blacklist_user(ctx, username=None):
