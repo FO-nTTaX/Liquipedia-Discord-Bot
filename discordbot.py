@@ -253,12 +253,10 @@ wikiroles = {
 }
 blacklisted=[
 	"https://drive.google.com/file/d/1dSO7W1WJiRcvWfOPoq6DjLDIvkFzyYn1",
-	"It seems that despite how much evidence I've provided"
 	#more blacklisted strings here (can also be added via "!fobot blacklist <string>" - can be removed via "!fobot remove_blacklist <string>")
 ]
 blacklisteduser=[
-        "Moataz"
-	#more blacklisted usernames here (can also be added via "!fobot blacklist_user <username>" - can be removed via "!fobot remove_blacklist_user <username>")
+	#blacklisted usernames here (can be added via "!fobot blacklist_user <username>" - can be removed via "!fobot remove_blacklist_user <username>")
 ]
 reactionspammers=[]
 countchannelmessagemax = 100
@@ -457,7 +455,7 @@ async def on_message(message):
 	global sbotroles
 	global wikiroles
 	global wikis
-	if message.author.name in blacklisteduser or check_blacklisted(message.content) or (len(message.role_mentions) + len(message.mentions)) > 3:
+	if message.author.name in blacklisteduser or check_blacklisted(message.content) or (len(message.role_mentions) + len(message.mentions)) >= 5:
 		if (datetime.datetime.utcnow() - message.author.joined_at).days <= 7:
 			await message.guild.ban(message.author, reason="automated ban, usage of blacklisted username/phrase or mass ping")
 	if message.channel.name in wikis:
