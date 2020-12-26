@@ -251,13 +251,6 @@ wikiroles = {
 	'editor': 'Editor',
 	'reviewer': 'Reviewer'
 }
-blacklisted=[
-	"https://drive.google.com/file/d/1dSO7W1WJiRcvWfOPoq6DjLDIvkFzyYn1",
-	#more blacklisted strings here (can also be added via "!fobot blacklist <string>" - can be removed via "!fobot remove_blacklist <string>")
-]
-blacklisteduser=[
-	#blacklisted usernames here (can be added via "!fobot blacklist_user <username>" - can be removed via "!fobot remove_blacklist_user <username>")
-]
 reactionspammers=[]
 countchannelmessagemax = 100
 countchannelmessage = {}
@@ -455,9 +448,9 @@ async def on_message(message):
 	global sbotroles
 	global wikiroles
 	global wikis
-	if message.author.name in blacklisteduser or check_blacklisted(message.content) or (len(message.role_mentions) + len(message.mentions)) >= 5:
+	if (len(message.role_mentions) + len(message.mentions)) >= 5:
 		if (datetime.datetime.utcnow() - message.author.joined_at).days <= 7:
-			await message.guild.ban(message.author, reason="automated ban, usage of blacklisted username/phrase or mass ping")
+			await message.guild.ban(message.author, reason="automated ban, mass ping")
 	if message.channel.name in wikis:
 		countchannelmessage[message.channel.name] += 1
 	if message.content == '!fobot' or message.content.startswith('!fobot'):
@@ -740,57 +733,6 @@ async def kill_channel(ctx, channel_name=None):
 						await logtarget.send(file.url)
 				else:None
 			await channel.delete()
-
-@bot.command(
-	help='Adds a string to the blacklisted strings.\nUsage: "!fobot blacklist <string>"',
-	brief='Adds a string to the blacklisted strings.'
-)
-async def blacklist(ctx, *, strg):
-	user = ctx.message.author
-	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-		await ctx.send('You do not have permission to use this command.')
-	else:
-		if strg != None:
-			blacklisted.append(strg)
-			await ctx.send(strg + ' now blacklisted.')
-
-@bot.command(
-	help='Removes a string to the blacklisted strings.\nUsage: "!fobot remove_blacklist <string>"',
-	brief='Removes a string to the blacklisted strings.'
-)
-async def remove_blacklist(ctx, *, strg=None):
-	user = ctx.message.author
-	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-		await ctx.send('You do not have permission to use this command.')
-	else:
-		if strg != None and strg in blacklisted:
-		blacklisted.remove(strg)
-		await ctx.send('"' + strg + '" now removed from blacklist.')
-
-@bot.command(
-	help='Adds a username to the blacklisted usernames.\nUsage: "!fobot blacklist_user <username>"',
-	brief='Adds a string to the blacklisted strings.'
-)
-async def blacklist_user(ctx, username=None):
-	user = ctx.message.author
-	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-		await ctx.send('You do not have permission to use this command.')
-	else:
-		if username != None:
-		blacklisteduser.append(username)
-		await ctx.send(username + ' now blacklisted.')
-
-@bot.command(
-	help='Removes a username to the blacklisted usernames.\nUsage: "!fobot remove_blacklist_user <username>"',
-	brief='Removes a string to the blacklisted strings.'
-)
-async def remove_blacklist_user(ctx, username=None):
-	user = ctx.message.author
-	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
-		await ctx.send('You do not have permission to use this command.')
-	elif username != None and strg in blacklisted:
-		blacklisteduser.remove(username)
-		await ctx.send(username + ' now removed from blacklist.')
 
 #@create.error
 async def create_error(ctx, error):
