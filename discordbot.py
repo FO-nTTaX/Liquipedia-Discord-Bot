@@ -12,8 +12,14 @@ import json
 import time
 import datetime
 import urllib
+from discord.ext import commands
+import asyncio
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix = '!fobot ', intents=intents)
+client = bot
 
 muted = False
 game = discord.Game(name='Liquipedia', url='https://liquipedia.net', type=1)
@@ -245,6 +251,7 @@ wikiroles = {
 	'editor': 'Editor',
 	'reviewer': 'Reviewer'
 }
+reactionspammers=[]
 countchannelmessagemax = 100
 countchannelmessage = {}
 for wiki in wikis:
@@ -400,11 +407,38 @@ def dice(sides, count=1):
 		result = 'Please use two positive whole numbers > 0.'
 	return result
 
+def check_blacklisted(msg):
+	for phrase in blacklisted:
+		if phrase in msg: return True
+
 @client.event
 async def on_ready():
 	global game
 	await client.change_presence(activity=game)
+	while True:
+		await asyncio.sleep(60)#sets the time after which the reaction spamm list is cleared
+		reactionspammers.clear()
 
+@client.event
+async def on_member_join(member):
+	#check if user account was created within last day
+	if (datetime.datetime.utcnow() - member.created_at).days <= 1:
+		role = discord.utils.get(member.guild.roles, name="Muted")
+		await member.add_roles(role)
+                
+@client.event
+async def on_reaction_add(reaction, user):
+	#check if user joind within last 7 days
+	if (datetime.datetime.utcnow() - user.joined_at).days <= 7:
+		counter = 1
+		#count reactions of that user within the last 60 second intervall (time defined above in on_ready event)
+		for id in reactionspammers:
+			if id == user.id: counter+=1
+		reactionspammers.append(user.id)
+		#take action if > 5 reactions were made in the last 60 second intervall (time defined above in on_ready event)
+		if counter > 5:
+			await reaction.message.guild.ban(user, reason="automated ban, reaction spam")
+                        
 @client.event
 async def on_message(message):
 	global muted
@@ -414,6 +448,9 @@ async def on_message(message):
 	global sbotroles
 	global wikiroles
 	global wikis
+	if (len(message.role_mentions) + len(message.mentions)) >= 5:
+		if (datetime.datetime.utcnow() - message.author.joined_at).days <= 7:
+			await message.guild.ban(message.author, reason="automated ban, mass ping")
 	if message.channel.name in wikis:
 		countchannelmessage[message.channel.name] += 1
 	if message.content == '!fobot' or message.content.startswith('!fobot'):
@@ -509,6 +546,7 @@ async def on_message(message):
 			elif message.content == '!fobot mute':
 				muted = True
 				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is muted now!*'))
+			else: await bot.process_commands(message)
 		if message.content == '!fobot unmute':
 			muted = False
 			await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='*Bot is unmuted now!*'))
@@ -601,4 +639,106 @@ async def on_message(message):
 					if result != '':
 						await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description=result))
 
-client.run(discordbottoken.token)
+@bot.command(
+	help='Deletes the specified amount of messages of the specified channel. If no channel is specified it will purge the channel the command was issued in.\nUsage: "!fobot purge <channelname> <amount of messages to be deleted>"',
+	brief='Deletes all messages of the specified channel.'
+)
+async def purge(ctx, channel_name=None, number=100):
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if channel_name == None: channel = ctx.channel
+		else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
+		if channel == None: await ctx.send('Invalid channel.')
+		await channel.purge(limit=number)
+
+@bot.command(
+	help='Creates a temp. private channel and invites the specified user to it.\nUsage: "!fobot create <user>"',
+	brief='Creates a temp. private channel and invites the specified user to it.'
+)
+async def create(ctx, member: discord.Member):
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		guild = ctx.message.guild
+		admin_role1 = discord.utils.get(guild.roles, name="Admins")
+		admin_role2 = discord.utils.get(guild.roles, name="Liquipedia Staff")
+		overwrites = {
+			guild.default_role: discord.PermissionOverwrite(read_messages=False),
+			guild.me: discord.PermissionOverwrite(read_messages=True),
+ 			admin_role1: discord.PermissionOverwrite(read_messages=True),
+			admin_role2: discord.PermissionOverwrite(read_messages=True),
+			member: discord.PermissionOverwrite(read_messages=True)
+		}
+		await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=bot.get_channel(int(discordbottoken.privcat)))
+		await ctx.send('This channel was created to discuss the private request of ' + member.mention)
+		await ctx.message.delete()
+
+@bot.command(
+	help='Copies the specified channel (up to 10,000 msgs) to "Private_chat_log". If no channel is specified it will copy the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot copy <channelname>"',
+	brief='Copies the specified channel to "Private_chat_log".'
+)
+async def copy(ctx, channel_name=None):
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if channel_name == None: channel = ctx.channel
+		else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
+		if channel == None or not channel.name.startswith('temp_'): await ctx.send('Invalid channel.')
+		else:
+			epmty_array = []
+			logtarget = bot.get_channel(discordbottoken.logtarget)
+			async for message in channel.history(limit=10000, oldest_first='true'):
+				time = message.created_at
+				embed = discord.Embed(
+					title=message.author.display_name + ' on ' + str(time)[:-7] + ' UTC:',
+					color=discord.Color.blue(),
+					description=message.content
+				)
+				await logtarget.send(embed=embed)
+				if message.attachments != epmty_array:
+				files = message.attachments
+				for file in files:
+					await logtarget.send(file.url)
+
+@bot.command(
+	help='Copies the specified channel to "Private_chat_log" and deletes it thereafter. If no channel is specified it defaults to the channel the command was issued in. Only works in channels that start with "temp_".\nUsage: "!fobot kill_channel <channelname>"',
+	brief='Copies the specified channel to "Private_chat_log" and deletes it thereafter.'
+)
+async def kill_channel(ctx, channel_name=None):
+	user = ctx.message.author
+	if not discord.utils.get(user.roles, name="Admins") and not discord.utils.get(user.roles, name="Liquipedia Staff"):
+		await ctx.send('You do not have permission to use this command.')
+	else:
+		if channel_name == None: channel = ctx.channel
+		else: channel = discord.utils.get(ctx.guild.channels, name=channel_name)
+		if channel == None or not channel.name.startswith('temp_'): await ctx.send('Invalid channel.')
+		else:
+			epmty_array = []
+			logtarget = bot.get_channel(discordbottoken.logtarget)
+			async for message in channel.history(limit=10000, oldest_first='true'):
+				time = message.created_at
+				embed = discord.Embed(
+					title=message.author.name + ' on ' + str(time)[:-7] + ' UTC:',
+					color=discord.Color.blue(),
+					description=message.content
+				)
+				await logtarget.send(embed=embed)
+				if message.attachments != epmty_array:
+					files = message.attachments
+					for file in files:
+						await logtarget.send(file.url)
+				else:None
+			await channel.delete()
+
+#@create.error
+async def create_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		await ctx.send('Invalid argument.')
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('Please specify an argument.')
+
+bot.run(discordbottoken.token)
