@@ -464,7 +464,8 @@ async def on_message(message):
 			elif message.content == '!fobot guides':
 				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
 			elif message.content == '!fobot hype':
-				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/** http://stuff.gramma.name/hype/'))
+				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/**'))
+				await message.channel.send('https://i.imgur.com/xmdBFq9.mp4')
 			elif message.content == '!fobot todo':
 				await message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-To Do Lists**: https://liquipedia.net/starcraft2/User:FO-BoT#To_Do_Lists'))
 			elif message.content == '!fobot dance':
