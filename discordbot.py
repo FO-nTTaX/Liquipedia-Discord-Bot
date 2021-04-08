@@ -68,7 +68,8 @@ wikis = [
 	'valorant',
 	'freefire',
 	'ageofempires',
-	'wildrift'
+	'wildrift',
+	'squadrons'
 ]
 botroles = {
 	# wikis
