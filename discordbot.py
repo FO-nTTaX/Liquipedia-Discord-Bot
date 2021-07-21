@@ -141,6 +141,7 @@ botroles = {
 	'rainbowsix': 'Rainbow Six',
 	'rainbowsixsiege': 'Rainbow Six',
 	'siege': 'Rainbow Six',
+	'bgmi': 'PUBG',
 	'pubg': 'PUBG',
 	'pubgm': 'PUBG',
 	'pubgmobile': 'PUBG',
