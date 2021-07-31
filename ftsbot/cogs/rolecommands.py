@@ -70,7 +70,7 @@ class rolecommands(commands.Cog):
 				options=options
 			))
 		await ctx.send(
-			'Which roles do you want to add?',
+			'**Which roles do you want to add?**',
 			components=components
 		)
 
@@ -90,7 +90,7 @@ class rolecommands(commands.Cog):
 				options=options
 			))
 		await ctx.send(
-			'Which roles do you want to remove?',
+			'**Which roles do you want to remove?**',
 			components=components
 		)
 
