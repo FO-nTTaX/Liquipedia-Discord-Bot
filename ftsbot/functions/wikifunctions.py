@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
 # License MIT
 # Copyright 2016-2021 Alex Winkler
