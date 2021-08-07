@@ -18,6 +18,10 @@ class textcommands(commands.Cog):
 	async def author(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
 
+	@slash_commands.command(description='On shady betting sites')
+	async def betting(self, ctx):
+		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='[On shady betting sites](https://liquipedia.net/commons/User:FO-nTTaX/Betting'))
+
 	@slash_commands.command(description='Blame someone')
 	async def blame(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
@@ -46,10 +50,6 @@ class textcommands(commands.Cog):
 	@slash_commands.command(description='Links to guides')
 	async def guides(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
-
-	@slash_commands.command(description='Help menu')
-	async def help(self, ctx):
-		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**FO-BoT Commands**: https://liquipedia.net/starcraft2/User:FO-BoT#Manual'))
 
 	@slash_commands.command(description='\\Ü/ HYPE \\Ü/')
 	async def hype(self, ctx):
