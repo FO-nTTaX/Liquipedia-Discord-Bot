@@ -23,14 +23,17 @@ class textcommands(commands.Cog):
 	async def betting(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='[On shady betting sites](https://liquipedia.net/commons/User:FO-nTTaX/Betting)'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Blame someone')
 	async def blame(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Dance')
 	async def dance(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Roll a dice', options=[
 		Option('sides', 'How many sides (default 6)?', Type.INTEGER),
 		Option('amount', 'How many dice (default 1)?', Type.INTEGER)
@@ -48,10 +51,12 @@ class textcommands(commands.Cog):
 			result = 'Your ' + str(amount) + ' ' + str(sides) + '-sided dice threw ' + str(rolls) + ' for a total of ' + str(sum(rolls)) + '.'
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description=result))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Links to guides')
 	async def guides(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='\\Ü/ HYPE \\Ü/')
 	async def hype(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/**'))
@@ -62,6 +67,7 @@ class textcommands(commands.Cog):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='If you need help with something or just have a question, please post the question in the channel for the relevant wiki.' + 
 		' Asking if someone can help only costs you extra time, and you usually don\'t even need an admin!'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Lickypiddy!')
 	async def lickypiddy(self, ctx):
 		lickypiddywiki = 'commons'
@@ -71,6 +77,7 @@ class textcommands(commands.Cog):
 			lickypiddywiki = 'commons'
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='[\\\\Ü/ All glory Lickypiddy \\\\Ü/](https://liquipedia.net/' + lickypiddywiki + '/Special:Lickypiddy)'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Tell a lie')
 	async def lie(self, ctx):
 		i = random.randrange(0, len(data.lies), 1)
@@ -80,6 +87,7 @@ class textcommands(commands.Cog):
 		else:
 			await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description=response))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Liquipedia!')
 	async def liquipedia(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome!'))
@@ -98,10 +106,12 @@ class textcommands(commands.Cog):
 		else:
 			await ctx.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='No wiki specified'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Edit Statistics')
 	async def ranking(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: https://liquipedia.net/statistics/?view=editcount&wikilist=all'))
 
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Think very hard')
 	async def thinking(self, ctx):
 		await ctx.send('https://files.catbox.moe/o8tify.gif')
