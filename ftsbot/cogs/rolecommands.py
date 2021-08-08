@@ -46,6 +46,7 @@ class rolecommands(commands.Cog):
 	@decoratorfunctions.is_bot_owner()
 	@slash_commands.command(description='Form setup (admin only)')
 	async def setup(self, ctx):
+
 		# Clean up channel
 		async for message in ctx.channel.history():
 			await message.delete()
@@ -54,10 +55,12 @@ class rolecommands(commands.Cog):
 		entries_per_select = 25
 
 		# Add roles
+		c = 0
 		# Wikis
 		amount_select = math.ceil(len(data.botroleswikis) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
+			c += 1
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
@@ -65,7 +68,7 @@ class rolecommands(commands.Cog):
 					role = data.botroleswikis[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
-				custom_id='addrole_select_' + str(i),
+				custom_id='addrole_select_' + str(c),
 				placeholder='Choose which wiki roles you want to add',
 				max_values=len(options),
 				options=options
@@ -78,6 +81,7 @@ class rolecommands(commands.Cog):
 		amount_select = math.ceil(len(data.botroleslanguages) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
+			c += 1
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
@@ -85,7 +89,7 @@ class rolecommands(commands.Cog):
 					role = data.botroleslanguages[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
-				custom_id='addrole_select_' + str(i),
+				custom_id='addrole_select_' + str(c),
 				placeholder='Choose which language roles you want to add',
 				max_values=len(options),
 				options=options
@@ -98,6 +102,7 @@ class rolecommands(commands.Cog):
 		amount_select = math.ceil(len(data.botrolesmisc) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
+			c += 1
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
@@ -105,7 +110,7 @@ class rolecommands(commands.Cog):
 					role = data.botrolesmisc[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
-				custom_id='addrole_select_' + str(i),
+				custom_id='addrole_select_' + str(c),
 				placeholder='Choose which misc roles you want to add',
 				max_values=len(options),
 				options=options
@@ -116,10 +121,12 @@ class rolecommands(commands.Cog):
 		)
 
 		# Remove roles
+		c = 0
 		# Wikis
 		amount_select = math.ceil(len(data.botroleswikis) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
+			c += 1
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
@@ -127,7 +134,7 @@ class rolecommands(commands.Cog):
 					role = data.botroleswikis[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
-				custom_id='removerole_select_' + str(i),
+				custom_id='removerole_select_' + str(c),
 				placeholder='Choose which wiki roles you want to remove',
 				max_values=len(options),
 				options=options
@@ -140,6 +147,7 @@ class rolecommands(commands.Cog):
 		amount_select = math.ceil(len(data.botroleslanguages) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
+			c += 1
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
@@ -147,7 +155,7 @@ class rolecommands(commands.Cog):
 					role = data.botroleslanguages[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
-				custom_id='removerole_select_' + str(i),
+				custom_id='removerole_select_' + str(c),
 				placeholder='Choose which language roles you want to remove',
 				max_values=len(options),
 				options=options
@@ -160,6 +168,7 @@ class rolecommands(commands.Cog):
 		amount_select = math.ceil(len(data.botrolesmisc) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
+			c += 1
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
@@ -167,7 +176,7 @@ class rolecommands(commands.Cog):
 					role = data.botrolesmisc[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
-				custom_id='removerole_select_' + str(i),
+				custom_id='removerole_select_' + str(c),
 				placeholder='Choose which misc roles you want to remove',
 				max_values=len(options),
 				options=options
