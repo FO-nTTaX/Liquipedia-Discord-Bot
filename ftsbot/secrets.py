@@ -13,5 +13,5 @@ with open('.env', 'r') as f:
 			key, value = line.split('=')
 			locals()[key] = value
 		except ValueError:
-			# syntax error
+			# Syntax error
 			pass
