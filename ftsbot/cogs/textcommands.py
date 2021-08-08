@@ -14,10 +14,9 @@ class textcommands(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command()
-	async def author2(self, ctx):
-		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
+	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Author information')
+	@commands.command()
 	async def author(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
 
