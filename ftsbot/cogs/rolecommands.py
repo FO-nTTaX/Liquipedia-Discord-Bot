@@ -52,45 +52,128 @@ class rolecommands(commands.Cog):
 
 		# Build menu
 		entries_per_select = 25
-		amount_select = math.ceil(len(data.botroles) / entries_per_select)
 
 		# Add roles
+		# Wikis
+		amount_select = math.ceil(len(data.botroleswikis) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
-				if entry_id < len(data.botroles):
-					role = data.botroles[entry_id]
+				if entry_id < len(data.botroleswikis):
+					role = data.botroleswikis[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
 				custom_id='addrole_select_' + str(i),
-				placeholder='Choose which roles you want to add',
+				placeholder='Choose which wiki roles you want to add',
 				max_values=len(options),
 				options=options
 			))
 		await ctx.send(
-			'**Which roles do you want to add?**',
+			'**Which wiki roles do you want to add?**',
+			components=components
+		)
+		# Languages
+		amount_select = math.ceil(len(data.botroleslanguages) / entries_per_select)
+		components = []
+		for i in range(0, amount_select):
+			options = []
+			for j in range(0, entries_per_select):
+				entry_id = j + i * entries_per_select
+				if entry_id < len(data.botroleslanguages):
+					role = data.botroleslanguages[entry_id]
+					options.append(SelectOption(role, role))
+			components.append(SelectMenu(
+				custom_id='addrole_select_' + str(i),
+				placeholder='Choose which language roles you want to add',
+				max_values=len(options),
+				options=options
+			))
+		await ctx.send(
+			'**Which language roles do you want to add?**',
+			components=components
+		)
+		# Misc
+		amount_select = math.ceil(len(data.botrolesmisc) / entries_per_select)
+		components = []
+		for i in range(0, amount_select):
+			options = []
+			for j in range(0, entries_per_select):
+				entry_id = j + i * entries_per_select
+				if entry_id < len(data.botrolesmisc):
+					role = data.botrolesmisc[entry_id]
+					options.append(SelectOption(role, role))
+			components.append(SelectMenu(
+				custom_id='addrole_select_' + str(i),
+				placeholder='Choose which misc roles you want to add',
+				max_values=len(options),
+				options=options
+			))
+		await ctx.send(
+			'**Which misc roles do you want to add?**',
 			components=components
 		)
 
 		# Remove roles
+		# Wikis
+		amount_select = math.ceil(len(data.botroleswikis) / entries_per_select)
 		components = []
 		for i in range(0, amount_select):
 			options = []
 			for j in range(0, entries_per_select):
 				entry_id = j + i * entries_per_select
-				if entry_id < len(data.botroles):
-					role = data.botroles[entry_id]
+				if entry_id < len(data.botroleswikis):
+					role = data.botroleswikis[entry_id]
 					options.append(SelectOption(role, role))
 			components.append(SelectMenu(
 				custom_id='removerole_select_' + str(i),
-				placeholder='Choose which roles you want to remove',
+				placeholder='Choose which wiki roles you want to remove',
 				max_values=len(options),
 				options=options
 			))
 		await ctx.send(
-			'**Which roles do you want to remove?**',
+			'**Which wiki roles do you want to remove?**',
+			components=components
+		)
+		# Languages
+		amount_select = math.ceil(len(data.botroleslanguages) / entries_per_select)
+		components = []
+		for i in range(0, amount_select):
+			options = []
+			for j in range(0, entries_per_select):
+				entry_id = j + i * entries_per_select
+				if entry_id < len(data.botroleslanguages):
+					role = data.botroleslanguages[entry_id]
+					options.append(SelectOption(role, role))
+			components.append(SelectMenu(
+				custom_id='removerole_select_' + str(i),
+				placeholder='Choose which language roles you want to remove',
+				max_values=len(options),
+				options=options
+			))
+		await ctx.send(
+			'**Which language roles do you want to remove?**',
+			components=components
+		)
+		# Misc
+		amount_select = math.ceil(len(data.botrolesmisc) / entries_per_select)
+		components = []
+		for i in range(0, amount_select):
+			options = []
+			for j in range(0, entries_per_select):
+				entry_id = j + i * entries_per_select
+				if entry_id < len(data.botrolesmisc):
+					role = data.botrolesmisc[entry_id]
+					options.append(SelectOption(role, role))
+			components.append(SelectMenu(
+				custom_id='removerole_select_' + str(i),
+				placeholder='Choose which misc roles you want to remove',
+				max_values=len(options),
+				options=options
+			))
+		await ctx.send(
+			'**Which misc roles do you want to remove?**',
 			components=components
 		)
 

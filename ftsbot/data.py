@@ -73,8 +73,8 @@ wikiroles = {
 	'reviewer': 'Reviewer'
 }
 
-botroles = [
-	# wikis
+# Wiki roles
+botroleswikis = [
 	'Age of Empires',
 	'Apex Legends',
 	'Arena FPS',
@@ -86,6 +86,7 @@ botroles = [
 	'Brawl Stars',
 	'Call of Duty',
 	'Clash Royale',
+	'Commons',
 	'Counter-Strike',
 	'Critical Ops',
 	'CrossFire',
@@ -117,10 +118,10 @@ botroles = [
 	'Warcraft',
 	'Wild Rift',
 	'World of Warcraft',
-	# Common(s)
-	'Commons',
-	'Templates',
-	# Languages
+]
+
+# Language roles
+botroleslanguages = [
 	'Arabic',
 	'Belarusian',
 	'Bosnian',
@@ -150,7 +151,11 @@ botroles = [
 	'Tagalog',
 	'Thai',
 	'Ukrainian',
-	# Misc
+]
+
+# Misc roles
+botrolesmisc = [
+	'Templates',
 	'Announcements',
 	'CS Predictions',
 	'Game Night',
