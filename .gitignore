@@ -1,2 +1,3 @@
 /nbproject/
 *__pycache__*
+.env

@@ -6,7 +6,12 @@
 
 token = ''
 apikey = ''
-author = 138719439834185728
 
-logtarget = 339287109988909057 # Here the channel id of the channel we want the private channel logs to be stored in
-privcat = 360564294401916929 # This is the id of the "Private Channels" Category
+with open('.env', 'r') as f:
+	for line in f.readlines():
+		try:
+			key, value = line.split('=')
+			locals()[key] = value
+		except ValueError:
+			# syntax error
+			pass
