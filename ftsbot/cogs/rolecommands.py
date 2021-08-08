@@ -46,7 +46,6 @@ class rolecommands(commands.Cog):
 	@decoratorfunctions.is_bot_owner()
 	@slash_commands.command(description='Form setup (admin only)')
 	async def setup(self, ctx):
-
 		# Clean up channel
 		async for message in ctx.channel.history():
 			await message.delete()
