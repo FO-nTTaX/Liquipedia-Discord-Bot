@@ -193,7 +193,7 @@ class rolecommands(commands.Cog):
 
 		if dropdowntype in ['addrole', 'removerole']:
 			for option in ctx.component.selected_options:
-				if option.value in data.botroles:
+				if option.value in data.botroleswikis or option.value in data.botroleslanguages or option.value in data.botrolesmisc:
 					role = discord.utils.get(ctx.guild.roles, name=option.value)
 					if role is not None:
 						if dropdowntype == 'addrole':
