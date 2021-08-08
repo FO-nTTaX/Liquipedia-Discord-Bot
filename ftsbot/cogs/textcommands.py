@@ -20,7 +20,7 @@ class textcommands(commands.Cog):
 
 	@slash_commands.command(description='On shady betting sites')
 	async def betting(self, ctx):
-		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='[On shady betting sites](https://liquipedia.net/commons/User:FO-nTTaX/Betting'))
+		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='[On shady betting sites](https://liquipedia.net/commons/User:FO-nTTaX/Betting)'))
 
 	@slash_commands.command(description='Blame someone')
 	async def blame(self, ctx):
