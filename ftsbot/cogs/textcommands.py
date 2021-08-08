@@ -15,6 +15,8 @@ class textcommands(commands.Cog):
 		self.bot = bot
 
 	@commands.command()
+	async def author(self, ctx):
+		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
 	@slash_commands.command(description='Author information')
 	async def author(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
