@@ -17,7 +17,7 @@ from ftsbot.cogs.wikicommands import wikicommands
 
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix='!fobot', intents=intents)
+bot = commands.Bot(command_prefix='!fobot ', intents=intents)
 SlashClient(bot)
 
 bot.add_cog(antispam(bot))
