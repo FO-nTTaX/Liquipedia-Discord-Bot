@@ -7,7 +7,7 @@
 import discord
 from dislash import *
 from discord.ext import commands
-from ftsbot import data, secrets
+from ftsbot import config, data
 
 class channelmoderation(commands.Cog):
 	def __init__(self, bot):
@@ -44,7 +44,7 @@ class channelmoderation(commands.Cog):
 			overwrites[admin_role1] = discord.PermissionOverwrite(read_messages=True)
 		if admin_role2 is not None:
 			overwrites[admin_role2] = discord.PermissionOverwrite(read_messages=True)
-		channel = await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=self.bot.get_channel(int(secrets.privcat)))
+		channel = await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=self.bot.get_channel(int(config.privcat)))
 		await channel.send('This channel was created to discuss the private request of ' + member.mention)
 
 	@slash_commands.has_any_role('Admins', 'Liquipedia Staff')
@@ -59,7 +59,7 @@ class channelmoderation(commands.Cog):
 		else:
 			await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Messages have been archived'))
 			emptyarray = []
-			logtarget = self.bot.get_channel(secrets.logtarget)
+			logtarget = self.bot.get_channel(config.logtarget)
 			async for message in channel.history(limit=10000, oldest_first=True):
 				time = message.created_at
 				embed = discord.Embed(
@@ -85,7 +85,7 @@ class channelmoderation(commands.Cog):
 		else:
 			await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Messages have been archived'))
 			emptyarray = []
-			logtarget = self.bot.get_channel(secrets.logtarget)
+			logtarget = self.bot.get_channel(config.logtarget)
 			async for message in channel.history(limit=10000, oldest_first='true'):
 				time = message.created_at
 				embed = discord.Embed(

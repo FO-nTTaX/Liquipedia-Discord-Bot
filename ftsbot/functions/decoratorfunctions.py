@@ -6,11 +6,11 @@
 
 from discord.ext import commands
 from dislash import *
-from ftsbot import secrets
+from ftsbot import config
 
 def is_bot_owner():
 	def predicate(ctx):
 		if ctx.guild is None:
 			return False
-		return ctx.author.id == secrets.author
+		return ctx.author.id == config.author
 	return check(predicate)
