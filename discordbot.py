@@ -17,7 +17,7 @@ from ftsbot.cogs.wikicommands import wikicommands
 
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix='!fobot ', intents=intents)
+bot = commands.Bot(command_prefix='!fobot ', intents=intents, help_command=None)
 SlashClient(bot)
 
 bot.add_cog(antispam(bot))
@@ -26,6 +26,5 @@ bot.add_cog(presence(bot))
 bot.add_cog(rolecommands(bot))
 bot.add_cog(textcommands(bot))
 bot.add_cog(wikicommands(bot))
-bot.remove_command('help')
 
 bot.run(secrets.token)
