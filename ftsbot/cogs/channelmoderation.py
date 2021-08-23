@@ -13,7 +13,7 @@ class channelmoderation(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@slash_commands.has_any_role('Admins', 'Liquipedia Staff')
+	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Purge channel (admin only)', options=[
 		Option('channel', 'Which channel do you want to purge?', Type.CHANNEL)
 	])
@@ -26,15 +26,16 @@ class channelmoderation(commands.Cog):
 			async for message in channel.history():
 				await message.delete()
 
-	@slash_commands.has_any_role('Admins', 'Liquipedia Staff')
+	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Creates a temp. private channel and invites the specified user to it (admin only)', options=[
 		Option('member', 'Who do you want to invite?', Type.USER, required=True)
 	])
 	async def channelcreate(self, ctx, member):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Channel with ' + member.name + ' is being created'))
 		guild = ctx.guild
-		admin_role1 = discord.utils.get(guild.roles, name='Admins')
-		admin_role2 = discord.utils.get(guild.roles, name='Liquipedia Staff')
+		admin_role1 = discord.utils.get(guild.roles, name='Discord Admins')
+		admin_role2 = discord.utils.get(guild.roles, name='Liquipedia Employee')
+		admin_role3 = discord.utils.get(guild.roles, name='Administrator')
 		overwrites = {
 			guild.default_role: discord.PermissionOverwrite(read_messages=False),
 			guild.me: discord.PermissionOverwrite(read_messages=True),
@@ -44,10 +45,12 @@ class channelmoderation(commands.Cog):
 			overwrites[admin_role1] = discord.PermissionOverwrite(read_messages=True)
 		if admin_role2 is not None:
 			overwrites[admin_role2] = discord.PermissionOverwrite(read_messages=True)
+		if admin_role3 is not None:
+			overwrites[admin_role3] = discord.PermissionOverwrite(read_messages=True)
 		channel = await guild.create_text_channel('temp_' + member.name, overwrites=overwrites, category=self.bot.get_channel(int(config.privcat)))
 		await channel.send('This channel was created to discuss the private request of ' + member.mention)
 
-	@slash_commands.has_any_role('Admins', 'Liquipedia Staff')
+	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Copies the specified temp. or active channel to the archive (admin only)', options=[
 		Option('channel', 'Where do you want to copy things from?', Type.CHANNEL)
 	])
@@ -73,7 +76,7 @@ class channelmoderation(commands.Cog):
 					for file in files:
 						await logtarget.send(file.url)
 
-	@slash_commands.has_any_role('Admins', 'Liquipedia Staff')
+	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Copies the specified temp. or active channel to the archive and deletes it (admin only)', options=[
 		Option('channel', 'Which do you want to delete?', Type.CHANNEL)
 	])
