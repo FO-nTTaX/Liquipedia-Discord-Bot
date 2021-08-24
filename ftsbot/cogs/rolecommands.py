@@ -9,7 +9,7 @@ import discord
 from dislash import *
 from discord.ext import commands
 from ftsbot import data
-from ftsbot.functions import decoratorfunctions, rolefunctions
+from ftsbot.functions import rolefunctions
 
 class rolecommands(commands.Cog):
 	def __init__(self, bot):
@@ -43,7 +43,7 @@ class rolecommands(commands.Cog):
 			message = await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Wiki Roles added to "' + ctx.author.name + '"'))
 			await message.delete(delay=30)
 
-	@decoratorfunctions.is_bot_owner()
+	@slash_commands.is_owner()
 	@slash_commands.command(description='Form setup (admin only)')
 	async def setup(self, ctx):
 		# Clean up channel
