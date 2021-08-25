@@ -8,7 +8,7 @@ import math
 import discord
 from dislash import *
 from discord.ext import commands
-from ftsbot import data
+from ftsbot import config, data
 from ftsbot.functions import rolefunctions
 
 class rolecommands(commands.Cog):
@@ -19,7 +19,7 @@ class rolecommands(commands.Cog):
 	async def discordid(self, ctx):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='User "' + ctx.author.name + '" has ID "' + str(ctx.author.id) + '"'))
 
-	@slash_commands.command(description='Get your wiki roles')
+	@slash_commands.command(description='Get your wiki roles', guild_ids=config.guild_ids)
 	async def wikiroles(self, ctx):
 		apidata = rolefunctions.wikiroles(ctx.author.id)
 		if apidata == False:
@@ -44,7 +44,7 @@ class rolecommands(commands.Cog):
 			await message.delete(delay=30)
 
 	@slash_commands.is_owner()
-	@slash_commands.command(description='Form setup (admin only)')
+	@slash_commands.command(description='Form setup (admin only)', guild_ids=config.guild_ids)
 	async def setup(self, ctx):
 		# Clean up channel
 		async for message in ctx.channel.history():

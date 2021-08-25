@@ -16,10 +16,11 @@ class channelmoderation(commands.Cog):
 	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Purge channel (admin only)', options=[
 		Option('channel', 'Which channel do you want to purge?', Type.CHANNEL)
-	])
+	], guild_ids=config.guild_ids)
 	async def channelpurge(self, ctx, channel=None):
 		if channel is None:
 			channel = ctx.channel
+		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Channel ' + channel.name + ' is being purged'))
 		if channel is None or not channel.name.startswith('temp_'):
 			await ctx.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='Invalid channel'))
 		else:
@@ -29,7 +30,7 @@ class channelmoderation(commands.Cog):
 	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Creates a temp. private channel and invites the specified user to it (admin only)', options=[
 		Option('member', 'Who do you want to invite?', Type.USER, required=True)
-	])
+	], guild_ids=config.guild_ids)
 	async def channelcreate(self, ctx, member):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='Channel with ' + member.name + ' is being created'))
 		guild = ctx.guild
@@ -53,7 +54,7 @@ class channelmoderation(commands.Cog):
 	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Copies the specified temp. or active channel to the archive (admin only)', options=[
 		Option('channel', 'Where do you want to copy things from?', Type.CHANNEL)
-	])
+	], guild_ids=config.guild_ids)
 	async def channelcopy(self, ctx, channel=None):
 		if channel is None:
 			channel = ctx.channel
@@ -79,7 +80,7 @@ class channelmoderation(commands.Cog):
 	@slash_commands.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@slash_commands.command(description='Copies the specified temp. or active channel to the archive and deletes it (admin only)', options=[
 		Option('channel', 'Which do you want to delete?', Type.CHANNEL)
-	])
+	], guild_ids=config.guild_ids)
 	async def channelkill(self, ctx, channel=None):
 		if channel is None:
 			channel = ctx.channel
