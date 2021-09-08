@@ -24,7 +24,7 @@ class antispam(commands.Cog):
 		if (datetime.datetime.utcnow() - message.author.joined_at).days <= 7:
 			for role in message.role_mentions:
 				if role.name == 'Liquipedia Admins':
-					await message.channel.send('Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Staff. If your issue is not of private nature, please just write it in the channel for the game it is about.')
+					await message.channel.send('Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Administrators. If your issue is not of private nature, please just write it in the channel for the game it is about.')
 
 	@commands.Cog.listener()
 	async def on_member_join(self, member):
