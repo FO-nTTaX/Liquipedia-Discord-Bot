@@ -139,6 +139,7 @@ botroleslanguages = [
 	'Japanese',
 	'Korean',
 	'Macedonian',
+	'Mongolian',
 	'Norwegian',
 	'Polish',
 	'Portuguese',
@@ -150,7 +151,9 @@ botroleslanguages = [
 	'Swedish',
 	'Tagalog',
 	'Thai',
+	'Turkish',
 	'Ukrainian',
+	'Vietnamese',
 ]
 
 # Misc roles
