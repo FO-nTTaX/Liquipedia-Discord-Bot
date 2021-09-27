@@ -95,6 +95,7 @@ botroleswikis = [
 	'Fighters',
 	'Fortnite',
 	'Free Fire',
+	'Halo',
 	'Hearthstone',
 	'Heroes',
 	'League of Legends',
