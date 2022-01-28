@@ -163,9 +163,10 @@ botroleslanguages = [
 
 # Misc roles
 botrolesmisc = [
-	'Templates',
 	'Announcements',
 	'CS Predictions',
 	'Game Night',
+	'Please Ping Me',
 	'Random Stats of the Day',
+	'Templates',
 ]
