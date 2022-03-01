@@ -4,10 +4,13 @@
 # Copyright 2016-2021 Alex Winkler
 # Version 3.0.0
 
+import os
+envfile = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '.env')
+
 token = ''
 apikey = ''
 
-with open('.env', 'r') as f:
+with open(envfile, 'r') as f:
 	for line in f.readlines():
 		try:
 			key, value = line.split('=')
