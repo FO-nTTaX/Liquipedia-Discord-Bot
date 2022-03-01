@@ -185,7 +185,7 @@ botroles = {
 	'halo': 'Halo',
 	'naraka': 'Naraka',
 	'mobilelegends': 'Mobile Legends',
-	'brawlhalla: 'Brawlhalla',
+	'brawlhalla': 'Brawlhalla',
 	# Common(s)
 	'commons': 'Commons',
 	'templates': 'Templates',
