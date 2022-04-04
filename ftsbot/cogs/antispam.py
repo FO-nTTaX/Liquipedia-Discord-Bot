@@ -16,6 +16,7 @@ class antispam(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 		self.reactionspammers = {}
+		self.pingspammers = {}
 
 	@commands.Cog.listener()
 	async def on_message(self, message):
@@ -26,16 +27,19 @@ class antispam(commands.Cog):
 				if role.name == 'Liquipedia Admins':
 					await message.channel.send('Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Administrators. If your issue is not of private nature, please just write it in the channel for the game it is about.')
 		if len(message.mentions) > 10 and (datetime.datetime.utcnow() - message.author.joined_at).days <= 100:
-			has_exception_role = 0
+			has_exception_role = False
 			for role in message.author.roles:
 				if role.name in {'Discord Admins', 'Liquipedia Employee', 'Administrator', 'Editor', 'Reviewer', 'Silver Plus', 'Industry Person'}:
-					has_exception_role = 1
+					has_exception_role = True
 					break
-			if has_exception_role == 0:
-				try:
-					await member.ban(reason='Automated ban, spam')
-				except discord.Forbidden:
-					pass
+			if not has_exception_role:
+				if message.author.id not in self.pingspammers:
+					self.pingspammers[message.author.id] = True
+				else:
+					try:
+						await member.ban(reason='Automated ban, spam')
+					except discord.Forbidden:
+						pass
 
 	@commands.Cog.listener()
 	async def on_member_join(self, member):
@@ -48,8 +52,9 @@ class antispam(commands.Cog):
 	@commands.Cog.listener()
 	async def on_ready(self):
 		while True:
-			await asyncio.sleep(60) # Sets the time after which the reaction spam list is cleared
+			await asyncio.sleep(60) # Sets the time after which the reaction and ping spam lists are cleared
 			self.reactionspammers.clear()
+			self.pingspammers.clear()
 
 	@commands.Cog.listener()
 	async def on_reaction_add(self, reaction, user):
