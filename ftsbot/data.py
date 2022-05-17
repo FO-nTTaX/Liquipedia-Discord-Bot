@@ -172,5 +172,6 @@ botrolesmisc = [
 	'Game Night',
 	'Please Ping Me',
 	'Random Stats of the Day',
+	'R6 Predictions',
 	'Templates',
 ]
