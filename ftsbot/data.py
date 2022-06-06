@@ -117,6 +117,7 @@ botroleswikis = [
 	'Runeterra',
 	'Sim Racing',
 	'Smash',
+	'Splitgate'
 	'Starcraft 2',
 	'Starcraft',
 	'Team Fortress',
