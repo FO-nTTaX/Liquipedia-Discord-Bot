@@ -186,6 +186,7 @@ botroles = {
 	'naraka': 'Naraka',
 	'mobilelegends': 'Mobile Legends',
 	'brawlhalla': 'Brawlhalla',
+	'splitgate': 'Splitgate',
 	# Common(s)
 	'commons': 'Commons',
 	'templates': 'Templates',
@@ -261,7 +262,8 @@ botroles = {
 	'announcements': 'Announcements',
 	'randomstats': 'Random Stats of the Day',
 	'randomstatsoftheday': 'Random Stats of the Day',
-	'pleasepingme': 'Please Ping Me'
+	'pleasepingme': 'Please Ping Me',
+	'r6predictions': 'R6 Predictions',
 }
 sbotroles = {
 	'randomstats': 'Random Stats of the Day',
