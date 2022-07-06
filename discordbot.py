@@ -47,6 +47,7 @@ wikis = [
 	'leagueoflegends',
 	'magic',
 	'mobilelegends',
+	'naraka',
 	'overwatch',
 	'paladins',
 	'pokemon',
@@ -187,6 +188,7 @@ botroles = {
 	'mobilelegends': 'Mobile Legends',
 	'brawlhalla': 'Brawlhalla',
 	'splitgate': 'Splitgate',
+	'naraka': 'Naraka',
 	# Common(s)
 	'commons': 'Commons',
 	'templates': 'Templates',
