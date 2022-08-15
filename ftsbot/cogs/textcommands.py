@@ -67,6 +67,10 @@ class textcommands(commands.Cog):
 		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='If you need help with something or just have a question, please post the question in the channel for the relevant wiki.' + 
 		' Asking if someone can help only costs you extra time, and you usually don\'t even need an admin!'))
 
+	@slash_commands.command(description='Send a link to the request form')
+	async def request(self, ctx):
+		await ctx.send(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='https://forms.gle/1zcZHkKe6udPNv2v6'))
+
 	@slash_commands.cooldown(1, 300, commands.BucketType.user)
 	@slash_commands.command(description='Lickypiddy!')
 	async def lickypiddy(self, ctx):
