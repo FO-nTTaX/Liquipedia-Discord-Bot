@@ -15,7 +15,6 @@ from ftsbot.cogs.wikicommands import wikicommands
 
 class liquipediabot(commands.Bot):
 	def __init__(self):
-
 		intents = discord.Intents.default()
 		intents.members = True
 		intents.message_content = True
