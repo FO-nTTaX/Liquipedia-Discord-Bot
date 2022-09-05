@@ -17,7 +17,7 @@ class textcommands(commands.Cog):
 		self.bot = bot
 
 	@app_commands.command(description='Author information')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def author(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
 
@@ -31,7 +31,7 @@ class textcommands(commands.Cog):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='[On shady betting sites](https://liquipedia.net/commons/User:FO-nTTaX/Betting)'))
 
 	@app_commands.command(description='Blame someone')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def blame(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x663399), description='**#blamesalle**'))
 
@@ -41,7 +41,7 @@ class textcommands(commands.Cog):
 			await interaction.response.send_message(str(error), ephemeral=True)
 
 	@app_commands.command(description='Dance')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def dance(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x663399), description='**EVERYBODY DANCE \\\\Ü/**\n*dances :D\\\\-<*\n*dances :D|-<*\n*dances :D/-<*'))
 
@@ -55,7 +55,7 @@ class textcommands(commands.Cog):
 		sides='How many sides (default 6)?',
 		amount='How many dice (default 1)?',
 	)
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def dice(self, interaction: discord.Interaction, sides: typing.Optional[int]=6, amount: typing.Optional[int]=1):
 		if sides < 2:
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0xff0000), description='A die needs to have a least 2 sides'))
@@ -75,7 +75,7 @@ class textcommands(commands.Cog):
 			await interaction.response.send_message(str(error), ephemeral=True)
 
 	@app_commands.command(description='Links to guides')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def guides(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'))
 
@@ -85,7 +85,7 @@ class textcommands(commands.Cog):
 			await interaction.response.send_message(str(error), ephemeral=True)
 
 	@app_commands.command(description='\\Ü/ HYPE \\Ü/')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def hype(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x663399), description='**\\\\Ü/ HYPE \\\\Ü/**'))
 		await interaction.response.send_message('https://i.imgur.com/xmdBFq9.mp4')
@@ -101,7 +101,7 @@ class textcommands(commands.Cog):
 		' Asking if someone can help only costs you extra time, and you usually don\'t even need an admin!'))
 
 	@app_commands.command(description='Lickypiddy!')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def lickypiddy(self, interaction: discord.Interaction):
 		lickypiddywiki = 'commons'
 		if interaction.channel.name in data.wikis:
@@ -116,7 +116,7 @@ class textcommands(commands.Cog):
 			await interaction.response.send_message(str(error), ephemeral=True)
 
 	@app_commands.command(description='Tell a lie')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def lie(self, interaction: discord.Interaction):
 		i = random.randrange(0, len(data.lies), 1)
 		response = data.lies[i]
@@ -131,7 +131,7 @@ class textcommands(commands.Cog):
 			await interaction.response.send_message(str(error), ephemeral=True)
 
 	@app_commands.command(description='Liquipedia!')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def liquipedia(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia** is awesome!'))
 
@@ -144,6 +144,7 @@ class textcommands(commands.Cog):
 	@app_commands.describe(
 		wiki='Which wiki do you want the notability guidelines for?',
 	)
+	@app_commands.autocomplete(wiki=autocomplete.wiki)
 	async def notability(self, interaction: discord.Interaction, wiki: typing.Optional[str]):
 		usewiki = None
 		if wiki in data.wikis:
@@ -155,12 +156,8 @@ class textcommands(commands.Cog):
 		else:
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0xff0000), description='No wiki specified'))
 
-	@notability.autocomplete('wiki')
-	async def notability_autocomplete(self, interaction: discord.Interaction, current: str,) -> list[app_commands.Choice[str]]:
-		return autocomplete.wiki(current)
-
 	@app_commands.command(description='Edit Statistics')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def ranking(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='**Liquipedia ranking**: https://liquipedia.net/statistics/?view=editcount&wikilist=all'))
 
@@ -173,7 +170,7 @@ class textcommands(commands.Cog):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='[Liquipedia Request Form](https://forms.gle/1zcZHkKe6udPNv2v6)'))
 
 	@app_commands.command(description='Think very hard')
-	@app_commands.checks.cooldown(1, 300.0, key=lambda i: (i.guild_id, i.user.id))
+	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def thinking(self, interaction: discord.Interaction):
 		await interaction.response.send_message('https://files.catbox.moe/o8tify.gif')
 

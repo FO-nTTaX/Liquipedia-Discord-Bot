@@ -80,8 +80,8 @@ wikiroles = {
 	'reviewer': 'Reviewer'
 }
 
-# Wiki roles
-botroleswikis = [
+# Roles the bot can add and remove
+botroles = [
 	'Age of Empires',
 	'Apex Legends',
 	'Arena FPS',
@@ -119,9 +119,9 @@ botroleswikis = [
 	'Runeterra',
 	'Sim Racing',
 	'Smash',
-	'Splitgate'
-	'Starcraft 2',
-	'Starcraft',
+	'Splitgate',
+	'StarCraft 2',
+	'StarCraft',
 	'Team Fortress',
 	'Teamfight Tactics',
 	'TrackMania',
@@ -130,10 +130,7 @@ botroleswikis = [
 	'Warcraft',
 	'Wild Rift',
 	'World of Warcraft',
-]
 
-# Language roles
-botroleslanguages = [
 	'Arabic',
 	'Belarusian',
 	'Bosnian',
@@ -166,10 +163,7 @@ botroleslanguages = [
 	'Turkish',
 	'Ukrainian',
 	'Vietnamese',
-]
 
-# Misc roles
-botrolesmisc = [
 	'Announcements',
 	'CS Predictions',
 	'Game Night',

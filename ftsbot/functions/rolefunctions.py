@@ -14,7 +14,7 @@ def wikiroles(discordid):
 	url = data.wikibaseurl + 'commons/api.php?format=json&action=teamliquidintegration-discordids'
 	payload = {
 		'discordid': discordid,
-		'apikey': secrets.apikey
+		'apikey': secrets.apikey.strip()
 	}
 	jsonobj = requests.post(url, data=payload).json()
 	if 'error' in jsonobj:

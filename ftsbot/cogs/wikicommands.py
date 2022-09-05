@@ -8,8 +8,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from ftsbot import data
-from ftsbot.functions import autocomplete
-from ftsbot.functions import wikifunctions
+from ftsbot.functions import autocomplete, wikifunctions
 import typing
 
 class wikicommands(commands.Cog):
@@ -20,6 +19,7 @@ class wikicommands(commands.Cog):
 	@app_commands.describe(
 		wiki='Which wiki do you want the pending changes of?',
 	)
+	@app_commands.autocomplete(wiki=autocomplete.wiki)
 	async def pendingchanges(self, interaction: discord.Interaction, wiki: typing.Optional[str]):
 		usewiki = None
 		if wiki in data.wikis:
@@ -32,14 +32,11 @@ class wikicommands(commands.Cog):
 		else:
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0xff0000), description='There seems to be no wiki with such a url!'))
 
-	@pendingchanges.autocomplete('wiki')
-	async def pendingchanges_autocomplete(self, interaction: discord.Interaction, current: str,) -> list[app_commands.Choice[str]]:
-		return autocomplete.wiki(current)
-
 	@app_commands.command(description='See unreviewed pages')
 	@app_commands.describe(
 		wiki='Which wiki do you want the unreviewed pages of?',
 	)
+	@app_commands.autocomplete(wiki=autocomplete.wiki)
 	async def unreviewedpages(self, interaction: discord.Interaction, wiki: typing.Optional[str]):
 		usewiki = None
 		if wiki in data.wikis:
@@ -52,15 +49,12 @@ class wikicommands(commands.Cog):
 		else:
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0xff0000), description='There seems to be no wiki with such a url!'))
 
-	@unreviewedpages.autocomplete('wiki')
-	async def unreviewedpages_autocomplete(self, interaction: discord.Interaction, current: str,) -> list[app_commands.Choice[str]]:
-		return autocomplete.wiki(current)
-
 	@app_commands.command(description='Search Liquipedia')
 	@app_commands.describe(
 		search='What do you want to search?',
 		wiki='Which wiki do you want to search?',
 	)
+	@app_commands.autocomplete(wiki=autocomplete.wiki)
 	async def search(self, interaction: discord.Interaction, search: str, wiki: typing.Optional[str]):
 		usewiki = None
 		if wiki in data.wikis:
@@ -72,7 +66,3 @@ class wikicommands(commands.Cog):
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description=result))
 		else:
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0xff0000), description='There seems to be no wiki with such a url!'))
-
-	@search.autocomplete('wiki')
-	async def search_autocomplete(self, interaction: discord.Interaction, current: str,) -> list[app_commands.Choice[str]]:
-		return autocomplete.wiki(current)

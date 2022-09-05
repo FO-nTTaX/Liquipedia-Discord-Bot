@@ -9,7 +9,7 @@ from discord.ext import commands
 #from ftsbot.cogs.antispam import antispam
 #from ftsbot.cogs.channelmoderation import channelmoderation
 from ftsbot.cogs.presence import presence
-#from ftsbot.cogs.rolecommands import rolecommands
+from ftsbot.cogs.rolecommands import rolecommands
 from ftsbot.cogs.textcommands import textcommands
 from ftsbot.cogs.wikicommands import wikicommands
 
@@ -19,7 +19,7 @@ class liquipediabot(commands.Bot):
 		intents.members = True
 		intents.message_content = True
 
-		super().__init__(intents=intents, command_prefix='', help_command=None)
+		super().__init__(intents=intents, command_prefix='!fobot', help_command=None)
 
 	async def startup(self):
 		await self.wait_until_ready()
@@ -29,7 +29,7 @@ class liquipediabot(commands.Bot):
 		#await self.add_cog(antispam(self))
 		#await self.add_cog(channelmoderation(self))
 		await self.add_cog(presence(self))
-		#await self.add_cog(rolecommands(self))
+		await self.add_cog(rolecommands(self))
 		await self.add_cog(textcommands(self))
 		await self.add_cog(wikicommands(self))
 		self.loop.create_task(self.startup())
