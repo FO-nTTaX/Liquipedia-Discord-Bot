@@ -5,7 +5,6 @@
 # Version 4.0.0
 
 import discord
-from dislash import *
 from discord.ext import commands
 from ftsbot import data
 
