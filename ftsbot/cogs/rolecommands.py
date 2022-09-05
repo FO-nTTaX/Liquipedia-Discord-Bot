@@ -54,8 +54,11 @@ class rolecommands(commands.Cog):
 		else:
 			roleobj = discord.utils.get(interaction.guild.roles, name=role)
 			if roleobj is not None:
-				await interaction.user.add_roles(roleobj)
-				await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + roleobj.name + '" added to "' + interaction.user.name + '"'))
+				try:
+					await interaction.user.add_roles(roleobj)
+					await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + roleobj.name + '" added to "' + interaction.user.name + '"'))
+				except discord.Forbidden:
+					pass
 
 	@app_commands.command(description='Remove a role from yourself')
 	@app_commands.describe(
@@ -69,5 +72,8 @@ class rolecommands(commands.Cog):
 		else:
 			roleobj = discord.utils.get(interaction.guild.roles, name=role)
 			if roleobj is not None:
-				await interaction.user.remove_roles(roleobj)
-				await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + roleobj.name + '" removed from "' + interaction.user.name + '"'))
+				try:
+					await interaction.user.remove_roles(roleobj)
+					await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Success**: Role "' + roleobj.name + '" removed from "' + interaction.user.name + '"'))
+				except discord.Forbidden:
+					pass
