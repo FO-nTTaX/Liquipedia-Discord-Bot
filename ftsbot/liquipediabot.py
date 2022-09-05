@@ -6,7 +6,7 @@
 
 import discord
 from discord.ext import commands
-#from ftsbot.cogs.antispam import antispam
+from ftsbot.cogs.antispam import antispam
 #from ftsbot.cogs.channelmoderation import channelmoderation
 from ftsbot.cogs.presence import presence
 from ftsbot.cogs.rolecommands import rolecommands
@@ -18,6 +18,7 @@ class liquipediabot(commands.Bot):
 		intents = discord.Intents.default()
 		intents.members = True
 		intents.message_content = True
+		intents.reactions = True
 
 		super().__init__(intents=intents, command_prefix='!fobot', help_command=None)
 
@@ -26,7 +27,7 @@ class liquipediabot(commands.Bot):
 		await self.tree.sync()
 
 	async def setup_hook(self):
-		#await self.add_cog(antispam(self))
+		await self.add_cog(antispam(self))
 		#await self.add_cog(channelmoderation(self))
 		await self.add_cog(presence(self))
 		await self.add_cog(rolecommands(self))
