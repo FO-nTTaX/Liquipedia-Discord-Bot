@@ -10,11 +10,16 @@ from discord.ext import commands
 #from ftsbot.cogs.channelmoderation import channelmoderation
 #from ftsbot.cogs.presence import presence
 #from ftsbot.cogs.rolecommands import rolecommands
-#from ftsbot.cogs.textcommands import textcommands
+from ftsbot.cogs.textcommands import textcommands
 from ftsbot.cogs.wikicommands import wikicommands
 
 class liquipediabot(commands.Bot):
-	def __init__(self, *, intents: discord.Intents):
+	def __init__(self):
+
+		intents = discord.Intents.default()
+		intents.members = True
+		intents.message_content = True
+
 		super().__init__(intents=intents, command_prefix='', help_command=None)
 
 	async def startup(self):
@@ -22,10 +27,10 @@ class liquipediabot(commands.Bot):
 		await self.tree.sync()
 
 	async def setup_hook(self):
-		#bot.add_cog(antispam(bot))
-		#bot.add_cog(channelmoderation(bot))
-		#bot.add_cog(presence(bot))
-		#bot.add_cog(rolecommands(bot))
-		#bot.add_cog(textcommands(bot))
+		#await self.add_cog(antispam(self))
+		#await self.add_cog(channelmoderation(self))
+		#await self.add_cog(presence(self))
+		#await self.add_cog(rolecommands(self))
+		await self.add_cog(textcommands(self))
 		await self.add_cog(wikicommands(self))
 		self.loop.create_task(self.startup())
