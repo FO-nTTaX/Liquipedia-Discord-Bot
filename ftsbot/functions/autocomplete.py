@@ -8,7 +8,17 @@ from discord import app_commands
 from ftsbot import data
 
 def wiki(current: str):
+	wikis = [
+		wiki
+		for wiki in data.wikis if current.lower() in wiki.lower()
+	]
+
+	def sortwikis(element):
+		return element.index(current)
+	wikis.sort(key=sortwikis)
+
 	return [
 		app_commands.Choice(name=wiki, value=wiki)
-		for wiki in data.wikis if current.lower() in wiki.lower()
+		for wiki in wikis
 	][:25]
+
