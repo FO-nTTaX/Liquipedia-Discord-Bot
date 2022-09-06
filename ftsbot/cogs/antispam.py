@@ -4,12 +4,13 @@
 # Copyright 2016-2022 Alex Winkler
 # Version 4.0.0
 
+import asyncio
 import discord
+from discord import app_commands
 from discord.ext import commands
 from ftsbot import data
+from ftsbot.ui.reportform import reportform
 import time
-import datetime
-import asyncio
 
 class antispam(commands.Cog):
 	def __init__(self, bot):
@@ -17,15 +18,24 @@ class antispam(commands.Cog):
 		self.reactionspammers = {}
 		self.pingspammers = {}
 
+		self.ctx_report = app_commands.ContextMenu(
+			name='Report to LP Admins',
+			callback=self.report,
+		)
+		self.bot.tree.add_command(self.ctx_report)
+
+	async def cog_unload(self) -> None:
+		self.bot.tree.remove_command(self.ctx_report.name, type=self.ctx_report.type)
+
 	@commands.Cog.listener()
 	async def on_message(self, message):
 		if 'liquidpedia' in message.content.lower():
 			await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='It is **Liquipedia**, only one d in the name! Naughty-counter of ' + message.author.name + ' has been incremented.'))
-		if (datetime.datetime.now(datetime.timezone.utc) - message.author.joined_at).days <= 7:
+		if hasattr(message.author, 'joined_at') and (discord.utils.utcnow() - message.author.joined_at).days <= 7:
 			for role in message.role_mentions:
 				if role.name == 'Liquipedia Admins':
 					await message.channel.send('Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Administrators. If your issue is not of private nature, please just write it in the channel for the game it is about.')
-		if len(message.mentions) > 10 and (datetime.datetime.now(datetime.timezone.utc) - message.author.joined_at).days <= 100:
+		if len(message.mentions) > 10 and hasattr(message.author, 'joined_at') and (discord.utils.utcnow() - message.author.joined_at).days <= 100:
 			has_exception_role = False
 			for role in message.author.roles:
 				if role.name in {'Discord Admins', 'Liquipedia Employee', 'Administrator', 'Editor', 'Reviewer', 'Silver Plus', 'Industry Person'}:
@@ -58,7 +68,7 @@ class antispam(commands.Cog):
 	@commands.Cog.listener()
 	async def on_reaction_add(self, reaction, user):
 		# Check if user joined within last 7 days
-		if (datetime.datetime.now(datetime.timezone.utc) - user.joined_at).days <= 7:
+		if hasattr(message.author, 'joined_at') and (discord.utils.utcnow() - user.joined_at).days <= 7:
 			if user.id not in self.reactionspammers:
 				self.reactionspammer[user.id] = 0
 			self.reactionspammer[user.id] += 1
@@ -68,3 +78,7 @@ class antispam(commands.Cog):
 					await reaction.message.guild.ban(user, reason='Automated ban, reaction spam')
 				except discord.Forbidden:
 					pass
+
+	async def report(self, interaction: discord.Interaction, message: discord.Message):
+		form = reportform(self.bot, message)
+		await interaction.response.send_modal(form)
