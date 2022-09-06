@@ -6,9 +6,7 @@
 
 import discord
 from discord import ui
-from ftsbot import config, data
-
-from discord import ui
+from ftsbot import config
 
 class reportform(ui.Modal, title='Report message to LP Admins'):
 	def __init__(self, bot, message):
