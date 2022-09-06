@@ -20,4 +20,4 @@ def wikiroles(discordid):
 	if 'error' in jsonobj:
 		return False
 	else:
-		return [jsonobj['teamliquidintegration-discordids']['groups'],jsonobj['teamliquidintegration-discordids']['silverplus']]
+		return [jsonobj['teamliquidintegration-discordids']['groups'], jsonobj['teamliquidintegration-discordids']['silverplus']]
