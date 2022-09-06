@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 # License MIT
-# Copyright 2016-2021 Alex Winkler
-# Version 3.0.0
+# Copyright 2016-2022 Alex Winkler
+# Version 4.0.0
 
 import discord
-from dislash import *
 from discord.ext import commands
 from ftsbot import data
 
