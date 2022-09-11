@@ -20,7 +20,7 @@ class reportform(ui.Modal, title='Report message to LP Admins'):
 		await interaction.response.send_message('Thank you for your report, it has been sent to the Liquipedia Administrators', ephemeral=True)
 
 		reporttarget = self.bot.get_channel(config.reporttarget)
-		text = interaction.user.mention + '** has reported this message:**\n\n' + self.message.jump_url + ' by ' + self.message.author.mention + ' with the following content:\n\n' + self.formatquote(self.message.content) + '\n\n**The following reason has been given:**\n\n' + self.formatquote(self.whatswrong.value)
+		text = interaction.user.mention + '** has reported this message:**\n\n' + self.message.jump_url + ' by ' + self.message.author.mention + ' with the following content:\n\n' + self.formatquote(self.message.clean_content) + '\n\n**The following reason has been given:**\n\n' + self.formatquote(self.whatswrong.value)
 		await reporttarget.send(text)
 
 	def formatquote(self, message):
