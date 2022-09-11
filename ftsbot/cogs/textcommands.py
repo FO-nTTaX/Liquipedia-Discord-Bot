@@ -166,6 +166,7 @@ class textcommands(commands.Cog):
 		if isinstance(error, app_commands.CommandOnCooldown):
 			await interaction.response.send_message(str(error), ephemeral=True)
 
+	@app_commands.command(description='Send a link to the request form')
 	async def request(self, interaction: discord.Interaction):
 		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ffff), description='[Liquipedia Request Form](https://forms.gle/1zcZHkKe6udPNv2v6)'))
 
