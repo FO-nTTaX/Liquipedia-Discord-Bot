@@ -6,7 +6,7 @@
 
 import discord
 from discord import app_commands
-from ftsbot import config, data
+from ftsbot import data
 
 async def wiki(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
 	wikis = [
