@@ -104,7 +104,7 @@ class textcommands(commands.Cog):
 	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def lickypiddy(self, interaction: discord.Interaction):
 		lickypiddywiki = 'commons'
-		elif isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
+		if isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
 			lickypiddywiki = interaction.channel.name
 		else:
 			lickypiddywiki = 'commons'
