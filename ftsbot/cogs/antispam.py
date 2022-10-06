@@ -68,7 +68,7 @@ class antispam(commands.Cog):
 	@commands.Cog.listener()
 	async def on_reaction_add(self, reaction, user):
 		# Check if user joined within last 7 days
-		if hasattr(message.author, 'joined_at') and (discord.utils.utcnow() - user.joined_at).days <= 7:
+		if hasattr(reaction.message.author, 'joined_at') and (discord.utils.utcnow() - user.joined_at).days <= 7:
 			if user.id not in self.reactionspammers:
 				self.reactionspammer[user.id] = 0
 			self.reactionspammer[user.id] += 1
