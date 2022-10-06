@@ -6,9 +6,9 @@
 
 import discord
 from discord import app_commands
-from ftsbot import data
+from ftsbot import config, data
 
-async def wiki(interaction: discord.Interaction, current: str,) -> list[app_commands.Choice[str]]:
+async def wiki(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
 	wikis = [
 		wiki
 		for wiki in data.wikis if current.lower() in wiki.lower()
@@ -23,7 +23,7 @@ async def wiki(interaction: discord.Interaction, current: str,) -> list[app_comm
 		for wiki in wikis
 	][:25]
 
-async def roles(interaction: discord.Interaction, current: str,) -> list[app_commands.Choice[str]]:
+async def roles(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
 	roles = [
 		role
 		for role in data.botroles if current.lower() in role.lower()

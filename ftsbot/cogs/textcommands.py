@@ -7,7 +7,7 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
-from ftsbot import data
+from ftsbot import config, data
 from ftsbot.functions import autocomplete
 import random
 import typing
@@ -174,6 +174,20 @@ class textcommands(commands.Cog):
 	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def thinking(self, interaction: discord.Interaction):
 		await interaction.response.send_message('https://files.catbox.moe/o8tify.gif')
+
+	@app_commands.command(description='Troll')
+	@app_commands.describe(
+		channel='Which channel do you want to troll?',
+		message='What do you want to send?',
+	)
+	@app_commands.guilds(discord.Object(id=config.commandserver))
+	async def troll(self, interaction: discord.Interaction, channel: str, message: str):
+		targetchannel = discord.utils.get(discord.utils.get(self.bot.guilds, id=config.runserver).channels, name=channel)
+		if targetchannel is None or not isinstance(targetchannel, discord.channel.TextChannel):
+			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can only send messages to existing text channels'))
+		else:
+			await targetchannel.send(message)
+			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Channel**: ' + targetchannel.mention + '\n**Message**: ' + message))
 
 	@thinking.error
 	async def on_thinking_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):

@@ -6,6 +6,7 @@
 
 import discord
 from discord.ext import commands
+from ftsbot import config
 from ftsbot.cogs.antispam import antispam
 from ftsbot.cogs.channelmoderation import channelmoderation
 from ftsbot.cogs.presence import presence
@@ -25,6 +26,7 @@ class liquipediabot(commands.Bot):
 	async def startup(self):
 		await self.wait_until_ready()
 		await self.tree.sync()
+		await self.tree.sync(guild=discord.Object(id=config.commandserver))
 
 	async def setup_hook(self):
 		await self.add_cog(antispam(self))
