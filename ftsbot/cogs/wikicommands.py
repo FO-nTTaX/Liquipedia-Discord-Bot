@@ -24,7 +24,7 @@ class wikicommands(commands.Cog):
 		usewiki = None
 		if wiki in data.wikis:
 			usewiki = wiki
-		elif interaction.channel.name in data.wikis:
+		elif isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
 			usewiki = interaction.channel.name
 		if usewiki is not None:
 			result = wikifunctions.pendingchanges(usewiki)
@@ -38,10 +38,11 @@ class wikicommands(commands.Cog):
 	)
 	@app_commands.autocomplete(wiki=autocomplete.wiki)
 	async def unreviewedpages(self, interaction: discord.Interaction, wiki: typing.Optional[str]):
+		print(type(interaction.channel))
 		usewiki = None
 		if wiki in data.wikis:
 			usewiki = wiki
-		elif interaction.channel.name in data.wikis:
+		elif isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
 			usewiki = interaction.channel.name
 		if usewiki is not None:
 			result = wikifunctions.unreviewedpages(usewiki)
@@ -59,7 +60,7 @@ class wikicommands(commands.Cog):
 		usewiki = None
 		if wiki in data.wikis:
 			usewiki = wiki
-		elif interaction.channel.name in data.wikis:
+		elif isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
 			usewiki = interaction.channel.name
 		if usewiki is not None:
 			result = wikifunctions.search(usewiki, search)

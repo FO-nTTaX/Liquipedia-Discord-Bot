@@ -104,7 +104,7 @@ class textcommands(commands.Cog):
 	@app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
 	async def lickypiddy(self, interaction: discord.Interaction):
 		lickypiddywiki = 'commons'
-		if interaction.channel.name in data.wikis:
+		elif isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
 			lickypiddywiki = interaction.channel.name
 		else:
 			lickypiddywiki = 'commons'
@@ -149,7 +149,7 @@ class textcommands(commands.Cog):
 		usewiki = None
 		if wiki in data.wikis:
 			usewiki = wiki
-		elif interaction.channel.name in data.wikis:
+		elif isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
 			usewiki = interaction.channel.name
 		if usewiki is not None:
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='[Notability Guidelines](https://liquipedia.net/' + usewiki + '/Liquipedia:Notability_Guidelines)'))
