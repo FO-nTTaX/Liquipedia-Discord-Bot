@@ -38,7 +38,6 @@ class wikicommands(commands.Cog):
 	)
 	@app_commands.autocomplete(wiki=autocomplete.wiki)
 	async def unreviewedpages(self, interaction: discord.Interaction, wiki: typing.Optional[str]):
-		print(type(interaction.channel))
 		usewiki = None
 		if wiki in data.wikis:
 			usewiki = wiki
