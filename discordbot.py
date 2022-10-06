@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2022 Alex Winkler
-# Version 4.0.0
+# Version 4.0.1
 
 from ftsbot.liquipediabot import liquipediabot
 from ftsbot import secrets
