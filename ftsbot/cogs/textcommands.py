@@ -186,8 +186,8 @@ class textcommands(commands.Cog):
 		if targetchannel is None or not isinstance(targetchannel, discord.channel.TextChannel):
 			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0xff0000), description='**Error**: Can only send messages to existing text channels'))
 		else:
-			await targetchannel.send(message)
-			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Channel**: ' + targetchannel.mention + '\n**Message**: ' + message))
+			sent_message = await targetchannel.send(message)
+			await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x00ff00), description='**Channel**: ' + targetchannel.mention + '\n**Link**: ' + sent_message.jump_url + '\n**Message**: ' + message))
 
 	@thinking.error
 	async def on_thinking_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
