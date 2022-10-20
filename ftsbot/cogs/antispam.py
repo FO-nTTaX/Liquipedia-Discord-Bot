@@ -98,7 +98,7 @@ class antispam(
 			(
 				member.name is not None
 				and 'twitter.com/h0nde' in member.name.lower()
-			) 
+			)
 			or (
 				member.nick is not None
 				and 'twitter.com/h0nde' in member.nick.lower()
