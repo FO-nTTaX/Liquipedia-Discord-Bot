@@ -10,7 +10,10 @@ import json
 import urllib
 from ftsbot import data, secrets
 
-def wikiroles(discordid):
+
+def wikiroles(
+	discordid
+):
 	url = data.wikibaseurl + 'commons/api.php?format=json&action=teamliquidintegration-discordids'
 	payload = {
 		'discordid': discordid,
@@ -20,4 +23,7 @@ def wikiroles(discordid):
 	if 'error' in jsonobj:
 		return False
 	else:
-		return [jsonobj['teamliquidintegration-discordids']['groups'], jsonobj['teamliquidintegration-discordids']['silverplus']]
+		return [
+			jsonobj['teamliquidintegration-discordids']['groups'],
+			jsonobj['teamliquidintegration-discordids']['silverplus']
+		]

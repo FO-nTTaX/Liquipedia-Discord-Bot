@@ -12,8 +12,14 @@ from ftsbot import data
 from ftsbot.ui.reportform import reportform
 import time
 
-class antispam(commands.Cog):
-	def __init__(self, bot):
+
+class antispam(
+	commands.Cog
+):
+	def __init__(
+		self,
+		bot
+	):
 		self.bot = bot
 		self.reactionspammers = {}
 		self.pingspammers = {}
@@ -24,21 +30,54 @@ class antispam(commands.Cog):
 		)
 		self.bot.tree.add_command(self.ctx_report)
 
-	async def cog_unload(self) -> None:
+	async def cog_unload(
+		self
+	) -> None:
 		self.bot.tree.remove_command(self.ctx_report.name, type=self.ctx_report.type)
 
 	@commands.Cog.listener()
-	async def on_message(self, message):
+	async def on_message(
+		self,
+		message
+	):
 		if 'liquidpedia' in message.content.lower():
-			await message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), description='It is **Liquipedia**, only one d in the name! Naughty-counter of ' + message.author.name + ' has been incremented.'))
-		if hasattr(message.author, 'joined_at') and (discord.utils.utcnow() - message.author.joined_at).days <= 7:
+			await message.channel.send(
+				embed=discord.Embed(
+					colour=discord.Colour(0xff0000),
+					description=(
+						'It is **Liquipedia**, only one d in the name! Naughty-counter of '
+						+ message.author.name + ' has been incremented.'
+					)
+				)
+			)
+		if (
+			hasattr(message.author, 'joined_at')
+			and (discord.utils.utcnow() - message.author.joined_at).days <= 7
+		):
 			for role in message.role_mentions:
 				if role.name == 'Liquipedia Admins':
-					await message.channel.send('Hello ' + message.author.mention + ', you seem to be new to our server and you have messaged Liquipedia Administrators. If your issue is not of private nature, please just write it in the channel for the game it is about.')
-		if len(message.mentions) > 10 and hasattr(message.author, 'joined_at') and (discord.utils.utcnow() - message.author.joined_at).days <= 100:
+					await message.channel.send(
+						'Hello '
+						+ message.author.mention
+						+ ', you seem to be new to our server and you have messaged Liquipedia Administrators. '
+						+ 'If your issue is not of private nature, please just write it in the channel for the game it is about.'
+					)
+		if (
+			len(message.mentions) > 10
+			and hasattr(message.author, 'joined_at')
+			and (discord.utils.utcnow() - message.author.joined_at).days <= 100
+		):
 			has_exception_role = False
 			for role in message.author.roles:
-				if role.name in {'Discord Admins', 'Liquipedia Employee', 'Administrator', 'Editor', 'Reviewer', 'Silver Plus', 'Industry Person'}:
+				if role.name in {
+					'Discord Admins',
+					'Liquipedia Employee',
+					'Administrator',
+					'Editor',
+					'Reviewer',
+					'Silver Plus',
+					'Industry Person'
+				}:
 					has_exception_role = True
 					break
 			if not has_exception_role:
@@ -51,7 +90,10 @@ class antispam(commands.Cog):
 						pass
 
 	@commands.Cog.listener()
-	async def on_member_join(self, member):
+	async def on_member_join(
+		self,
+		member
+	):
 		if 'twitter.com/h0nde' in member.name.lower() or 'twitter.com/h0nde' in member.nick.lower():
 			try:
 				await member.ban(reason='Automated ban, spam')
@@ -59,14 +101,20 @@ class antispam(commands.Cog):
 				pass
 
 	@commands.Cog.listener()
-	async def on_ready(self):
+	async def on_ready(
+		self
+	):
 		while True:
-			await asyncio.sleep(60) # Sets the time after which the reaction and ping spam lists are cleared
+			await asyncio.sleep(60)  # Sets the time after which the reaction and ping spam lists are cleared
 			self.reactionspammers.clear()
 			self.pingspammers.clear()
 
 	@commands.Cog.listener()
-	async def on_reaction_add(self, reaction, user):
+	async def on_reaction_add(
+		self,
+		reaction,
+		user
+	):
 		# Check if user joined within last 7 days
 		if hasattr(reaction.message.author, 'joined_at') and (discord.utils.utcnow() - user.joined_at).days <= 7:
 			if user.id not in self.reactionspammers:
@@ -79,6 +127,10 @@ class antispam(commands.Cog):
 				except discord.Forbidden:
 					pass
 
-	async def report(self, interaction: discord.Interaction, message: discord.Message):
+	async def report(
+		self,
+		interaction: discord.Interaction,
+		message: discord.Message
+	):
 		form = reportform(self.bot, message)
 		await interaction.response.send_modal(form)
