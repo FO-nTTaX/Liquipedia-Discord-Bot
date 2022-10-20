@@ -34,7 +34,12 @@ class textcommands(
 		self,
 		nteraction: discord.Interaction
 	):
-		await interaction.response.send_message(embed=discord.Embed(colour=discord.Colour(0x663399), description='FO-BoT was coded by **FO-nTTaX**'))
+		await interaction.response.send_message(
+			embed=discord.Embed(
+				colour=discord.Colour(0x663399),
+				description='FO-BoT was coded by **FO-nTTaX**'
+			)
+		)
 
 	@author.error
 	async def on_author_error(
