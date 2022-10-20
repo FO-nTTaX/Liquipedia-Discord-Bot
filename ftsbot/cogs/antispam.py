@@ -94,7 +94,16 @@ class antispam(
 		self,
 		member
 	):
-		if 'twitter.com/h0nde' in member.name.lower() or 'twitter.com/h0nde' in member.nick.lower():
+		if (
+			(
+				member.name is not None
+				and 'twitter.com/h0nde' in member.name.lower()
+			) 
+			or (
+				member.nick is not None
+				and 'twitter.com/h0nde' in member.nick.lower()
+			)
+		):
 			try:
 				await member.ban(reason='Automated ban, spam')
 			except discord.Forbidden:
