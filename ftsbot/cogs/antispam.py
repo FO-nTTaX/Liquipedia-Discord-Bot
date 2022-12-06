@@ -8,7 +8,7 @@ import asyncio
 import discord
 from discord import app_commands
 from discord.ext import commands
-from ftsbot import data
+from ftsbot import config, data
 from ftsbot.ui.reportform import reportform
 import time
 
@@ -40,6 +40,45 @@ class antispam(
 		self,
 		message
 	):
+		if '@everyone' in message.content:
+			has_exception_role = False
+			for role in message.author.roles:
+				if role.name in {
+					'Discord Admins',
+					'Liquipedia Employee',
+					'Administrator'
+				}:
+					has_exception_role = True
+					break
+			if not has_exception_role:
+				#give muted role
+				mutedrole = discord.utils.get(message.guild.roles, name='Muted')
+				await message.author.add_roles(mutedrole)
+				#post message in staff channel
+				reporttarget = self.bot.get_channel(config.reporttarget)
+				time = message.created_at
+				await reporttarget.send(
+					embed=discord.Embed(
+						title=(
+							'Muted for potential (at)everyone spam - '
+							+ message.author.display_name + ' on ' + str(time)[:-7] + ' UTC:'
+						),
+						color=discord.Color.blue(),
+						description=message.content
+					)
+				)
+				#post response message so that user knows what is going on
+				await message.channel.send(
+					embed=discord.Embed(
+						colour=discord.Colour(0xff0000),
+						description=(
+							message.author.mention + ' you have been muted due to trying to use (at)everyone. '
+							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
+						)
+					)
+				)
+				#delete flagged message
+				await message.delete()
 		if 'liquidpedia' in message.content.lower():
 			await message.channel.send(
 				embed=discord.Embed(
