@@ -51,10 +51,10 @@ class antispam(
 					has_exception_role = True
 					break
 			if not has_exception_role:
-				#give muted role
+				# give muted role
 				mutedrole = discord.utils.get(message.guild.roles, name='Muted')
 				await message.author.add_roles(mutedrole)
-				#post message in staff channel
+				# post message in staff channel
 				reporttarget = self.bot.get_channel(config.reporttarget)
 				time = message.created_at
 				await reporttarget.send(
@@ -67,7 +67,7 @@ class antispam(
 						description=message.content
 					)
 				)
-				#post response message so that user knows what is going on
+				# post response message so that user knows what is going on
 				await message.channel.send(
 					embed=discord.Embed(
 						colour=discord.Colour(0xff0000),
@@ -77,7 +77,7 @@ class antispam(
 						)
 					)
 				)
-				#delete flagged message
+				# delete flagged message
 				await message.delete()
 		if 'liquidpedia' in message.content.lower():
 			await message.channel.send(
