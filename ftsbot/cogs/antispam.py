@@ -85,7 +85,7 @@ class antispam(
 					self.pingspammers[message.author.id] = True
 				else:
 					try:
-						await member.ban(reason='Automated ban, spam')
+						await message.author.ban(reason='Automated ban, spam')
 					except discord.Forbidden:
 						pass
 
