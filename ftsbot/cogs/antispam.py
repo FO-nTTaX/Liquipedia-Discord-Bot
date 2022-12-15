@@ -61,7 +61,8 @@ class antispam(
 					embed=discord.Embed(
 						title=(
 							'Muted for potential (at)everyone spam - '
-							+ message.author.display_name + ' on ' + str(time)[:-7] + ' UTC:'
+							+ message.author.mention + ' on ' + str(time)[:-7] + ' UTC:'
+``` I think this is better, what do you think @hjpalpha ?
 						),
 						color=discord.Color.blue(),
 						description=message.content
