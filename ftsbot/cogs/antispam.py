@@ -62,7 +62,6 @@ class antispam(
 						title=(
 							'Muted for potential (at)everyone spam - '
 							+ message.author.mention + ' on ' + str(time)[:-7] + ' UTC:'
-``` I think this is better, what do you think @hjpalpha ?
 						),
 						color=discord.Color.blue(),
 						description=message.content
