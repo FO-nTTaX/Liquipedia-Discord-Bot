@@ -43,11 +43,11 @@ class antispam(
 		if '@everyone' in message.content:
 			has_exception_role = False
 			for role in message.author.roles:
-				if role.name in {
+				if role.name in [
 					'Discord Admins',
 					'Liquipedia Employee',
-					'Administrator'
-				}:
+					'Administrator',
+				]:
 					has_exception_role = True
 					break
 			if not has_exception_role:
@@ -108,15 +108,15 @@ class antispam(
 		):
 			has_exception_role = False
 			for role in message.author.roles:
-				if role.name in {
+				if role.name in [
 					'Discord Admins',
 					'Liquipedia Employee',
 					'Administrator',
 					'Editor',
 					'Reviewer',
 					'Silver Plus',
-					'Industry Person'
-				}:
+					'Industry Person',
+				]:
 					has_exception_role = True
 					break
 			if not has_exception_role:
