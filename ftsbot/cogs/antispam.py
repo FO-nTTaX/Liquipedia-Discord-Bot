@@ -2,15 +2,14 @@
 
 # License MIT
 # Copyright 2016-2022 Alex Winkler
-# Version 4.0.2
+# Version 4.0.3
 
 import asyncio
 import discord
 from discord import app_commands
 from discord.ext import commands
-from ftsbot import config, data
+from ftsbot import config
 from ftsbot.ui.reportform import reportform
-import time
 
 
 class antispam(

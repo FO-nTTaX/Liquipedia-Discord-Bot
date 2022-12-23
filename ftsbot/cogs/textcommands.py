@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2022 Alex Winkler
-# Version 4.0.2
+# Version 4.0.3
 
 import discord
 from discord import app_commands
@@ -32,7 +32,7 @@ class textcommands(
 	)
 	async def author(
 		self,
-		nteraction: discord.Interaction
+		interaction: discord.Interaction
 	):
 		await interaction.response.send_message(
 			embed=discord.Embed(

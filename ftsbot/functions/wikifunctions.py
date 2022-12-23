@@ -2,11 +2,10 @@
 
 # License MIT
 # Copyright 2016-2022 Alex Winkler
-# Version 4.0.2
+# Version 4.0.3
 
 import random
 import requests
-import json
 import urllib
 from ftsbot import data
 
