@@ -60,7 +60,8 @@ class antispam(
 					embed=discord.Embed(
 						title=(
 							'Muted for potential (at)everyone spam - '
-							+ message.author.mention + ' in ' + message.channel.mention
+							+ message.author.mention + ' (@' + message.author.display_name + ')'
+							+ ' in ' + message.channel.mention + ' (#' + message.channel.name + ')'
 							+ ' on ' + str(time)[:-7] + ' UTC:'
 						),
 						color=discord.Color.blue(),
