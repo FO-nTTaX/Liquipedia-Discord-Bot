@@ -60,10 +60,15 @@ class antispam(
 					embed=discord.Embed(
 						title=(
 							'Muted for potential (at)everyone spam - '
-							+ message.author.mention + ' on ' + str(time)[:-7] + ' UTC:'
+							+ message.author.mention + ' in ' + message.channel.mention
+							+ ' on ' + str(time)[:-7] + ' UTC:'
 						),
 						color=discord.Color.blue(),
-						description=message.content
+						description=(
+							message.content
+							# Workaround for mentions not working in embed title on windows
+							+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
+						)
 					)
 				)
 				# post response message so that user knows what is going on
