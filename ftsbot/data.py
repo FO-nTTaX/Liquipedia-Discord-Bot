@@ -176,4 +176,5 @@ botroles = [
 	'Random Stats of the Day',
 	'R6 Predictions',
 	'Templates',
+	'ML Predictions',
 ]
