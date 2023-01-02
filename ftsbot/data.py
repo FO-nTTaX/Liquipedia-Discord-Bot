@@ -172,6 +172,7 @@ botroles = [
 	'Announcements',
 	'CS Predictions',
 	'Game Night',
+	'ML Predictions',
 	'Please Ping Me',
 	'Random Stats of the Day',
 	'R6 Predictions',
