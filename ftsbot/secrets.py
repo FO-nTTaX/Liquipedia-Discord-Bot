@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # License MIT
-# Copyright 2016-2022 Alex Winkler
+# Copyright 2016-2023 Alex Winkler
 # Version 4.0.3
 
 import os
