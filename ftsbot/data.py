@@ -179,6 +179,7 @@ botroles = [
 	'Templates',
 ]
 
+# Words regularly used in invite spams
 bad_words = [
 	'nudde',
 	'nude',
