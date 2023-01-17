@@ -84,7 +84,7 @@ class antispam(
 				)
 				# delete flagged message
 				await message.delete()
-		elif 'discord.gg/' in message.content.lower():
+		elif 'discord.gg' in message.content.lower():
 			has_bad_word = False
 			for bad_word in data.bad_words:
 				if bad_word in message.content.lower():
