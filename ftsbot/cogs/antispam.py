@@ -126,7 +126,7 @@ class antispam(
 					embed=discord.Embed(
 						colour=discord.Colour(0xff0000),
 						description=(
-							message.author.mention + ' you have been muted due to trying to potential discord invite spam. '
+							message.author.mention + ' you have been muted due to potential discord invite spam. '
 							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
 						)
 					)
