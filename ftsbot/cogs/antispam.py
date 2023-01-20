@@ -96,6 +96,7 @@ class antispam(
 					'Discord Admins',
 					'Liquipedia Employee',
 					'Administrator',
+					'Bot',
 				]:
 					has_exception_role = True
 					break
