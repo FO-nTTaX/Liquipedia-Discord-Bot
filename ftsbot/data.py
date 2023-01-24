@@ -193,3 +193,13 @@ bad_words = [
 	'nft',
 	'crypto',
 ]
+
+nitro_spam_triggers = [
+	'discord',
+	'dissord',
+	'discrod',
+	'dissrod',
+	'free',
+	'gift',
+	'giveaway',
+]
