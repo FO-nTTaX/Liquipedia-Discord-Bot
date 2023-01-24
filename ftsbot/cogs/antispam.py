@@ -9,6 +9,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from ftsbot import config
+from ftsbot import data
 from ftsbot.ui.reportform import reportform
 
 
@@ -77,6 +78,56 @@ class antispam(
 						colour=discord.Colour(0xff0000),
 						description=(
 							message.author.mention + ' you have been muted due to trying to use (at)everyone. '
+							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
+						)
+					)
+				)
+				# delete flagged message
+				await message.delete()
+		elif 'discord.gg' in message.content.lower():
+			has_bad_word = False
+			for bad_word in data.bad_words:
+				if bad_word in message.content.lower():
+					has_bad_word = True
+					break
+			has_exception_role = False
+			for role in message.author.roles:
+				if role.name in [
+					'Discord Admins',
+					'Liquipedia Employee',
+					'Administrator',
+					'Bot',
+				]:
+					has_exception_role = True
+					break
+			if has_bad_word and not has_exception_role:
+				# give muted role
+				mutedrole = discord.utils.get(message.guild.roles, name='Muted')
+				await message.author.add_roles(mutedrole)
+				# post message in staff channel
+				reporttarget = self.bot.get_channel(config.reporttarget)
+				time = message.created_at
+				await reporttarget.send(
+					embed=discord.Embed(
+						title=(
+							'Muted for potential discord invite link spam - '
+							+ message.author.mention + ' in ' + message.channel.mention
+							+ ' on ' + str(time)[:-7] + ' UTC:'
+						),
+						color=discord.Color.blue(),
+						description=(
+							message.content
+							# Workaround for mentions not working in embed title on windows
+							+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
+						)
+					)
+				)
+				# post response message so that user knows what is going on
+				await message.channel.send(
+					embed=discord.Embed(
+						colour=discord.Colour(0xff0000),
+						description=(
+							message.author.mention + ' you have been muted due to potential discord invite spam. '
 							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
 						)
 					)

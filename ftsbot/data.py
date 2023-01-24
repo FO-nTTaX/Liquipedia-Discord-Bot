@@ -178,3 +178,18 @@ botroles = [
 	'R6 Predictions',
 	'Templates',
 ]
+
+# Words regularly used in invite spams
+bad_words = [
+	'nudde',
+	'nude',
+	'sex',
+	's3x',
+	'seex',
+	'tiktok',
+	'18+',
+	'kiss',
+	'onlyfans',
+	'nft',
+	'crypto',
+]
