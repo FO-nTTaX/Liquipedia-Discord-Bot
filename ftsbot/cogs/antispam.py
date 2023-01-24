@@ -11,6 +11,7 @@ from discord.ext import commands
 from ftsbot import config
 from ftsbot import data
 from ftsbot.ui.reportform import reportform
+from unidecode import unidecode
 
 
 class antispam(
@@ -134,6 +135,58 @@ class antispam(
 				)
 				# delete flagged message
 				await message.delete()
+		else:
+			cleaned_message_content = unidecode(message.content).lower()
+			if 'nitro' in cleaned_message_content:
+				has_exception_role = False
+				for role in message.author.roles:
+					if role.name in [
+						'Discord Admins',
+						'Liquipedia Employee',
+						'Administrator',
+						'Bot',
+					]:
+						has_exception_role = True
+						break
+				if not has_exception_role:
+					has_additional_triggers = 0
+					for trigger_word in data.nitro_spam_triggers:
+						if trigger_word in cleaned_message_content:
+							has_additional_triggers = has_additional_triggers + 1
+					if has_additional_triggers > 1:
+						# give muted role
+						mutedrole = discord.utils.get(message.guild.roles, name='Muted')
+						await message.author.add_roles(mutedrole)
+						# post message in staff channel
+						reporttarget = self.bot.get_channel(config.reporttarget)
+						time = message.created_at
+						await reporttarget.send(
+							embed=discord.Embed(
+								title=(
+									'Muted for potential nitro spam - '
+									+ message.author.mention + ' in ' + message.channel.mention
+									+ ' on ' + str(time)[:-7] + ' UTC:'
+								),
+								color=discord.Color.blue(),
+								description=(
+									message.content
+									# Workaround for mentions not working in embed title on windows
+									+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
+								)
+							)
+						)
+						# post response message so that user knows what is going on
+						await message.channel.send(
+							embed=discord.Embed(
+								colour=discord.Colour(0xff0000),
+								description=(
+									message.author.mention + ' you have been muted due to potential nitro spam. '
+									+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
+								)
+							)
+						)
+						# delete flagged message
+						await message.delete()
 		if 'liquidpedia' in message.content.lower():
 			await message.channel.send(
 				embed=discord.Embed(
