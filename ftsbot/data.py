@@ -53,6 +53,7 @@ wikis = [
 	'starcraft2',
 	'stormgate',
 	'teamfortress',
+	'tetris',
 	'tft',
 	'trackmania',
 	'underlords',
@@ -60,6 +61,7 @@ wikis = [
 	'warcraft',
 	'wildrift',
 	'worldofwarcraft',
+	'zula',
 ]
 
 lies = [
@@ -129,12 +131,14 @@ botroles = [
 	'Stormgate',
 	'Team Fortress',
 	'Teamfight Tactics',
+	'Tetris',
 	'TrackMania',
 	'Underlords',
 	'VALORANT',
 	'Warcraft',
 	'Wild Rift',
 	'World of Warcraft',
+	'Zula',
 
 	'Arabic',
 	'Belarusian',
