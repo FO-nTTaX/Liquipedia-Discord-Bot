@@ -187,7 +187,7 @@ class antispam(
 						)
 						# delete flagged message
 						await message.delete()
-		if 'liquidpedia' in message.content.lower():
+		if 'liquidpedia' in unidecode(message.content).lower():
 			await message.channel.send(
 				embed=discord.Embed(
 					colour=discord.Colour(0xff0000),
