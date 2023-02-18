@@ -13,6 +13,7 @@ from ftsbot import data
 from ftsbot.ui.reportform import reportform
 from unidecode import unidecode
 
+
 class antispam(
 	commands.Cog
 ):
