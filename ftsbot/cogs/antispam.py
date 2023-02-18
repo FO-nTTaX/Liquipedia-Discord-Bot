@@ -190,13 +190,14 @@ class antispam(
 		bad_words = [
 			'liquidpedia',
 			'liquidredia',
+			'liquidpeia',
 		]
 		if any(bad_word in unidecode(message.content).lower() for bad_word in bad_words):
 			await message.channel.send(
 				embed=discord.Embed(
 					colour=discord.Colour(0xff0000),
 					description=(
-						'It is **Liquipedia**, only one d in the name! Naughty-counter of '
+						'It is **Liquipedia**, please educate youurself on the spelling! Naughty-counter of '
 						+ message.author.name + ' has been incremented.'
 					)
 				)
