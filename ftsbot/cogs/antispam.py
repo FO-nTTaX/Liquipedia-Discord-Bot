@@ -187,7 +187,11 @@ class antispam(
 						)
 						# delete flagged message
 						await message.delete()
-		if 'liquidpedia' in unidecode(message.content).lower():
+		bad_words = [
+			'liquidpedia',
+			'liquidredia',
+		]
+		if any(bad_word in unidecode(message.content).lower() for bad_word in bad_words):
 			await message.channel.send(
 				embed=discord.Embed(
 					colour=discord.Colour(0xff0000),
