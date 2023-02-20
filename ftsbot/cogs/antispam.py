@@ -188,6 +188,8 @@ class antispam(
 						# delete flagged message
 						await message.delete()
 		bad_words = [
+			'liknidpedia',
+			'likvidpedia',
 			'liquidpedia',
 			'liquidredia',
 			'liquidpeia',
