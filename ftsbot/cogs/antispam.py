@@ -197,7 +197,7 @@ class antispam(
 				embed=discord.Embed(
 					colour=discord.Colour(0xff0000),
 					description=(
-						'It is **Liquipedia**, please educate youurself on the spelling! Naughty-counter of '
+						'It is **Liquipedia**, please educate yourself on the spelling! Naughty-counter of '
 						+ message.author.name + ' has been incremented.'
 					)
 				)
