@@ -176,6 +176,7 @@ botroles = [
 	'Vietnamese',
 
 	'Announcements',
+	'App Announcements',
 	'CS Predictions',
 	'Game Night',
 	'ML Predictions',
