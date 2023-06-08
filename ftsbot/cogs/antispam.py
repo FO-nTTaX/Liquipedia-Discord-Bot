@@ -5,6 +5,7 @@
 # Version 4.0.3
 
 import asyncio
+from datetime import timedelta
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -52,9 +53,8 @@ class antispam(
 					has_exception_role = True
 					break
 			if not has_exception_role:
-				# give muted role
-				mutedrole = discord.utils.get(message.guild.roles, name='Muted')
-				await message.author.add_roles(mutedrole)
+				# timeout user
+				await message.author.timeout(timedelta(weeks=1))
 				# post message in staff channel
 				reporttarget = self.bot.get_channel(config.reporttarget)
 				time = message.created_at
@@ -102,9 +102,8 @@ class antispam(
 					has_exception_role = True
 					break
 			if has_bad_word and not has_exception_role:
-				# give muted role
-				mutedrole = discord.utils.get(message.guild.roles, name='Muted')
-				await message.author.add_roles(mutedrole)
+				# timeout user
+				await message.author.timeout(timedelta(weeks=1))
 				# post message in staff channel
 				reporttarget = self.bot.get_channel(config.reporttarget)
 				time = message.created_at
@@ -154,9 +153,8 @@ class antispam(
 						if trigger_word in cleaned_message_content:
 							has_additional_triggers = has_additional_triggers + 1
 					if has_additional_triggers > 1:
-						# give muted role
-						mutedrole = discord.utils.get(message.guild.roles, name='Muted')
-						await message.author.add_roles(mutedrole)
+						# timeout user
+						await message.author.timeout(timedelta(weeks=1))
 						# post message in staff channel
 						reporttarget = self.bot.get_channel(config.reporttarget)
 						time = message.created_at
