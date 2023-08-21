@@ -260,7 +260,7 @@ class textcommands(
 		)
 
 	@app_commands.command(
-		description='Tell people to just ask!'
+		description='Tell people the minimum requirements for admin requests!'
 	)
 	async def adminresquestrequirements(
 		self,
