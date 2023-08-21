@@ -262,7 +262,7 @@ class textcommands(
 	@app_commands.command(
 		description='Tell people to just ask!'
 	)
-	async def adminResquestRequirements(
+	async def adminresquestrequirements(
 		self,
 		interaction: discord.Interaction
 	):
