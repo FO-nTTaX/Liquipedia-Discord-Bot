@@ -260,6 +260,37 @@ class textcommands(
 		)
 
 	@app_commands.command(
+		description='Tell people to just ask!'
+	)
+	async def adminResquestRequirements(
+		self,
+		interaction: discord.Interaction
+	):
+		await interaction.response.send_message(
+			embed=discord.Embed(
+				colour=discord.Colour(0x00ffff),
+				title=('What are the minimum requirements for any admin requests?'),
+				description=(
+					'__What are the minimum requirements for any admin requests?__\n'
+					+ '- provide an explanation what should be done\n'
+					+ '- be as precise as possible and include links where possible\n'
+					+ ' - for bans, it helps to link to contributions pages or edits that are ban worthy\n'
+					+ ' - for changes on locked pages, link to the page that is to be changed\n'
+					+ ' - for bot runs if you know the exact command it is appreciated, if you do not '
+					+ 'know it write down exactly what is to be done and on which wiki\n'
+					+ '- explain why it should be done\n'
+					+ ' - for changes on locked pages (e.g. css sheets), this includes specific examples '
+					+ 'that get fixed/improved due to the change and if possible also a reasoning why it '
+					+ 'doesn\'t break other stuff\n'
+					+ ' - for bans, it includes the reasons why you think a ban is needed as well as an '
+					+ 'example (a change they did that you think is ban-worthy)\n'
+					+ '- be polite and patient instead of demanding, remember that admins help on liquipedia '
+     					+ 'voluntarily in their free time'
+				)
+			)
+		)
+
+	@app_commands.command(
 		description='Lickypiddy!'
 	)
 	@app_commands.checks.cooldown(
