@@ -285,7 +285,7 @@ class textcommands(
 					+ ' - for bans, it includes the reasons why you think a ban is needed as well as an '
 					+ 'example (a change they did that you think is ban-worthy)\n'
 					+ '- be polite and patient instead of demanding, remember that admins help on liquipedia '
-     					+ 'voluntarily in their free time'
+					+ 'voluntarily in their free time'
 				)
 			)
 		)
