@@ -276,7 +276,7 @@ class textcommands(
 					+ '- be as precise as possible and include links where possible\n'
 					+ ' - for bans, it helps to link to contributions pages or edits that are ban worthy\n'
 					+ ' - for changes on locked pages, link to the page that is to be changed\n'
-					+ ' - for bot runs if you know the exact command it is appreciated, if you do not '
+					+ ' - for bot runs if, you know the exact command it is appreciated, if you do not '
 					+ 'know it write down exactly what is to be done and on which wiki\n'
 					+ '- explain why it should be done\n'
 					+ ' - for changes on locked pages (e.g. css sheets), this includes specific examples '
