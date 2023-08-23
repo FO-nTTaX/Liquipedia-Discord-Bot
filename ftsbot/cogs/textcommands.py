@@ -262,7 +262,7 @@ class textcommands(
 	@app_commands.command(
 		description='Tell people the minimum requirements for admin requests!'
 	)
-	async def adminresquestrequirements(
+	async def adminrequestrequirements(
 		self,
 		interaction: discord.Interaction
 	):
