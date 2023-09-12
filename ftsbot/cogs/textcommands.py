@@ -519,3 +519,21 @@ class textcommands(
 	):
 		if isinstance(error, app_commands.CommandOnCooldown):
 			await interaction.response.send_message(str(error), ephemeral=True)
+
+	@app_commands.command(
+		description='Help on how to submit a photo'
+	)
+	async def photos(
+		self,
+		interaction: discord.Interaction
+	):
+		await interaction.response.send_message(
+			embed=discord.Embed(
+				colour=discord.Colour(0x00ffff),
+				description=(
+					'Please have the copyright owner email the image to "photos@liquipedia.net", '
+					+ 'alongside a statement giving their permission for it to be used on liquipedia.'
+					+ ' Please also include what wiki the image is for and the player in question.'
+				)
+			)
+		)
