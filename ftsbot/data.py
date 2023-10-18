@@ -38,6 +38,7 @@ wikis = [
 	'mobilelegends',
 	'naraka',
 	'omegastrikers',
+	'osu',
 	'overwatch',
 	'paladins',
 	'pokemon',
@@ -63,6 +64,7 @@ wikis = [
 	'valorant',
 	'warcraft',
 	'wildrift',
+	'worldoftanks',
 	'worldofwarcraft',
 	'zula',
 ]
@@ -120,6 +122,7 @@ botroles = [
 	'Mobile Legends',
 	'Naraka',
 	'Omega Strikers',
+	'Osu',
 	'Overwatch',
 	'Paladins',
 	'Pokémon',
@@ -143,6 +146,7 @@ botroles = [
 	'VALORANT',
 	'Warcraft',
 	'Wild Rift',
+	'World of Tanks',
 	'World of Warcraft',
 	'Zula',
 
