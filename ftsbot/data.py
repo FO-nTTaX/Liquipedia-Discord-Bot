@@ -122,7 +122,7 @@ botroles = [
 	'Mobile Legends',
 	'Naraka',
 	'Omega Strikers',
-	'Osu',
+	'osu',
 	'Overwatch',
 	'Paladins',
 	'Pokémon',
