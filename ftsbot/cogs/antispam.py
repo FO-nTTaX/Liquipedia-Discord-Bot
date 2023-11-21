@@ -135,7 +135,7 @@ class antispam(
 				)
 				# delete flagged message
 				await message.delete()
-		elif re.search(r'\[steamcommunity.com.*?\]\(https?://(?!steamcommunity\.com)', message.content.lower()) != None:
+		elif re.search(r'\[steamcommunity.com.*?\]\(https?://(?!steamcommunity\.com)', message.content.lower()) is not None:
 			has_exception_role = False
 			for role in message.author.roles:
 				if role.name in [
