@@ -12,6 +12,7 @@ from discord.ext import commands
 from ftsbot import config
 from ftsbot import data
 from ftsbot.ui.reportform import reportform
+import re
 from unidecode import unidecode
 
 
@@ -128,6 +129,50 @@ class antispam(
 						colour=discord.Colour(0xff0000),
 						description=(
 							message.author.mention + ' you have been muted due to potential discord invite spam. '
+							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
+						)
+					)
+				)
+				# delete flagged message
+				await message.delete()
+		elif re.search('\[steamcommunity.com.*?\]\(https?://(?!steamcommunity\.com)', message.content.lower()) != None:
+			has_exception_role = False
+			for role in message.author.roles:
+				if role.name in [
+					'Discord Admins',
+					'Liquipedia Employee',
+					'Administrator',
+					'Bot',
+				]:
+					has_exception_role = True
+					break
+			if not has_exception_role:
+				# timeout user
+				await message.author.timeout(timedelta(weeks=1))
+				# post message in staff channel
+				reporttarget = self.bot.get_channel(config.reporttarget)
+				time = message.created_at
+				await reporttarget.send(
+					embed=discord.Embed(
+						title=(
+							'Muted for potential steam store scam link spam - '
+							+ message.author.mention + ' in ' + message.channel.mention
+							+ ' on ' + str(time)[:-7] + ' UTC:'
+						),
+						color=discord.Color.blue(),
+						description=(
+							message.content
+							# Workaround for mentions not working in embed title on windows
+							+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
+						)
+					)
+				)
+				# post response message so that user knows what is going on
+				await message.channel.send(
+					embed=discord.Embed(
+						colour=discord.Colour(0xff0000),
+						description=(
+							message.author.mention + ' you have been muted due to potential discord steam store scam link spam. '
 							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
 						)
 					)
