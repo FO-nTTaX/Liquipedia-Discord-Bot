@@ -237,6 +237,7 @@ class antispam(
 			'liquidpedia',
 			'liquidredia',
 			'liquidpeia',
+			'liqupiedia',
 		]
 		if any(bad_word in unidecode(message.content).lower() for bad_word in bad_words):
 			await message.channel.send(
