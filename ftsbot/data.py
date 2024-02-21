@@ -194,6 +194,7 @@ botroles = [
 	'Random Stats of the Day',
 	'R6 Predictions',
 	'Templates',
+	'VAL Predictions',
 ]
 
 # Words regularly used in invite spams
