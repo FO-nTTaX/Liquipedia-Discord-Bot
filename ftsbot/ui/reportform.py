@@ -45,7 +45,7 @@ class reportform(
 				),
 				description=(
 					'Message content:\n' + self.formatquote(self.message.clean_content)
-					+ '\n\nReport reason by :' interaction.user.mention
+					+ '\n\nReport reason by :' + interaction.user.mention
 					+ '\n' + self.formatquote(self.whatswrong.value)
 					+ '\n\nUser: ' + self.message.author.mention + ' in ' + self.message.jump_url
 				)
