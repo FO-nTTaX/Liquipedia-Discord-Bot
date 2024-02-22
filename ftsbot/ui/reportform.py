@@ -37,18 +37,20 @@ class reportform(
 		)
 
 		reporttarget = self.bot.get_channel(config.reporttarget)
-		text = (
-			interaction.user.mention
-			+ '** has reported this message:**\n\n'
-			+ self.message.jump_url
-			+ ' by '
-			+ self.message.author.mention
-			+ ' with the following content:\n\n'
-			+ self.formatquote(self.message.clean_content)
-			+ '\n\n**The following reason has been given:**\n\n'
-			+ self.formatquote(self.whatswrong.value)
+		await reporttarget.send(
+			embed=discord.Embed(
+				colour=discord.Colour.red(),
+				title=(
+					interaction.user.mention + '** has reported a message**'
+				),
+				description=(
+					'Message content:\n' + self.formatquote(self.message.clean_content)
+					+ '\n\nReport reason:\n' + self.formatquote(self.whatswrong.value)
+					# Workaround for mentions not working in embed title on windows
+					+ '\n\nUser: ' + self.message.author.mention + ' in ' + self.message.jump_url
+				)
+			)
 		)
-		await reporttarget.send(text)
 
 	def formatquote(
 		self,
