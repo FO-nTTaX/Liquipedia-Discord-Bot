@@ -41,12 +41,12 @@ class reportform(
 			embed=discord.Embed(
 				colour=discord.Colour.red(),
 				title=(
-					interaction.user.mention + '** has reported a message**'
+					'A message has been reported'
 				),
 				description=(
 					'Message content:\n' + self.formatquote(self.message.clean_content)
-					+ '\n\nReport reason:\n' + self.formatquote(self.whatswrong.value)
-					# Workaround for mentions not working in embed title on windows
+					+ '\n\nReport reason by :' interaction.user.mention
+					+ '\n' + self.formatquote(self.whatswrong.value)
 					+ '\n\nUser: ' + self.message.author.mention + ' in ' + self.message.jump_url
 				)
 			)
