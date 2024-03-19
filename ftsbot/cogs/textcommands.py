@@ -291,6 +291,45 @@ class textcommands(
 		)
 
 	@app_commands.command(
+		description='Inform someone as to why they could be getting Rate Limited!'
+	)
+	async def ratelimited(
+		self,
+		interaction: discord.Interaction
+	):
+		await interaction.response.send_message(
+			embed=discord.Embed(
+				colour=discord.Colour(0x00ffff),
+				title=('What actions could result in being Rate Limited?'),
+				description=(
+					'__What actions could result in being Rate Limited?__\n'
+					+ '- using a scrapper or similar bot\n'
+					+ ' - note that using a scrapper is against the liquipedia Terms of Service,
+     					+ 'breach of TOS could result in a ban\n'
+					+ '- opening numerous pages in quick succession\n'
+					+ ' - older tournament pages have been known to trigger being rate limited more than other page types\n'
+					+ '- your IP address is used by others\n'
+					+ ' - dynamic IP address, this is when your IP address is continuously changed,
+     					+ 'potentially landing on an IP that is rate limited\n'
+					+ ' - using public wifi connections such as universities or internet cafes\n'
+					+ ' - multiple users on the same internet accessing pages in rapid succession\n'
+					+ '- using browser extensions that unnecessary network request, or pre-fetching\n'
+					+ '- corporate or school firewalls/content scanners\n'
+					+ '- potential malware on your PC or network\n'
+					+ '__Measures to prevent or resolve being Rate Limited__\n'
+					+ '- discontinue any instances of aforemntioned causes\n'
+					+ '- get a static IP address\n'
+					+ ' - alternatively you could download the free Cloudflare VPN\n'
+     					+ '- wait for a liquipedia employee to assist you, note that you IP address may be requested
+	  				+ 'you will be helped at their earliest convenience\n'
+	  				+ '- if none of the previous options work you should contact your internet service provider\n'
+					+ '- if this is only your first time being rate limited you can complete the CAPTCHA to unblock yourself.'
+					+ 'being continuosly rate limited can result in it becoming permanent\n'
+				)
+			)
+		)
+
+	@app_commands.command(
 		description='Lickypiddy!'
 	)
 	@app_commands.checks.cooldown(
