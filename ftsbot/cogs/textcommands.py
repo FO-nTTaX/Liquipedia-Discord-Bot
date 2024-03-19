@@ -309,7 +309,7 @@ class textcommands(
 					+ '- opening numerous pages in quick succession\n'
 					+ ' - older tournament pages have been known to trigger being rate limited more than other page types\n'
 					+ '- your IP address is used by others\n'
-					+ ' - dynamic IP address, this is when your IP address is continuously changed,
+					+ ' - dynamic IP address, this is when your IP address is continuously changed,'
      					+ 'potentially landing on an IP that is rate limited\n'
 					+ ' - using public wifi connections such as universities or internet cafes\n'
 					+ ' - multiple users on the same internet accessing pages in rapid succession\n'
@@ -320,7 +320,7 @@ class textcommands(
 					+ '- discontinue any instances of aforemntioned causes\n'
 					+ '- get a static IP address\n'
 					+ ' - alternatively you could download the free Cloudflare VPN\n'
-     					+ '- wait for a liquipedia employee to assist you, note that you IP address may be requested
+     					+ '- wait for a liquipedia employee to assist you, note that you IP address may be requested'
 	  				+ 'you will be helped at their earliest convenience\n'
 	  				+ '- if none of the previous options work you should contact your internet service provider\n'
 					+ '- if this is only your first time being rate limited you can complete the CAPTCHA to unblock yourself.'
