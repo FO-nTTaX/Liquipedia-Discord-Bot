@@ -317,14 +317,14 @@ class textcommands(
 					+ '- corporate or school firewalls/content scanners\n'
 					+ '- potential malware on your PC or network\n'
 					+ '__Measures to prevent or resolve being Rate Limited__\n'
-					+ '- discontinue any instances of aforemntioned causes\n'
+					+ '- discontinue any instances of aforementioned causes\n'
 					+ '- get a static IP address\n'
 					+ ' - alternatively you could download the free Cloudflare VPN\n'
      					+ '- wait for a liquipedia employee to assist you, note that you IP address may be requested'
 	  				+ 'you will be helped at their earliest convenience\n'
 	  				+ '- if none of the previous options work you should contact your internet service provider\n'
-					+ '- if this is only your first time being rate limited you can complete the CAPTCHA to unblock yourself.'
-					+ 'being continuosly rate limited can result in it becoming permanent\n'
+					+ '- if this is only your first time being rate limited you can complete the CAPTCHA to unblock yourself'
+					+ 'being continuously rate limited can result in it becoming permanent\n'
 				)
 			)
 		)
