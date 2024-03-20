@@ -291,7 +291,7 @@ class textcommands(
 		)
 
 	@app_commands.command(
-		description='Inform someone as to why they could be getting Rate Limited!'
+		description='Inform someone as to why they could be getting rate limited!'
 	)
 	async def ratelimited(
 		self,
@@ -300,11 +300,11 @@ class textcommands(
 		await interaction.response.send_message(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ffff),
-				title=('What actions could result in being Rate Limited?'),
+				title=('What actions could result in being rate limited?'),
 				description=(
-					'__What actions could result in being Rate Limited?__\n'
+					'__What actions could result in being rate limited?__\n'
 					+ '- using a scrapper or similar bot\n'
-					+ ' - note that using a scrapper is against the liquipedia terms of service '
+					+ ' - note that using a scrapper is against the liquipedia '[terms of service](https://tl.net/tou/)'\n'
 					+ 'breach of TOS can result in a ban\n'
 					+ '- opening numerous pages in quick succession\n'
 					+ ' - older tournament pages have been known to trigger being rate limited more than other page types\n'
@@ -316,10 +316,9 @@ class textcommands(
 					+ '- using browser extensions that cause unnecessary network requests or pre-fetching\n'
 					+ '- corporate or school firewalls/content scanners\n'
 					+ '- potential malware on your PC or network\n'
-					+ '__Measures to prevent or resolve being Rate Limited__\n'
+					+ '__Measures to prevent or resolve being rate limited__\n'
 					+ '- discontinue any instances of aforementioned causes\n'
 					+ '- get a static IP address\n'
-					+ ' - alternatively you could download the free Cloudflare VPN\n'
 					+ '- wait for a liquipedia employee to assist you, note that your IP address may be requested '
 					+ 'you will be helped at their earliest convenience\n'
 					+ '- if none of the previous options work you should contact your internet service provider\n'
