@@ -312,7 +312,7 @@ class textcommands(
 					+ ' - using a dynamic IP, this is when your IP address is continuously changed, '
 					+ 'potentially landing on an IP that is rate limited\n'
 					+ ' - using public wifi connections such as universities or internet cafes\n'
-					+ ' - multiple users on the same internet accessing pages in rapid succession\n'
+					+ ' - multiple users on the same internet connection accessing pages in rapid succession\n'
 					+ '- using browser extensions that cause unnecessary network requests or pre-fetching\n'
 					+ '- corporate or school firewalls/content scanners\n'
 					+ '- potential malware on your PC or network\n'
