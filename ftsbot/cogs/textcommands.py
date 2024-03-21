@@ -319,10 +319,10 @@ class textcommands(
 					+ '__Measures to prevent or resolve being rate limited__\n'
 					+ '- discontinue any instances of aforementioned causes\n'
 					+ '- get a static IP address\n'
-					+ '- wait for a Liquipedia employee to assist you, note that your IP address may be requested '
+					+ '- wait for a Liquipedia employee to assist you, note that your IP address may be requested, '
 					+ 'you will be helped at their earliest convenience\n'
 					+ '- if none of the previous options work you should contact your internet service provider\n'
-					+ '- if this is only your first time being rate limited you can complete the CAPTCHA to unblock yourself '
+					+ '- if this is only your first time being rate limited you can complete the CAPTCHA to unblock yourself, '
 					+ 'being continuously rate limited can result in it becoming permanent'
 				)
 			)
