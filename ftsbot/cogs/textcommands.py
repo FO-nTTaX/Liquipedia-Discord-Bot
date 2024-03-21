@@ -303,7 +303,7 @@ class textcommands(
 				title=('What actions could result in being rate limited?'),
 				description=(
 					'__What actions could result in being rate limited?__\n'
-					+ '- using a scrapper or similar bot\n'
+					+ '- using a scraper or similar bot\n'
 					+ ' - note that using a scrapper is against the Liquipedia [terms of service](https://tl.net/tou/)\n'
 					+ 'breach of TOS can result in a ban\n'
 					+ '- opening numerous pages in quick succession\n'
