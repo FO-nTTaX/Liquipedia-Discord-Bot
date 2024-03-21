@@ -304,7 +304,7 @@ class textcommands(
 				description=(
 					'__What actions could result in being rate limited?__\n'
 					+ '- using a scraper or similar bot\n'
-					+ ' - note that using a scrapper is against the Liquipedia [terms of service](https://tl.net/tou/)\n'
+					+ ' - note that using a scraper is against the Liquipedia [terms of service](https://tl.net/tou/)\n'
 					+ 'breach of TOS can result in a ban\n'
 					+ '- opening numerous pages in quick succession\n'
 					+ ' - older tournament pages have been known to trigger being rate limited more than other page types\n'
