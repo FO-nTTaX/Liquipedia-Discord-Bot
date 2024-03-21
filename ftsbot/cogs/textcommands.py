@@ -284,7 +284,7 @@ class textcommands(
 					+ 'doesn\'t break other stuff\n'
 					+ ' - for bans, it includes the reasons why you think a ban is needed as well as an '
 					+ 'example (a change they did that you think is ban-worthy)\n'
-					+ '- be polite and patient instead of demanding, remember that admins help on liquipedia '
+					+ '- be polite and patient instead of demanding, remember that admins help on Liquipedia '
 					+ 'voluntarily in their free time'
 				)
 			)
@@ -304,7 +304,7 @@ class textcommands(
 				description=(
 					'__What actions could result in being rate limited?__\n'
 					+ '- using a scrapper or similar bot\n'
-					+ ' - note that using a scrapper is against the liquipedia '[terms of service](https://tl.net/tou/)'\n'
+					+ ' - note that using a scrapper is against the Liquipedia [terms of service](https://tl.net/tou/)\n'
 					+ 'breach of TOS can result in a ban\n'
 					+ '- opening numerous pages in quick succession\n'
 					+ ' - older tournament pages have been known to trigger being rate limited more than other page types\n'
@@ -319,7 +319,7 @@ class textcommands(
 					+ '__Measures to prevent or resolve being rate limited__\n'
 					+ '- discontinue any instances of aforementioned causes\n'
 					+ '- get a static IP address\n'
-					+ '- wait for a liquipedia employee to assist you, note that your IP address may be requested '
+					+ '- wait for a Liquipedia employee to assist you, note that your IP address may be requested '
 					+ 'you will be helped at their earliest convenience\n'
 					+ '- if none of the previous options work you should contact your internet service provider\n'
 					+ '- if this is only your first time being rate limited you can complete the CAPTCHA to unblock yourself '
@@ -556,7 +556,7 @@ class textcommands(
 				colour=discord.Colour(0x00ffff),
 				description=(
 					'Please have the copyright owner email the image to "photos@liquipedia.net", '
-					+ 'alongside a statement giving their permission for it to be used on liquipedia.'
+					+ 'alongside a statement giving their permission for it to be used on Liquipedia.'
 					+ ' Please also include what wiki the image is for and the player in question.'
 				)
 			)
