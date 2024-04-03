@@ -570,6 +570,9 @@ class textcommands(
 	@app_commands.command(
 		description='Help on how to submit a photo'
 	)
+	@app_commands.describe(
+		user='Which user is the guidelines directed towards?'
+	)
 	async def photos(
 		self,
 		interaction: discord.Interaction,
