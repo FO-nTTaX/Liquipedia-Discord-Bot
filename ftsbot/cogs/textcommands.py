@@ -427,6 +427,7 @@ class textcommands(
 	)
 	@app_commands.describe(
 		wiki='Which wiki do you want the notability guidelines for?',
+		user='Which user is the guidelines directed towards?'
 	)
 	@app_commands.autocomplete(
 		wiki=autocomplete.wiki
@@ -434,14 +435,22 @@ class textcommands(
 	async def notability(
 		self,
 		interaction: discord.Interaction,
-		wiki: typing.Optional[str]
+		wiki: typing.Optional[str],
+		user: typing.Optional[discord.User]
 	):
 		usewiki = None
 		if wiki in data.wikis:
 			usewiki = wiki
 		elif isinstance(interaction.channel, discord.channel.TextChannel) and interaction.channel.name in data.wikis:
 			usewiki = interaction.channel.name
-		if usewiki is not None:
+		if usewiki is None:
+			await interaction.response.send_message(
+				embed=discord.Embed(
+					colour=discord.Colour(0xff0000),
+					description='No wiki specified'
+				)
+			)
+		if user is None:
 			await interaction.response.send_message(
 				embed=discord.Embed(
 					colour=discord.Colour(0x00ff00),
@@ -451,10 +460,24 @@ class textcommands(
 		else:
 			await interaction.response.send_message(
 				embed=discord.Embed(
-					colour=discord.Colour(0xff0000),
-					description='No wiki specified'
+					colour=discord.Colour(0x00ff00),
+					description=(
+						'Hi ' + user.mention +',\n\n'
+						+ 'Please have a read of [this document](https://liquipedia.net/' + usewiki + '/Liquipedia:Notability_Guidelines) about page notability.\n\n'
+
+						+ 'Almost all of ' + usewiki + '\'s day-to-day edits are made by volunteers. '
+						+ 'These guidelines are in place to make sure that they aren\'t overwhelmed '
+						+ 'by the amount of pages that need to be kept up-to-date.\n\n'
+
+						+ 'If you think we\'ve made a mistake while determining the notability of a '
+						+ 'player, organisation, or broadcast talent member, please let us know in this '
+						+ 'channel. Please include links to social media posts, news articles or your own materials when doing so!\n\n' +
+
+						+ 'Thanks,\n' + interaction.user.name
+					)
 				)
 			)
+
 
 	@app_commands.command(
 		description='Edit Statistics'
@@ -549,15 +572,34 @@ class textcommands(
 	)
 	async def photos(
 		self,
-		interaction: discord.Interaction
+		interaction: discord.Interaction,
+		user: typing.Optional[discord.User]
 	):
+		if user is None:
+			await interaction.response.send_message(
+				embed=discord.Embed(
+					colour=discord.Colour(0x00ffff),
+					description=(
+						'Please have the copyright owner email the image to "photos@liquipedia.net", '
+						+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
+						+ 'Please also include what wiki the image is for and the player in question.'
+					)
+				)
+			)
 		await interaction.response.send_message(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ffff),
 				description=(
-					'Please have the copyright owner email the image to "photos@liquipedia.net", '
-					+ 'alongside a statement giving their permission for it to be used on Liquipedia.'
-					+ ' Please also include what wiki the image is for and the player in question.'
+					'Hi ' + user.mention + ',\n\n'
+					+ 'Due to copyright law we cannot include photos without permission from their '
+					+ 'owner. Often this will be either the photographer themself or the organizer '
+					+ 'of the event.\n\n'
+
+					+ 'Please have the copyright owner email the image to "photos@liquipedia.net", '
+					+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
+					+ 'Please also include what wiki the image is for and the player in question.\n\n'
+
+					+ 'Thanks,\n' + interaction.user.name
 				)
 			)
 		)
