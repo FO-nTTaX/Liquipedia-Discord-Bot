@@ -450,6 +450,7 @@ class textcommands(
 					description='No wiki specified'
 				)
 			)
+			return
 		if user is None:
 			await interaction.response.send_message(
 				embed=discord.Embed(
@@ -457,13 +458,15 @@ class textcommands(
 					description='[Notability Guidelines](https://liquipedia.net/' + usewiki + '/Liquipedia:Notability_Guidelines)'
 				)
 			)
+			return
 		else:
 			await interaction.response.send_message(
 				embed=discord.Embed(
 					colour=discord.Colour(0x00ff00),
 					description=(
-						'Hi ' + user.mention +',\n\n'
-						+ 'Please have a read of [this document](https://liquipedia.net/' + usewiki + '/Liquipedia:Notability_Guidelines) about page notability.\n\n'
+						'Hi ' + user.mention + ',\n\n'
+						+ 'Please have a read of [this document](https://liquipedia.net/' + usewiki + '/Liquipedia:Notability_Guidelines) '
+						+ 'about page notability.\n\n'
 
 						+ 'Almost all of ' + usewiki + '\'s day-to-day edits are made by volunteers. '
 						+ 'These guidelines are in place to make sure that they aren\'t overwhelmed '
@@ -477,7 +480,6 @@ class textcommands(
 					)
 				)
 			)
-
 
 	@app_commands.command(
 		description='Edit Statistics'
@@ -589,6 +591,7 @@ class textcommands(
 					)
 				)
 			)
+			return
 		await interaction.response.send_message(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ffff),
