@@ -474,9 +474,9 @@ class textcommands(
 
 					+ 'If you think we\'ve made a mistake while determining the notability of a '
 					+ 'player, organisation, or broadcast talent member, please let us know in this '
-					+ 'channel. Please include links to social media posts, news articles or your own materials when doing so!\n\n' +
+					+ 'channel. Please include links to social media posts, news articles or your own materials when doing so!\n\n'
 
-					+ 'Thanks,\n' + str(interaction.user.name)
+					+ 'Thanks,\n' + interaction.user.name
 				)
 			)
 		)
@@ -517,7 +517,7 @@ class textcommands(
 					+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
 					+ 'Please also include what wiki the image is for and the player in question.\n\n'
 
-					+ 'Thanks,\n' + str(interaction.user.name)
+					+ 'Thanks,\n' + interaction.user.name
 				)
 			)
 		)
