@@ -447,9 +447,9 @@ class textcommands(
 			await interaction.response.send_message(
 				embed=discord.Embed(
 					colour=discord.Colour(0xff0000),
-					description='No wiki specified',
-					ephemeral=True
-				)
+					description='No wiki specified'
+				),
+				ephemeral=True
 			)
 			return
 		if user is None:
