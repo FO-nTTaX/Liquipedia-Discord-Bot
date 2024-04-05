@@ -523,6 +523,15 @@ class textcommands(
 	):
 		await interaction.response.send_message('https://files.catbox.moe/o8tify.gif')
 
+	@thinking.error
+	async def on_thinking_error(
+		self,
+		interaction: discord.Interaction,
+		error: app_commands.AppCommandError
+	):
+		if isinstance(error, app_commands.CommandOnCooldown):
+			await interaction.response.send_message(str(error), ephemeral=True)
+
 	@app_commands.command(
 		description='Troll'
 	)
@@ -560,15 +569,6 @@ class textcommands(
 				)
 			)
 
-	@thinking.error
-	async def on_thinking_error(
-		self,
-		interaction: discord.Interaction,
-		error: app_commands.AppCommandError
-	):
-		if isinstance(error, app_commands.CommandOnCooldown):
-			await interaction.response.send_message(str(error), ephemeral=True)
-
 	@app_commands.command(
 		description='Help on how to submit a photo'
 	)
@@ -592,6 +592,7 @@ class textcommands(
 				)
 			)
 			return
+		print(interaction.user)
 		await interaction.response.send_message(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ffff),
