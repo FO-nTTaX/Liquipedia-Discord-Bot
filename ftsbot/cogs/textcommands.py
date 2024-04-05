@@ -460,6 +460,7 @@ class textcommands(
 				)
 			)
 			return
+		print(interaction.user)
 		await interaction.response.send_message(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ff00),
@@ -475,6 +476,47 @@ class textcommands(
 					+ 'If you think we\'ve made a mistake while determining the notability of a '
 					+ 'player, organisation, or broadcast talent member, please let us know in this '
 					+ 'channel. Please include links to social media posts, news articles or your own materials when doing so!\n\n' +
+
+					+ 'Thanks,\n' + interaction.user.name
+				)
+			)
+		)
+
+	@app_commands.command(
+		description='Help on how to submit a photo'
+	)
+	@app_commands.describe(
+		user='Which user is the guidelines directed towards?'
+	)
+	async def photos(
+		self,
+		interaction: discord.Interaction,
+		user: typing.Optional[discord.User]
+	):
+		if user is None:
+			await interaction.response.send_message(
+				embed=discord.Embed(
+					colour=discord.Colour(0x00ffff),
+					description=(
+						'Please have the copyright owner email the image to "photos@liquipedia.net", '
+						+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
+						+ 'Please also include what wiki the image is for and the player in question.'
+					)
+				)
+			)
+			return
+		await interaction.response.send_message(
+			embed=discord.Embed(
+				colour=discord.Colour(0x00ffff),
+				description=(
+					'Hi ' + user.mention + ',\n\n'
+					+ 'Due to copyright law we cannot include photos without permission from their '
+					+ 'owner. Often this will be either the photographer themself or the organizer '
+					+ 'of the event.\n\n'
+
+					+ 'Please have the copyright owner email the image to "photos@liquipedia.net", '
+					+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
+					+ 'Please also include what wiki the image is for and the player in question.\n\n'
 
 					+ 'Thanks,\n' + interaction.user.name
 				)
@@ -568,45 +610,3 @@ class textcommands(
 					)
 				)
 			)
-
-	@app_commands.command(
-		description='Help on how to submit a photo'
-	)
-	@app_commands.describe(
-		user='Which user is the guidelines directed towards?'
-	)
-	async def photos(
-		self,
-		interaction: discord.Interaction,
-		user: typing.Optional[discord.User]
-	):
-		if user is None:
-			await interaction.response.send_message(
-				embed=discord.Embed(
-					colour=discord.Colour(0x00ffff),
-					description=(
-						'Please have the copyright owner email the image to "photos@liquipedia.net", '
-						+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
-						+ 'Please also include what wiki the image is for and the player in question.'
-					)
-				)
-			)
-			return
-		print(interaction.user)
-		await interaction.response.send_message(
-			embed=discord.Embed(
-				colour=discord.Colour(0x00ffff),
-				description=(
-					'Hi ' + user.mention + ',\n\n'
-					+ 'Due to copyright law we cannot include photos without permission from their '
-					+ 'owner. Often this will be either the photographer themself or the organizer '
-					+ 'of the event.\n\n'
-
-					+ 'Please have the copyright owner email the image to "photos@liquipedia.net", '
-					+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
-					+ 'Please also include what wiki the image is for and the player in question.\n\n'
-
-					+ 'Thanks,\n' + interaction.user.name
-				)
-			)
-		)
