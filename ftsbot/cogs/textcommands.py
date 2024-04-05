@@ -460,7 +460,6 @@ class textcommands(
 				)
 			)
 			return
-		print(interaction.user)
 		await interaction.response.send_message(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ff00),
@@ -477,7 +476,7 @@ class textcommands(
 					+ 'player, organisation, or broadcast talent member, please let us know in this '
 					+ 'channel. Please include links to social media posts, news articles or your own materials when doing so!\n\n' +
 
-					+ 'Thanks,\n' + interaction.user.name
+					+ 'Thanks,\n' + str(interaction.user.name)
 				)
 			)
 		)
@@ -518,7 +517,7 @@ class textcommands(
 					+ 'alongside a statement giving their permission for it to be used on Liquipedia. '
 					+ 'Please also include what wiki the image is for and the player in question.\n\n'
 
-					+ 'Thanks,\n' + interaction.user.name
+					+ 'Thanks,\n' + str(interaction.user.name)
 				)
 			)
 		)
