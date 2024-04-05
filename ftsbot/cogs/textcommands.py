@@ -459,27 +459,26 @@ class textcommands(
 				)
 			)
 			return
-		else:
-			await interaction.response.send_message(
-				embed=discord.Embed(
-					colour=discord.Colour(0x00ff00),
-					description=(
-						'Hi ' + user.mention + ',\n\n'
-						+ 'Please have a read of [this document](https://liquipedia.net/' + usewiki + '/Liquipedia:Notability_Guidelines) '
-						+ 'about page notability.\n\n'
+		await interaction.response.send_message(
+			embed=discord.Embed(
+				colour=discord.Colour(0x00ff00),
+				description=(
+					'Hi ' + user.mention + ',\n\n'
+					+ 'Please have a read of [this document](https://liquipedia.net/' + usewiki + '/Liquipedia:Notability_Guidelines) '
+					+ 'about page notability.\n\n'
 
-						+ 'Almost all of ' + usewiki + '\'s day-to-day edits are made by volunteers. '
-						+ 'These guidelines are in place to make sure that they aren\'t overwhelmed '
-						+ 'by the amount of pages that need to be kept up-to-date.\n\n'
+					+ 'Almost all of ' + usewiki + '\'s day-to-day edits are made by volunteers. '
+					+ 'These guidelines are in place to make sure that they aren\'t overwhelmed '
+					+ 'by the amount of pages that need to be kept up-to-date.\n\n'
 
-						+ 'If you think we\'ve made a mistake while determining the notability of a '
-						+ 'player, organisation, or broadcast talent member, please let us know in this '
-						+ 'channel. Please include links to social media posts, news articles or your own materials when doing so!\n\n' +
+					+ 'If you think we\'ve made a mistake while determining the notability of a '
+					+ 'player, organisation, or broadcast talent member, please let us know in this '
+					+ 'channel. Please include links to social media posts, news articles or your own materials when doing so!\n\n' +
 
-						+ 'Thanks,\n' + interaction.user.name
-					)
+					+ 'Thanks,\n' + interaction.user.name
 				)
 			)
+		)
 
 	@app_commands.command(
 		description='Edit Statistics'
