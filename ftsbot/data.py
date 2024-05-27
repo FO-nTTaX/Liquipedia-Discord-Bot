@@ -91,7 +91,7 @@ lies = [
 
 wikiroles = {
 	'editor': 'Editor',
-	'reviewer': 'Reviewer'
+	'reviewer': 'Reviewer',
 }
 
 # Roles the bot can add and remove
