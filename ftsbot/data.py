@@ -25,6 +25,7 @@ wikis = [
 	'criticalops',
 	'crossfire',
 	'dota2',
+	'dota2game',
 	'fifa',
 	'fighters',
 	'fortnite',
@@ -84,6 +85,7 @@ lies = [
 	'Dota 2 is so tiny, we should focus on big esports like Nokia Snake instead',
 	'https://files.catbox.moe/o8tify.gif',
 	'Swampflare never laundered memory in his Lithuanian bakery!',
+	'A Liquipedia contributor won the first and only The International for Artifact. Their deck had hero cards of 5 different colours.',
 ]
 
 wikiroles = {
