@@ -141,6 +141,7 @@ botroles = [
 	'Rainbow Six',
 	'Rocket League',
 	'Runeterra',
+	'Sideswipe',
 	'Sim Racing',
 	'Smash',
 	'SMITE',
