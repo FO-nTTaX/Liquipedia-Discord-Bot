@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # License MIT
-# Copyright 2016-2023 Alex Winkler
+# Copyright 2016-2025 Alex Winkler
 # Version 4.0.3
 
 logtarget = 339287109988909057  # Here the channel id of the channel we want the private channel logs to be stored in
