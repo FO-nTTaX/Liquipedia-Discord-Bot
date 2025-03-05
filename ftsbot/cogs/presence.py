@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2025 Alex Winkler
-# Version 4.0.3
+# Version 4.1.0
 
 import discord
 from discord.ext import commands

@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2025 Alex Winkler
-# Version 4.0.3
+# Version 4.1.0
 
 import os
 envfile = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '.env')

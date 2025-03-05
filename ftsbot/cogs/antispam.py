@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2025 Alex Winkler
-# Version 4.0.3
+# Version 4.1.0
 
 import asyncio
 from datetime import timedelta
@@ -26,6 +26,7 @@ class antispam(
 		self.bot = bot
 		self.reactionspammers = {}
 		self.pingspammers = {}
+		self.lastmessages = []
 
 		self.ctx_report = app_commands.ContextMenu(
 			name='Report to LP Admins',
@@ -44,6 +45,7 @@ class antispam(
 		message
 	):
 		if '@everyone' in message.content:
+			# Timeout people who try to ping everyone
 			has_exception_role = False
 			for role in message.author.roles:
 				if role.name in [
@@ -87,6 +89,7 @@ class antispam(
 				# delete flagged message
 				await message.delete()
 		elif 'discord.gg' in message.content.lower():
+			# Timeout adult content discord spammers
 			has_bad_word = False
 			for bad_word in data.bad_words:
 				if bad_word in message.content.lower():
@@ -136,6 +139,7 @@ class antispam(
 				# delete flagged message
 				await message.delete()
 		elif re.search(r'\[steamcommunity.com.*?\]\(https?://(?!steamcommunity\.com)', message.content.lower()) is not None:
+			# Timeout fake steam giveaway discord spammers
 			has_exception_role = False
 			for role in message.author.roles:
 				if role.name in [
@@ -180,6 +184,7 @@ class antispam(
 				# delete flagged message
 				await message.delete()
 		else:
+			# Timeout fake nitro discord spammers
 			cleaned_message_content = unidecode(message.content).lower()
 			if 'nitro' in cleaned_message_content:
 				has_exception_role = False
@@ -230,6 +235,8 @@ class antispam(
 						)
 						# delete flagged message
 						await message.delete()
+
+		# Haunt people who can't spell Liquipedia
 		bad_words = [
 			'aidepdiuqil',
 			'liknidpedia',
@@ -249,6 +256,8 @@ class antispam(
 					)
 				)
 			)
+
+		# Haunt people who try to ping admins
 		if (
 			hasattr(message.author, 'joined_at')
 			and (discord.utils.utcnow() - message.author.joined_at).days <= 7
@@ -287,6 +296,55 @@ class antispam(
 						await message.author.ban(reason='Automated ban, spam')
 					except discord.Forbidden:
 						pass
+
+		# Timeout people who spam the same message a lot
+		amountLastMessages = 50
+		amountLastMessagesHitsRequired = 10
+
+		currentAmountLastMessages = 0
+		for lastmessage in self.lastmessages:
+			message.author.id == lastmessage.author.id and message.content == lastmessage.content:
+				currentAmountLastMessages = currentAmountLastMessages + 1
+
+		if currentAmountLastMessages >= amountLastMessagesHitsRequired:
+			# timeout user
+			await message.author.timeout(timedelta(weeks=1))
+			# post message in staff channel
+			reporttarget = self.bot.get_channel(config.reporttarget)
+			await reporttarget.send(
+				embed=discord.Embed(
+					title=(
+						'Muted for potential spam - '
+						+ message.author.mention + ' in ' + message.channel.mention
+						+ ' on ' + str(time)[:-7] + ' UTC:'
+					),
+					color=discord.Color.blue(),
+					description=(
+						message.content
+						# Workaround for mentions not working in embed title on windows
+						+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
+					)
+				)
+			)
+			# post response message so that user knows what is going on
+			await message.channel.send(
+				embed=discord.Embed(
+					colour=discord.Colour(0xff0000),
+					description=(
+						message.author.mention + ' you have been muted due to potential spam. '
+						+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
+					)
+				)
+			)
+			# delete flagged message
+			for lastmessage in self.lastmessages:
+				message.author.id == lastmessage.author.id and message.content == lastmessage.content:
+					self.lastmessages.remove(lastmessage)
+					await lastmessage.delete()
+		else:
+			self.lastmessages.insert(0, message)
+			if len(self.lastmessages) > amountLastMessages:
+				self.lastmessages.pop()
 
 	@commands.Cog.listener()
 	async def on_member_join(
