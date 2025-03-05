@@ -299,7 +299,7 @@ class antispam(
 
 		# Timeout people who spam the same message a lot
 		amountLastMessages = 50
-		amountLastMessagesHitsRequired = 10
+		amountLastMessagesHitsRequired = 7
 
 		currentAmountLastMessages = 0
 		for lastmessage in self.lastmessages:
@@ -341,7 +341,10 @@ class antispam(
 			for lastmessage in self.lastmessages:
 				if message.author.id == lastmessage.author.id and message.content == lastmessage.content:
 					self.lastmessages.remove(lastmessage)
-					await lastmessage.delete()
+					try:
+						await lastmessage.delete()
+					except discord.Forbidden:
+						pass
 		else:
 			self.lastmessages.insert(0, message)
 			if len(self.lastmessages) > amountLastMessages:
