@@ -337,7 +337,7 @@ class antispam(
 					)
 				)
 			)
-			# delete flagged message
+			# delete flagged messages
 			for lastmessage in self.lastmessages:
 				message.author.id == lastmessage.author.id and message.content == lastmessage.content:
 					self.lastmessages.remove(lastmessage)
