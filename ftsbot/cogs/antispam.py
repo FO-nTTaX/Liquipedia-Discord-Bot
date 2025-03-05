@@ -303,7 +303,7 @@ class antispam(
 
 		currentAmountLastMessages = 0
 		for lastmessage in self.lastmessages:
-			message.author.id == lastmessage.author.id and message.content == lastmessage.content:
+			if message.author.id == lastmessage.author.id and message.content == lastmessage.content:
 				currentAmountLastMessages = currentAmountLastMessages + 1
 
 		if currentAmountLastMessages >= amountLastMessagesHitsRequired:
@@ -339,7 +339,7 @@ class antispam(
 			)
 			# delete flagged messages
 			for lastmessage in self.lastmessages:
-				message.author.id == lastmessage.author.id and message.content == lastmessage.content:
+				if message.author.id == lastmessage.author.id and message.content == lastmessage.content:
 					self.lastmessages.remove(lastmessage)
 					await lastmessage.delete()
 		else:
