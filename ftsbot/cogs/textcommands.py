@@ -199,7 +199,7 @@ class textcommands(
 		await interaction.response.send_message(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ffff),
-				description='**Liquipedia-Guides**: https://liquipedia.net/starcraft2/User:FO-BoT#Guides'
+				description='**Liquipedia Support Hub**: https://liquipedia.net/hub/Support'
 			)
 		)
 
