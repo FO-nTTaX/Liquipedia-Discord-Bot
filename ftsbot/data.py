@@ -28,6 +28,7 @@ wikis = [
 	'dota2',
 	'dota2game',
 	'easportsfc',
+	'esports',
 	'fighters',
 	'fortnite',
 	'formula1',
