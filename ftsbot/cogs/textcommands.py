@@ -93,6 +93,38 @@ class textcommands(
 			await interaction.response.send_message(str(error), ephemeral=True)
 
 	@app_commands.command(
+		description='Information about content removals'
+	)
+	@app_commands.checks.cooldown(
+		1,
+		300,
+		key=lambda i: (i.guild_id, i.user.id)
+	)
+	async def contentremoval(
+		self,
+		interaction: discord.Interaction
+	):
+		await interaction.response.send_message(
+			embed=discord.Embed(
+				colour=discord.Colour(0x00ffff),
+				description=(
+					'To have personal information removed from our wikis, please send an email to "contact@liquipedia.net"'
+					+ ' with an explanation of the request and any relevant links. For further information please refer to'
+					+ ' [our content removal policy](https://liquipedia.net/hub/Liquipedia:Policy#Removal_of_Content).'
+				)
+			)
+		)
+
+	@contentremoval.error
+	async def on_contentremoval_error(
+		self,
+		interaction: discord.Interaction,
+		error: app_commands.AppCommandError
+	):
+		if isinstance(error, app_commands.CommandOnCooldown):
+			await interaction.response.send_message(str(error), ephemeral=True)
+
+	@app_commands.command(
 		description='Dance'
 	)
 	@app_commands.checks.cooldown(
