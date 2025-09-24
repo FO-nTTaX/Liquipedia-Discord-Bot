@@ -108,9 +108,9 @@ class textcommands(
 			embed=discord.Embed(
 				colour=discord.Colour(0x00ffff),
 				description=(
-					'To have personal information removed from our wikis, please send an email to "contact@liquipedia.net" '
-					+ 'with an explanation of the request and any relevant links. For further information please refer to '
-					+ '[our content removal policy](https://liquipedia.net/hub/Liquipedia:Policy#Removal_of_Content).'
+					'To have personal information removed from our wikis, please send an email to "contact@liquipedia.net"'
+					+ ' with an explanation of the request and any relevant links. For further information please refer to'
+					+ ' [our content removal policy](https://liquipedia.net/hub/Liquipedia:Policy#Removal_of_Content).'
 				)
 			)
 		)
