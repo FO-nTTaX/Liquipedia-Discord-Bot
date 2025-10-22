@@ -214,6 +214,7 @@ botroles = [
 	'API Announcements',
 	'App Announcements',
 	'CS Predictions',
+	'Design Feedback',
 	'Game Night',
 	'ML Predictions',
 	'Please Ping Me',
