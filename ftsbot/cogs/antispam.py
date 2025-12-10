@@ -391,7 +391,7 @@ class antispam(
 				self.reactionspammers[user.id] = 0
 			self.reactionspammers[user.id] += 1
 			# Take action if > 5 reactions were made in the last 60 second interval (time defined above in on_ready event)
-			if self.reactionspammers[user.id] > 5:
+			if self.reactionspammers[user.id] > 15:
 				try:
 					await reaction.message.guild.ban(user, reason='Automated ban, reaction spam')
 				except discord.Forbidden:
