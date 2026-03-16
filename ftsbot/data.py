@@ -88,7 +88,7 @@ lies = [
 	'Liquipedia is not awesome... (good that this is a lie ^^)',
 	'salle is a young girl',
 	'Pizza is bad and no one likes it',
-	'salle\'s ideas are always realistic',
+	"salle's ideas are always realistic",
 	'Chrome is a decent browser',
 	'blame swampflare',
 	'The revision system of Liquipedia is useless, just kill the history',
@@ -178,7 +178,6 @@ botroles = [
 	'World of Tanks',
 	'World of Warcraft',
 	'Zula',
-
 	'Arabic',
 	'Belarusian',
 	'Bosnian',
@@ -211,7 +210,6 @@ botroles = [
 	'Turkish',
 	'Ukrainian',
 	'Vietnamese',
-
 	'Announcements',
 	'API Announcements',
 	'App Announcements',

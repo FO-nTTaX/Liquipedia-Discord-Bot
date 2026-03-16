@@ -10,14 +10,10 @@ import urllib
 from ftsbot import data
 
 
-def pendingchanges(
-	wiki
-):
+def pendingchanges(wiki):
 	result = ''
 	url = (
-		data.wikibaseurl
-		+ wiki
-		+ '/api.php?action=query&format=json&list=oldreviewedpages&ornamespace=0|10&orlimit=500'
+		data.wikibaseurl + wiki + '/api.php?action=query&format=json&list=oldreviewedpages&ornamespace=0|10&orlimit=500'
 	)
 	jsonobj = requests.post(url).json()
 	results = jsonobj['query']['oldreviewedpages']
@@ -61,9 +57,7 @@ def pendingchanges(
 	return result
 
 
-def unreviewedpages(
-	wiki
-):
+def unreviewedpages(wiki):
 	result = ''
 	url = (
 		data.wikibaseurl
@@ -109,10 +103,7 @@ def unreviewedpages(
 	return result
 
 
-def search(
-	wiki,
-	searchstring
-):
+def search(wiki, searchstring):
 	result = ''
 	url = data.wikibaseurl + wiki + '/api.php?action=query&format=json&list=search&srlimit=5&srsearch=' + searchstring
 	jsonobj = requests.post(url).json()

@@ -16,13 +16,8 @@ import re
 from unidecode import unidecode
 
 
-class antispam(
-	commands.Cog
-):
-	def __init__(
-		self,
-		bot
-	):
+class antispam(commands.Cog):
+	def __init__(self, bot):
 		self.bot = bot
 		self.reactionspammers = {}
 		self.pingspammers = {}
@@ -34,16 +29,11 @@ class antispam(
 		)
 		self.bot.tree.add_command(self.ctx_report)
 
-	async def cog_unload(
-		self
-	) -> None:
+	async def cog_unload(self) -> None:
 		self.bot.tree.remove_command(self.ctx_report.name, type=self.ctx_report.type)
 
 	@commands.Cog.listener()
-	async def on_message(
-		self,
-		message
-	):
+	async def on_message(self, message):
 		if '@everyone' in message.content:
 			# Timeout people who try to ping everyone
 			has_exception_role = False
@@ -65,25 +55,33 @@ class antispam(
 					embed=discord.Embed(
 						title=(
 							'Muted for potential (at)everyone spam - '
-							+ message.author.mention + ' in ' + message.channel.mention
-							+ ' on ' + str(time)[:-7] + ' UTC:'
+							+ message.author.mention
+							+ ' in '
+							+ message.channel.mention
+							+ ' on '
+							+ str(time)[:-7]
+							+ ' UTC:'
 						),
 						color=discord.Color.blue(),
 						description=(
 							message.content
 							# Workaround for mentions not working in embed title on windows
-							+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
-						)
+							+ '\n\nsource: '
+							+ message.author.mention
+							+ ' in '
+							+ message.channel.mention
+						),
 					)
 				)
 				# post response message so that user knows what is going on
 				await message.channel.send(
 					embed=discord.Embed(
-						colour=discord.Colour(0xff0000),
+						colour=discord.Colour(0xFF0000),
 						description=(
-							message.author.mention + ' you have been muted due to trying to use (at)everyone. '
+							message.author.mention
+							+ ' you have been muted due to trying to use (at)everyone. '
 							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
-						)
+						),
 					)
 				)
 				# delete flagged message
@@ -115,30 +113,41 @@ class antispam(
 					embed=discord.Embed(
 						title=(
 							'Muted for potential discord invite link spam - '
-							+ message.author.mention + ' in ' + message.channel.mention
-							+ ' on ' + str(time)[:-7] + ' UTC:'
+							+ message.author.mention
+							+ ' in '
+							+ message.channel.mention
+							+ ' on '
+							+ str(time)[:-7]
+							+ ' UTC:'
 						),
 						color=discord.Color.blue(),
 						description=(
 							message.content
 							# Workaround for mentions not working in embed title on windows
-							+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
-						)
+							+ '\n\nsource: '
+							+ message.author.mention
+							+ ' in '
+							+ message.channel.mention
+						),
 					)
 				)
 				# post response message so that user knows what is going on
 				await message.channel.send(
 					embed=discord.Embed(
-						colour=discord.Colour(0xff0000),
+						colour=discord.Colour(0xFF0000),
 						description=(
-							message.author.mention + ' you have been muted due to potential discord invite spam. '
+							message.author.mention
+							+ ' you have been muted due to potential discord invite spam. '
 							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
-						)
+						),
 					)
 				)
 				# delete flagged message
 				await message.delete()
-		elif re.search(r'\[steamcommunity.com.*?\]\(https?://(?!steamcommunity\.com)', message.content.lower()) is not None:
+		elif (
+			re.search(r'\[steamcommunity.com.*?\]\(https?://(?!steamcommunity\.com)', message.content.lower())
+			is not None
+		):
 			# Timeout fake steam giveaway discord spammers
 			has_exception_role = False
 			for role in message.author.roles:
@@ -160,25 +169,33 @@ class antispam(
 					embed=discord.Embed(
 						title=(
 							'Muted for potential steam store scam link spam - '
-							+ message.author.mention + ' in ' + message.channel.mention
-							+ ' on ' + str(time)[:-7] + ' UTC:'
+							+ message.author.mention
+							+ ' in '
+							+ message.channel.mention
+							+ ' on '
+							+ str(time)[:-7]
+							+ ' UTC:'
 						),
 						color=discord.Color.blue(),
 						description=(
 							message.content
 							# Workaround for mentions not working in embed title on windows
-							+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
-						)
+							+ '\n\nsource: '
+							+ message.author.mention
+							+ ' in '
+							+ message.channel.mention
+						),
 					)
 				)
 				# post response message so that user knows what is going on
 				await message.channel.send(
 					embed=discord.Embed(
-						colour=discord.Colour(0xff0000),
+						colour=discord.Colour(0xFF0000),
 						description=(
-							message.author.mention + ' you have been muted due to potential discord steam store scam link spam. '
+							message.author.mention
+							+ ' you have been muted due to potential discord steam store scam link spam. '
 							+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
-						)
+						),
 					)
 				)
 				# delete flagged message
@@ -212,25 +229,33 @@ class antispam(
 							embed=discord.Embed(
 								title=(
 									'Muted for potential nitro spam - '
-									+ message.author.mention + ' in ' + message.channel.mention
-									+ ' on ' + str(time)[:-7] + ' UTC:'
+									+ message.author.mention
+									+ ' in '
+									+ message.channel.mention
+									+ ' on '
+									+ str(time)[:-7]
+									+ ' UTC:'
 								),
 								color=discord.Color.blue(),
 								description=(
 									message.content
 									# Workaround for mentions not working in embed title on windows
-									+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
-								)
+									+ '\n\nsource: '
+									+ message.author.mention
+									+ ' in '
+									+ message.channel.mention
+								),
 							)
 						)
 						# post response message so that user knows what is going on
 						await message.channel.send(
 							embed=discord.Embed(
-								colour=discord.Colour(0xff0000),
+								colour=discord.Colour(0xFF0000),
 								description=(
-									message.author.mention + ' you have been muted due to potential nitro spam. '
+									message.author.mention
+									+ ' you have been muted due to potential nitro spam. '
 									+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
-								)
+								),
 							)
 						)
 						# delete flagged message
@@ -249,19 +274,17 @@ class antispam(
 		if any(bad_word in unidecode(message.content).lower() for bad_word in bad_words):
 			await message.channel.send(
 				embed=discord.Embed(
-					colour=discord.Colour(0xff0000),
+					colour=discord.Colour(0xFF0000),
 					description=(
 						'It is **Liquipedia**, please educate yourself on the spelling! Naughty-counter of '
-						+ message.author.name + ' has been incremented.'
-					)
+						+ message.author.name
+						+ ' has been incremented.'
+					),
 				)
 			)
 
 		# Haunt people who try to ping admins
-		if (
-			hasattr(message.author, 'joined_at')
-			and (discord.utils.utcnow() - message.author.joined_at).days <= 7
-		):
+		if hasattr(message.author, 'joined_at') and (discord.utils.utcnow() - message.author.joined_at).days <= 7:
 			for role in message.role_mentions:
 				if role.name == 'Liquipedia Admins':
 					await message.channel.send(
@@ -316,25 +339,33 @@ class antispam(
 				embed=discord.Embed(
 					title=(
 						'Muted for potential spam - '
-						+ message.author.mention + ' in ' + message.channel.mention
-						+ ' on ' + str(time)[:-7] + ' UTC:'
+						+ message.author.mention
+						+ ' in '
+						+ message.channel.mention
+						+ ' on '
+						+ str(time)[:-7]
+						+ ' UTC:'
 					),
 					color=discord.Color.blue(),
 					description=(
 						message.content
 						# Workaround for mentions not working in embed title on windows
-						+ '\n\nsource: ' + message.author.mention + ' in ' + message.channel.mention
-					)
+						+ '\n\nsource: '
+						+ message.author.mention
+						+ ' in '
+						+ message.channel.mention
+					),
 				)
 			)
 			# post response message so that user knows what is going on
 			await message.channel.send(
 				embed=discord.Embed(
-					colour=discord.Colour(0xff0000),
+					colour=discord.Colour(0xFF0000),
 					description=(
-						message.author.mention + ' you have been muted due to potential spam. '
+						message.author.mention
+						+ ' you have been muted due to potential spam. '
 						+ 'This is a spam bot prevention. Admins will review it at their earliest convenience.'
-					)
+					),
 				)
 			)
 			# delete flagged messages
@@ -351,19 +382,9 @@ class antispam(
 				self.lastmessages.pop()
 
 	@commands.Cog.listener()
-	async def on_member_join(
-		self,
-		member
-	):
-		if (
-			(
-				member.name is not None
-				and 'twitter.com/h0nde' in member.name.lower()
-			)
-			or (
-				member.nick is not None
-				and 'twitter.com/h0nde' in member.nick.lower()
-			)
+	async def on_member_join(self, member):
+		if (member.name is not None and 'twitter.com/h0nde' in member.name.lower()) or (
+			member.nick is not None and 'twitter.com/h0nde' in member.nick.lower()
 		):
 			try:
 				await member.ban(reason='Automated ban, spam')
@@ -371,20 +392,14 @@ class antispam(
 				pass
 
 	@commands.Cog.listener()
-	async def on_ready(
-		self
-	):
+	async def on_ready(self):
 		while True:
 			await asyncio.sleep(60)  # Sets the time after which the reaction and ping spam lists are cleared
 			self.reactionspammers.clear()
 			self.pingspammers.clear()
 
 	@commands.Cog.listener()
-	async def on_reaction_add(
-		self,
-		reaction,
-		user
-	):
+	async def on_reaction_add(self, reaction, user):
 		# Check if user joined within last 7 days
 		if hasattr(reaction.message.author, 'joined_at') and (discord.utils.utcnow() - user.joined_at).days <= 7:
 			if user.id not in self.reactionspammers:
@@ -397,10 +412,6 @@ class antispam(
 				except discord.Forbidden:
 					pass
 
-	async def report(
-		self,
-		interaction: discord.Interaction,
-		message: discord.Message
-	):
+	async def report(self, interaction: discord.Interaction, message: discord.Message):
 		form = reportform(self.bot, message)
 		await interaction.response.send_modal(form)

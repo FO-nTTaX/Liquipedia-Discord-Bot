@@ -11,46 +11,27 @@ from ftsbot import config
 import typing
 
 
-class channelmoderation(
-	commands.Cog
-):
-	def __init__(
-		self,
-		bot
-	):
+class channelmoderation(commands.Cog):
+	def __init__(self, bot):
 		self.bot = bot
 
-	@app_commands.command(
-		description='Purge channel (admin only)'
-	)
+	@app_commands.command(description='Purge channel (admin only)')
 	@app_commands.describe(
 		channel='Which channel do you want to purge?',
 	)
-	@app_commands.checks.has_any_role(
-		'Discord Admins',
-		'Liquipedia Employee',
-		'Administrator'
-	)
+	@app_commands.checks.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@app_commands.guild_only()
-	async def channelpurge(
-		self,
-		interaction: discord.Interaction,
-		channel: typing.Optional[discord.TextChannel]
-	):
+	async def channelpurge(self, interaction: discord.Interaction, channel: typing.Optional[discord.TextChannel]):
 		if channel is None:
 			channel = interaction.channel
 		await interaction.response.send_message(
 			embed=discord.Embed(
-				colour=discord.Colour(0x00ff00),
-				description='Channel ' + channel.name + ' is being purged'
+				colour=discord.Colour(0x00FF00), description='Channel ' + channel.name + ' is being purged'
 			)
 		)
 		if channel is None or not channel.name.startswith('temp_'):
 			await interaction.response.send_message(
-				embed=discord.Embed(
-					colour=discord.Colour(0xff0000),
-					description='Invalid channel'
-				)
+				embed=discord.Embed(colour=discord.Colour(0xFF0000), description='Invalid channel')
 			)
 		else:
 			async for message in channel.history():
@@ -62,21 +43,12 @@ class channelmoderation(
 	@app_commands.describe(
 		member='Who do you want to invite?',
 	)
-	@app_commands.checks.has_any_role(
-		'Discord Admins',
-		'Liquipedia Employee',
-		'Administrator'
-	)
+	@app_commands.checks.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@app_commands.guild_only()
-	async def channelcreate(
-		self,
-		interaction: discord.Interaction,
-		member: discord.Member
-	):
+	async def channelcreate(self, interaction: discord.Interaction, member: discord.Member):
 		await interaction.response.send_message(
 			embed=discord.Embed(
-				colour=discord.Colour(0x00ff00),
-				description='Channel with ' + member.name + ' is being created'
+				colour=discord.Colour(0x00FF00), description='Channel with ' + member.name + ' is being created'
 			)
 		)
 		guild = interaction.guild
@@ -86,7 +58,7 @@ class channelmoderation(
 		overwrites = {
 			guild.default_role: discord.PermissionOverwrite(read_messages=False),
 			guild.me: discord.PermissionOverwrite(read_messages=True),
-			member: discord.PermissionOverwrite(read_messages=True)
+			member: discord.PermissionOverwrite(read_messages=True),
 		}
 		if admin_role1 is not None:
 			overwrites[admin_role1] = discord.PermissionOverwrite(read_messages=True)
@@ -95,44 +67,26 @@ class channelmoderation(
 		if admin_role3 is not None:
 			overwrites[admin_role3] = discord.PermissionOverwrite(read_messages=True)
 		channel = await guild.create_text_channel(
-			'temp_' + member.name,
-			overwrites=overwrites,
-			category=self.bot.get_channel(int(config.privcat))
+			'temp_' + member.name, overwrites=overwrites, category=self.bot.get_channel(int(config.privcat))
 		)
 		await channel.send('This channel was created to discuss the private request of ' + member.mention)
 
-	@app_commands.command(
-		description='Copies the specified temp. or active channel to the archive (admin only)'
-	)
+	@app_commands.command(description='Copies the specified temp. or active channel to the archive (admin only)')
 	@app_commands.describe(
 		channel='Where do you want to copy things from?',
 	)
-	@app_commands.checks.has_any_role(
-		'Discord Admins',
-		'Liquipedia Employee',
-		'Administrator'
-	)
+	@app_commands.checks.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@app_commands.guild_only()
-	async def channelcopy(
-		self,
-		interaction: discord.Interaction,
-		channel: typing.Optional[discord.TextChannel]
-	):
+	async def channelcopy(self, interaction: discord.Interaction, channel: typing.Optional[discord.TextChannel]):
 		if channel is None:
 			channel = interaction.channel
 		if channel is None or not channel.name.startswith('temp_'):
 			await interaction.response.send_message(
-				embed=discord.Embed(
-					colour=discord.Colour(0xff0000),
-					description='Invalid channel'
-				)
+				embed=discord.Embed(colour=discord.Colour(0xFF0000), description='Invalid channel')
 			)
 		else:
 			await interaction.response.send_message(
-				embed=discord.Embed(
-					colour=discord.Colour(0x00ff00),
-					description='Messages have been archived'
-				)
+				embed=discord.Embed(colour=discord.Colour(0x00FF00), description='Messages have been archived')
 			)
 			emptyarray = []
 			logtarget = self.bot.get_channel(config.logtarget)
@@ -141,7 +95,7 @@ class channelmoderation(
 				embed = discord.Embed(
 					title=message.author.display_name + ' on ' + str(time)[:-7] + ' UTC:',
 					color=discord.Color.blue(),
-					description=message.content
+					description=message.content,
 				)
 				await logtarget.send(embed=embed)
 				if message.attachments != emptyarray:
@@ -155,32 +109,18 @@ class channelmoderation(
 	@app_commands.describe(
 		channel='Which channel do you want to delete?',
 	)
-	@app_commands.checks.has_any_role(
-		'Discord Admins',
-		'Liquipedia Employee',
-		'Administrator'
-	)
+	@app_commands.checks.has_any_role('Discord Admins', 'Liquipedia Employee', 'Administrator')
 	@app_commands.guild_only()
-	async def channelkill(
-		self,
-		interaction: discord.Interaction,
-		channel: typing.Optional[discord.TextChannel]
-	):
+	async def channelkill(self, interaction: discord.Interaction, channel: typing.Optional[discord.TextChannel]):
 		if channel is None:
 			channel = interaction.channel
 		if channel is None or not channel.name.startswith('temp_'):
 			await interaction.response.send_message(
-				embed=discord.Embed(
-					colour=discord.Colour(0xff0000),
-					description='Invalid channel'
-				)
+				embed=discord.Embed(colour=discord.Colour(0xFF0000), description='Invalid channel')
 			)
 		else:
 			await interaction.response.send_message(
-				embed=discord.Embed(
-					colour=discord.Colour(0x00ff00),
-					description='Messages have been archived'
-				)
+				embed=discord.Embed(colour=discord.Colour(0x00FF00), description='Messages have been archived')
 			)
 			emptyarray = []
 			logtarget = self.bot.get_channel(config.logtarget)
@@ -189,7 +129,7 @@ class channelmoderation(
 				embed = discord.Embed(
 					title=message.author.name + ' on ' + str(time)[:-7] + ' UTC:',
 					color=discord.Color.blue(),
-					description=message.content
+					description=message.content,
 				)
 				await logtarget.send(embed=embed)
 				if message.attachments != emptyarray:
