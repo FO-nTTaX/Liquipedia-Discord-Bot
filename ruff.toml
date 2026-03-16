@@ -1,0 +1,5 @@
+line-length = 120
+
+[format]
+indent-style = "tab"
+quote-style = "single"
