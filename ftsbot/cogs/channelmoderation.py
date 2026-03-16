@@ -93,7 +93,7 @@ class channelmoderation(commands.Cog):
 			async for message in channel.history(limit=10000, oldest_first=True):
 				time = message.created_at
 				embed = discord.Embed(
-					title=message.author.display_name + ' on ' + str(time)[:-7] + ' UTC:',
+					title=message.author.display_name + ' on ' + discord.utils.format_dt(time) + ':',
 					color=discord.Color.blue(),
 					description=message.content,
 				)
@@ -127,7 +127,7 @@ class channelmoderation(commands.Cog):
 			async for message in channel.history(limit=10000, oldest_first='true'):
 				time = message.created_at
 				embed = discord.Embed(
-					title=message.author.name + ' on ' + str(time)[:-7] + ' UTC:',
+					title=message.author.name + ' on ' + discord.utils.format_dt(time) + ':',
 					color=discord.Color.blue(),
 					description=message.content,
 				)

@@ -59,8 +59,8 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 							+ ' on '
-							+ str(time)[:-7]
-							+ ' UTC:'
+							+ discord.utils.format_dt(time)
+							+ ':'
 						),
 						color=discord.Color.blue(),
 						description=(
@@ -117,8 +117,8 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 							+ ' on '
-							+ str(time)[:-7]
-							+ ' UTC:'
+							+ discord.utils.format_dt(time)
+							+ ':'
 						),
 						color=discord.Color.blue(),
 						description=(
@@ -173,8 +173,8 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 							+ ' on '
-							+ str(time)[:-7]
-							+ ' UTC:'
+							+ discord.utils.format_dt(time)
+							+ ':'
 						),
 						color=discord.Color.blue(),
 						description=(
@@ -233,8 +233,8 @@ class antispam(commands.Cog):
 									+ ' in '
 									+ message.channel.mention
 									+ ' on '
-									+ str(time)[:-7]
-									+ ' UTC:'
+									+ discord.utils.format_dt(time)
+									+ ':'
 								),
 								color=discord.Color.blue(),
 								description=(
