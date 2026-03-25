@@ -91,11 +91,11 @@ class channelmoderation(commands.Cog):
 			emptyarray = []
 			logtarget = self.bot.get_channel(config.logtarget)
 			async for message in channel.history(limit=10000, oldest_first=True):
-				time = message.created_at
 				embed = discord.Embed(
-					title=message.author.display_name + ' on ' + discord.utils.format_dt(time) + ':',
+					title=message.author.display_name,
 					color=discord.Color.blue(),
 					description=message.content,
+					timestamp=message.created_at,
 				)
 				await logtarget.send(embed=embed)
 				if message.attachments != emptyarray:
@@ -125,11 +125,11 @@ class channelmoderation(commands.Cog):
 			emptyarray = []
 			logtarget = self.bot.get_channel(config.logtarget)
 			async for message in channel.history(limit=10000, oldest_first='true'):
-				time = message.created_at
 				embed = discord.Embed(
-					title=message.author.name + ' on ' + discord.utils.format_dt(time) + ':',
+					title=message.author.name,
 					color=discord.Color.blue(),
 					description=message.content,
+					timestamp=message.created_at,
 				)
 				await logtarget.send(embed=embed)
 				if message.attachments != emptyarray:
