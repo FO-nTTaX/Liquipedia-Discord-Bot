@@ -4,13 +4,15 @@
 # Copyright 2016-2025 Alex Winkler
 # Version 4.1.0
 
+import os
+
 import requests
-from ftsbot import data, secrets
+from ftsbot import data
 
 
 def wikiroles(discordid):
 	url = data.wikibaseurl + 'commons/api.php?format=json&action=teamliquidintegration-discordids'
-	payload = {'discordid': discordid, 'apikey': secrets.apikey.strip()}
+	payload = {'discordid': discordid, 'apikey': os.environ.get('apikey').strip()}
 	jsonobj = requests.post(url, data=payload).json()
 	if 'error' in jsonobj:
 		return False

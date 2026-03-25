@@ -4,9 +4,13 @@
 # Copyright 2016-2025 Alex Winkler
 # Version 4.1.0
 
+import os
+from dotenv import load_dotenv
+
 from ftsbot.liquipediabot import liquipediabot
-from ftsbot import secrets
+
+load_dotenv()
 
 bot = liquipediabot()
 
-bot.run(secrets.token)
+bot.run(os.environ.get('token').strip())
