@@ -33,7 +33,7 @@ class antispam(commands.Cog):
 		self.bot.tree.remove_command(self.ctx_report.name, type=self.ctx_report.type)
 
 	@commands.Cog.listener()
-	async def on_message(self, message):
+	async def on_message(self, message: discord.Message):
 		if '@everyone' in message.content:
 			# Timeout people who try to ping everyone
 			has_exception_role = False
@@ -50,7 +50,6 @@ class antispam(commands.Cog):
 				await message.author.timeout(timedelta(weeks=1))
 				# post message in staff channel
 				reporttarget = self.bot.get_channel(config.reporttarget)
-				time = message.created_at
 				await reporttarget.send(
 					embed=discord.Embed(
 						title=(
@@ -58,9 +57,6 @@ class antispam(commands.Cog):
 							+ message.author.mention
 							+ ' in '
 							+ message.channel.mention
-							+ ' on '
-							+ str(time)[:-7]
-							+ ' UTC:'
 						),
 						color=discord.Color.blue(),
 						description=(
@@ -71,6 +67,7 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 						),
+						timestamp=message.created_at,
 					)
 				)
 				# post response message so that user knows what is going on
@@ -108,7 +105,6 @@ class antispam(commands.Cog):
 				await message.author.timeout(timedelta(weeks=1))
 				# post message in staff channel
 				reporttarget = self.bot.get_channel(config.reporttarget)
-				time = message.created_at
 				await reporttarget.send(
 					embed=discord.Embed(
 						title=(
@@ -116,9 +112,6 @@ class antispam(commands.Cog):
 							+ message.author.mention
 							+ ' in '
 							+ message.channel.mention
-							+ ' on '
-							+ str(time)[:-7]
-							+ ' UTC:'
 						),
 						color=discord.Color.blue(),
 						description=(
@@ -129,6 +122,7 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 						),
+						timestamp=message.created_at,
 					)
 				)
 				# post response message so that user knows what is going on
@@ -164,7 +158,6 @@ class antispam(commands.Cog):
 				await message.author.timeout(timedelta(weeks=1))
 				# post message in staff channel
 				reporttarget = self.bot.get_channel(config.reporttarget)
-				time = message.created_at
 				await reporttarget.send(
 					embed=discord.Embed(
 						title=(
@@ -172,9 +165,6 @@ class antispam(commands.Cog):
 							+ message.author.mention
 							+ ' in '
 							+ message.channel.mention
-							+ ' on '
-							+ str(time)[:-7]
-							+ ' UTC:'
 						),
 						color=discord.Color.blue(),
 						description=(
@@ -185,6 +175,7 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 						),
+						timestamp=message.created_at,
 					)
 				)
 				# post response message so that user knows what is going on
@@ -224,7 +215,6 @@ class antispam(commands.Cog):
 						await message.author.timeout(timedelta(weeks=1))
 						# post message in staff channel
 						reporttarget = self.bot.get_channel(config.reporttarget)
-						time = message.created_at
 						await reporttarget.send(
 							embed=discord.Embed(
 								title=(
@@ -232,9 +222,6 @@ class antispam(commands.Cog):
 									+ message.author.mention
 									+ ' in '
 									+ message.channel.mention
-									+ ' on '
-									+ str(time)[:-7]
-									+ ' UTC:'
 								),
 								color=discord.Color.blue(),
 								description=(
@@ -245,6 +232,7 @@ class antispam(commands.Cog):
 									+ ' in '
 									+ message.channel.mention
 								),
+								timestamp=message.created_at,
 							)
 						)
 						# post response message so that user knows what is going on
