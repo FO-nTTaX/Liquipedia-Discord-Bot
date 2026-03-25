@@ -33,7 +33,7 @@ class antispam(commands.Cog):
 		self.bot.tree.remove_command(self.ctx_report.name, type=self.ctx_report.type)
 
 	@commands.Cog.listener()
-	async def on_message(self, message):
+	async def on_message(self, message: discord.Message):
 		if '@everyone' in message.content:
 			# Timeout people who try to ping everyone
 			has_exception_role = False
