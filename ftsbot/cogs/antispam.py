@@ -67,7 +67,7 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 						),
-						timestamp=message.created_at
+						timestamp=message.created_at,
 					)
 				)
 				# post response message so that user knows what is going on
@@ -122,7 +122,7 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 						),
-						timestamp=message.created_at
+						timestamp=message.created_at,
 					)
 				)
 				# post response message so that user knows what is going on
@@ -175,7 +175,7 @@ class antispam(commands.Cog):
 							+ ' in '
 							+ message.channel.mention
 						),
-						timestamp=message.created_at
+						timestamp=message.created_at,
 					)
 				)
 				# post response message so that user knows what is going on
@@ -232,7 +232,7 @@ class antispam(commands.Cog):
 									+ ' in '
 									+ message.channel.mention
 								),
-								timestamp=message.created_at
+								timestamp=message.created_at,
 							)
 						)
 						# post response message so that user knows what is going on
