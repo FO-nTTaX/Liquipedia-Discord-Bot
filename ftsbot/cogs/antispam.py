@@ -322,7 +322,6 @@ class antispam(commands.Cog):
 			await message.author.timeout(timedelta(weeks=1))
 			# post message in staff channel
 			reporttarget = self.bot.get_channel(config.reporttarget)
-			time = message.created_at
 			await reporttarget.send(
 				embed=discord.Embed(
 					title=('Muted for potential spam - ' + message.author.mention + ' in ' + message.channel.mention),
