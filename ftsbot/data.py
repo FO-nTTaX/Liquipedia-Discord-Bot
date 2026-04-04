@@ -112,10 +112,10 @@ reviewer_role = 'Reviewer'
 
 # Map of pingable roles
 pingable_roles = {
-    'cs': 'CS Predictions',
-    'ml': 'ML Predictions',
-    'val': 'VAL Predictions',
-    'r6': 'R6 Predictions',
+	'cs': 'CS Predictions',
+	'ml': 'ML Predictions',
+	'val': 'VAL Predictions',
+	'r6': 'R6 Predictions',
 }
 
 # Roles the bot can add and remove
