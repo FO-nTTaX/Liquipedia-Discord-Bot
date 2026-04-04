@@ -22,12 +22,12 @@ class pingcommands(commands.Cog):
 	)
 	@app_commands.guild_only()
 	@app_commands.autocomplete(role=autocomplete.pingable_roles)
-	@app_commands.checks.has_any_role('Reviewer', 'Administrator') # You can add more roles here if needed
+	@app_commands.checks.has_any_role('Reviewer', 'Administrator')
 	async def ping(self, interaction: discord.Interaction, role: str, message: str):
 
-		# Validate role exists in pingable_roles
+		# Validate role exists in pingable_roles list
 		if role not in data.pingable_roles:
-			available_roles = ', '.join(data.pingable_roles.values())
+			available_roles = ', '.join(data.pingable_roles)
 			await interaction.response.send_message(
 				embed=discord.Embed(
 					colour=discord.Colour(0xFF0000),
@@ -38,14 +38,13 @@ class pingcommands(commands.Cog):
 			return
 
 		# Get the actual Discord role
-		role_name = data.pingable_roles[role]
-		discord_role = discord.utils.get(interaction.guild.roles, name=role_name)
+		discord_role = discord.utils.get(interaction.guild.roles, name=role)
 
 		if discord_role is None:
 			await interaction.response.send_message(
 				embed=discord.Embed(
 					colour=discord.Colour(0xFF0000),
-					description=f'**Error**: Role "{role_name}" not found in server'
+					description=f'**Error**: Role "{role}" not found in server'
 				),
 				ephemeral=True
 			)
