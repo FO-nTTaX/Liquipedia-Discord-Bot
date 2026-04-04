@@ -107,6 +107,17 @@ wikiroles = {
 	'reviewer': 'Reviewer',
 }
 
+# Roles which could use pingable roles command
+reviewer_role = 'Reviewer'
+
+# Map of pingable roles
+pingable_roles = {
+    'cs': 'CS Predictions',
+    'ml': 'ML Predictions',
+    'val': 'VAL Predictions',
+    'r6': 'R6 Predictions',
+}
+
 # Roles the bot can add and remove
 botroles = [
 	'Age of Empires',
