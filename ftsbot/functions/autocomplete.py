@@ -31,10 +31,12 @@ async def roles(interaction: discord.Interaction, current: str) -> list[app_comm
 	return [app_commands.Choice(name=role, value=role) for role in roles][:25]
 
 async def pingable_roles(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
-	choices =[]
-	for key, name in data.pingable_roles.items():
-		if current.lower() in name.lower() or current.lower() in key.lower():
-			choices.append(app_commands.Choice(name=name, value=key))
-	
-	return choices[:25]
+	roles = [role for role in data.pingable_roles if current.lower() in role.lower()]
+
+	def sortroles(element):
+		return element.lower().index(current.lower())
+
+	roles.sort(key=sortroles)
+
+	return [app_commands.Choice(name=role, value=role) for role in roles][:25]
 	
