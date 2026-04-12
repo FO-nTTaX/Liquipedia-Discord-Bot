@@ -83,7 +83,7 @@ class antispam(commands.Cog):
 				)
 				# delete flagged message
 				await message.delete()
-		elif 'discord.gg' in message.content.lower():
+		elif 'discord.gg' in message.content.lower() or 'discordapp.com' in message.content.lower():
 			# Timeout adult content discord spammers
 			has_bad_word = False
 			for bad_word in data.bad_words:
