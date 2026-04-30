@@ -215,7 +215,7 @@ class textcommands(commands.Cog):
 					+ '- using browser extensions that cause unnecessary network requests or pre-fetching\n'
 					+ '- corporate or school firewalls/content scanners\n'
 					+ '- potential malware on your PC or network\n'
-					+ '- beeing a residential proxy botnet member\n'
+					+ '- being a residential proxy botnet member\n'
 					+ '__Measures to prevent or resolve being rate limited__\n'
 					+ '- discontinue any instances of aforementioned causes\n'
 					+ '- get a static IP address\n'
