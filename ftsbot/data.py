@@ -247,6 +247,7 @@ bad_words = [
 	'onlyfans',
 	'nft',
 	'crypto',
+	'cam',
 ]
 
 nitro_spam_triggers = [
