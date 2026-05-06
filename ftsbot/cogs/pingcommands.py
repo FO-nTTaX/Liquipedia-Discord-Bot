@@ -55,11 +55,7 @@ class pingcommands(commands.Cog):
 
 		await interaction.channel.send(
 			content=f'{discord_role.mention} *(Ping requested by {interaction.user.mention})*',
-			allowed_mentions=discord.AllowedMentions(
-				everyone=False, 
-				users=[interaction.user], 
-				roles=[discord_role]
-			),
+			allowed_mentions=discord.AllowedMentions(everyone=False, users=[interaction.user], roles=[discord_role]),
 		)
 
 		await interaction.followup.send(
