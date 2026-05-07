@@ -84,4 +84,3 @@ class pingcommands(commands.Cog):
 				description='**Error**: Could not execute ping command.',
 			),
 		)
-		
