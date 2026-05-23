@@ -4,20 +4,28 @@
 # Copyright 2016-2026 Alex Winkler
 # Version 4.1.1
 
+from __future__ import annotations
+
+import asyncio
+
 import discord
 from discord.ext import commands
+
 from ftsbot import config
-from ftsbot.cogs.antispam import antispam
-from ftsbot.cogs.channelmoderation import channelmoderation
-from ftsbot.cogs.pingcommands import pingcommands
-from ftsbot.cogs.presence import presence
-from ftsbot.cogs.rolecommands import rolecommands
-from ftsbot.cogs.textcommands import textcommands
-from ftsbot.cogs.wikicommands import wikicommands
+from ftsbot.cogs.antispam import AntiSpam
+from ftsbot.cogs.channelmoderation import ChannelModeration
+from ftsbot.cogs.pingcommands import PingCommands
+from ftsbot.cogs.presence import Presence
+from ftsbot.cogs.rolecommands import RoleCommands
+from ftsbot.cogs.textcommands import TextCommands
+from ftsbot.cogs.wikicommands import WikiCommands
+from ftsbot.services.http import HttpClient
+from ftsbot.services.mediawiki import MediaWikiService
+from ftsbot.services.tlintegration import TLIntegrationService
 
 
-class liquipediabot(commands.Bot):
-	def __init__(self):
+class LiquipediaBot(commands.Bot):
+	def __init__(self, *, apikey: str | None):
 		intents = discord.Intents.default()
 		intents.members = True
 		intents.message_content = True
@@ -25,17 +33,28 @@ class liquipediabot(commands.Bot):
 
 		super().__init__(intents=intents, command_prefix='!fobot', help_command=None)
 
-	async def startup(self):
+		self.http_client = HttpClient()
+		self.mediawiki = MediaWikiService(self.http_client)
+		self.tlintegration = TLIntegrationService(self.http_client, apikey=apikey)
+
+	async def startup(self) -> None:
 		await self.wait_until_ready()
 		await self.tree.sync()
 		await self.tree.sync(guild=discord.Object(id=config.commandserver))
 
-	async def setup_hook(self):
-		await self.add_cog(antispam(self))
-		await self.add_cog(channelmoderation(self))
-		await self.add_cog(pingcommands(self))
-		await self.add_cog(presence(self))
-		await self.add_cog(rolecommands(self))
-		await self.add_cog(textcommands(self))
-		await self.add_cog(wikicommands(self))
-		self.loop.create_task(self.startup())
+	async def setup_hook(self) -> None:
+		await self.http_client.start()
+
+		await self.add_cog(AntiSpam(self))
+		await self.add_cog(ChannelModeration(self))
+		await self.add_cog(PingCommands(self))
+		await self.add_cog(Presence(self))
+		await self.add_cog(RoleCommands(self))
+		await self.add_cog(TextCommands(self))
+		await self.add_cog(WikiCommands(self))
+
+		asyncio.create_task(self.startup())
+
+	async def close(self) -> None:
+		await self.http_client.close()
+		await super().close()

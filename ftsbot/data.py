@@ -261,3 +261,49 @@ nitro_spam_triggers = [
 	'gift',
 	'giveaway',
 ]
+
+admin_roles = (
+	'Discord Admins',
+	'Liquipedia Employee',
+	'Administrator',
+)
+
+ping_command_roles = (
+	'Reviewer',
+	'Administrator',
+	'Discord Admins',
+	'Liquipedia Employee',
+)
+
+antispam_exception_roles = (
+	'Discord Admins',
+	'Liquipedia Employee',
+	'Administrator',
+	'Bot',
+)
+
+mass_ping_exception_roles = (
+	'Discord Admins',
+	'Liquipedia Employee',
+	'Administrator',
+	'Editor',
+	'Reviewer',
+	'Silver Plus',
+	'Industry Person',
+)
+
+discord_invite_domains = (
+	'discord.gg',
+	'discordapp.com',
+	'discord.com/invite',
+)
+
+liquipedia_misspellings = (
+	'aidepdiuqil',
+	'liknidpedia',
+	'likvidpedia',
+	'liquidpedia',
+	'liquidredia',
+	'liquidpeia',
+	'liqupiedia',
+)

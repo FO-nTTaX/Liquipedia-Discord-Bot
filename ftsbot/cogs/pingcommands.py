@@ -4,83 +4,85 @@
 # Copyright 2016-2026 Alex Winkler
 # Version 4.1.1
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import discord
 from discord import app_commands
 from discord.ext import commands
 
 from ftsbot import data
 from ftsbot.functions import autocomplete
+from ftsbot.utils.embeds import error_embed, success_embed
+from ftsbot.utils.interactions import defer_response, send_ephemeral
+
+if TYPE_CHECKING:
+	from ftsbot.liquipediabot import LiquipediaBot
 
 
-class pingcommands(commands.Cog):
-	def __init__(self, bot):
+class PingCommands(commands.Cog):
+	def __init__(self, bot: LiquipediaBot):
 		self.bot = bot
-		self._pingable_roles_casefold = {r.casefold(): r for r in data.pingable_roles}
-
-	async def _reply_ephemeral(self, interaction: discord.Interaction, *, embed: discord.Embed):
-		if interaction.response.is_done():
-			await interaction.followup.send(embed=embed, ephemeral=True)
-		else:
-			await interaction.response.send_message(embed=embed, ephemeral=True)
+		self._pingable_roles_casefold = {role.casefold(): role for role in data.pingable_roles}
 
 	@app_commands.command(description='Ping a specific role (Reviewer+)')
 	@app_commands.describe(role='Which role do you want to ping?')
 	@app_commands.guild_only()
 	@app_commands.autocomplete(role=autocomplete.pingable_roles)
-	@app_commands.checks.has_any_role('Reviewer', 'Administrator', 'Discord Admins', 'Liquipedia Employee')
-	async def ping(self, interaction: discord.Interaction, role: str):
-		await interaction.response.defer(ephemeral=True)
+	@app_commands.checks.has_any_role(*data.ping_command_roles)
+	async def ping(self, interaction: discord.Interaction, role: str) -> None:
+		await defer_response(interaction, ephemeral=True)
 
 		role_name = self._pingable_roles_casefold.get(role.casefold())
 		if role_name is None:
-			await interaction.followup.send(
-				embed=discord.Embed(
-					colour=discord.Colour(0xFF0000),
-					description=f'**Error**: Role "{role}" is not an approved pingable role.',
-				)
+			await send_ephemeral(
+				interaction,
+				embed=error_embed(f'**Error**: Role "{role}" is not an approved pingable role.'),
 			)
+			return
+
+		if interaction.guild is None:
+			await send_ephemeral(
+				interaction, embed=error_embed('**Error**: This command can only be used in a server.')
+			)
+			return
+
+		if interaction.channel is None:
+			await send_ephemeral(interaction, embed=error_embed('**Error**: Could not resolve channel.'))
 			return
 
 		discord_role = discord.utils.get(interaction.guild.roles, name=role_name)
 		if discord_role is None:
-			await interaction.followup.send(
-				embed=discord.Embed(
-					colour=discord.Colour(0xFF0000),
-					description=(
-						f'**Error**: Role "{role_name}" no longer exists — please contact an admin to update the role list'
-					),
-				)
+			await send_ephemeral(
+				interaction,
+				embed=error_embed(
+					f'**Error**: Role "{role_name}" no longer exists — please contact an admin to update the role list'
+				),
 			)
 			return
 
 		await interaction.channel.send(
 			content=f'{discord_role.mention} *(Ping requested by {interaction.user.mention})*',
-			allowed_mentions=discord.AllowedMentions(everyone=False, users=[interaction.user], roles=[discord_role]),
+			allowed_mentions=discord.AllowedMentions(
+				everyone=False,
+				users=[interaction.user],
+				roles=[discord_role],
+			),
 		)
 
-		await interaction.followup.send(
-			embed=discord.Embed(
-				colour=discord.Colour(0x00FF00),
-				description=f'Pinged {discord_role.name}!',
-			)
-		)
+		await send_ephemeral(interaction, embed=success_embed(f'Pinged {discord_role.name}!'))
 
 	@ping.error
-	async def on_ping_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+	async def on_ping_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError) -> None:
 		if isinstance(error, app_commands.MissingAnyRole):
-			await self._reply_ephemeral(
+			await send_ephemeral(
 				interaction,
-				embed=discord.Embed(
-					colour=discord.Colour(0xFF0000),
-					description='**Error**: Only Reviewer+ can use this command.',
-				),
+				embed=error_embed('**Error**: Only Reviewer+ can use this command.'),
 			)
 			return
 
-		await self._reply_ephemeral(
+		await send_ephemeral(
 			interaction,
-			embed=discord.Embed(
-				colour=discord.Colour(0xFF0000),
-				description='**Error**: Could not execute ping command.',
-			),
+			embed=error_embed('**Error**: Could not execute ping command.'),
 		)
