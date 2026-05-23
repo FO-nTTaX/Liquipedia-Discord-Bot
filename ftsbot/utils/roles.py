@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# License MIT
+# Copyright 2016-2026 Alex Winkler
+# Version 4.1.1
+
 from __future__ import annotations
 
 from collections.abc import Collection
