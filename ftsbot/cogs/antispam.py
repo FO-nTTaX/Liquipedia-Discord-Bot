@@ -37,10 +37,8 @@ class AntiSpam(commands.Cog):
 		self.reactionspammers: dict[int, int] = {}
 		self.pingspammers: set[int] = set()
 
-		# Track the last N messages per user to detect repeated message spam
-		self.user_message_history: dict[int, deque[discord.Message]] = defaultdict(
-			lambda: deque(maxlen=self.LAST_MESSAGE_BUFFER)
-		)
+		# Track the last N messages globally to detect repeated message spam
+		self.message_history: deque[discord.Message] = deque(maxlen=self.LAST_MESSAGE_BUFFER)
 
 		# Regex to catch fake steamcommunity links often used in phishing scams
 		self.steam_scam_regex = re.compile(r'\[steamcommunity\.com.*?\]\(https?://(?!steamcommunity\.com)')
@@ -257,10 +255,11 @@ class AntiSpam(commands.Cog):
 				self.pingspammers.add(message.author.id)
 
 		# Check for repeated message spam (someone sending the exact same text over and over)
-		user_history = self.user_message_history[message.author.id]
-		user_history.appendleft(message)
+		self.message_history.appendleft(message)
 
-		matching_messages = [m for m in user_history if m.content == message.content]
+		matching_messages = [
+			m for m in self.message_history if m.author == message.author and m.content == message.content
+		]
 
 		if len(matching_messages) >= self.SAME_MESSAGE_HITS_REQUIRED:
 			await self._timeout_and_report(
@@ -271,7 +270,12 @@ class AntiSpam(commands.Cog):
 			)
 
 			await self._bulk_delete_messages(matching_messages)
-			user_history.clear()
+
+			for m in matching_messages:
+				try:
+					self.message_history.remove(m)
+				except ValueError:
+					pass
 			return
 
 	@commands.Cog.listener()
