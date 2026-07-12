@@ -4,39 +4,33 @@
 # Copyright 2016-2026 Alex Winkler
 # Version 4.1.1
 
+from __future__ import annotations
+
 import discord
 from discord import app_commands
+
 from ftsbot import data
 
 
+def _build_choices(values: list[str], current: str) -> list[app_commands.Choice[str]]:
+	current_lower = current.casefold()
+
+	matches = [value for value in values if current_lower in value.casefold()]
+	matches.sort(key=lambda value: (value.casefold().index(current_lower), value.casefold()))
+
+	return [app_commands.Choice(name=value, value=value) for value in matches[:25]]
+
+
 async def wiki(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
-	wikis = [wiki for wiki in data.wikis if current.lower() in wiki.lower()]
-
-	def sortwikis(element):
-		return element.lower().index(current.lower())
-
-	wikis.sort(key=sortwikis)
-
-	return [app_commands.Choice(name=wiki, value=wiki) for wiki in wikis][:25]
+	del interaction
+	return _build_choices(data.wikis, current)
 
 
 async def roles(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
-	roles = [role for role in data.botroles if current.lower() in role.lower()]
-
-	def sortroles(element):
-		return element.lower().index(current.lower())
-
-	roles.sort(key=sortroles)
-
-	return [app_commands.Choice(name=role, value=role) for role in roles][:25]
+	del interaction
+	return _build_choices(data.botroles, current)
 
 
 async def pingable_roles(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
-	roles = [role for role in data.pingable_roles if current.lower() in role.lower()]
-
-	def sortroles(element):
-		return element.lower().index(current.lower())
-
-	roles.sort(key=sortroles)
-
-	return [app_commands.Choice(name=role, value=role) for role in roles][:25]
+	del interaction
+	return _build_choices(data.pingable_roles, current)
