@@ -2,7 +2,7 @@
 
 # License MIT
 # Copyright 2016-2026 Alex Winkler
-# Version 4.1.1
+# Version 5.0.0
 
 import os
 
