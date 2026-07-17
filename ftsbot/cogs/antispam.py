@@ -6,11 +6,11 @@
 
 from __future__ import annotations
 
-import re
-import time
 from collections import deque
 from datetime import timedelta
+import time
 from typing import TYPE_CHECKING
+import re
 
 import discord
 from discord import app_commands
