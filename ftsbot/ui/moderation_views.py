@@ -212,6 +212,8 @@ def upsert_resolution_field(embed: discord.Embed, value: str) -> None:
 
 class BaseResolutionView(ui.View):
 	def __init__(self) -> None:
+		# No permission checks because the report channel is admin-only.
+		# Buttons on existing report messages will stop working if the bot restarts.
 		super().__init__(timeout=None)
 		self._action_lock = asyncio.Lock()
 		self._handled = False
