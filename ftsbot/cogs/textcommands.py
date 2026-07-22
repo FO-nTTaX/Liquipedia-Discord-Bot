@@ -57,7 +57,7 @@ class TextCommands(commands.Cog):
 	@app_commands.command(description='On shady betting sites')
 	async def betting(self, interaction: discord.Interaction) -> None:
 		await interaction.response.send_message(
-			embed=info_embed('[On shady betting sites](https://liquipedia.net/commons/User:FO-nTTaX/Betting)')
+			embed=info_embed('[On shady betting sites](https://liquipedia.net/hub/Liquipedia:On_Shady_Betting_Sites)')
 		)
 
 	@app_commands.command(description='Blame someone')
