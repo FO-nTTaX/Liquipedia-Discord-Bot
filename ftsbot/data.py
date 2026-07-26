@@ -308,7 +308,7 @@ liquipedia_misspellings = (
 	'liqupiedia',
 )
 
-reportable_name_patterns = (
+name_patterns_to_report = (
     'liquid',
     'liquipedia',
 )
