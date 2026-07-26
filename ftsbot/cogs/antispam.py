@@ -99,7 +99,7 @@ class AntiSpam(commands.Cog):
 		return any(domain in content_lower for domain in data.discord_invite_domains)
 
 	def _member_names(self, member: discord.Member) -> list[str]:
-		return [name for name in (member.name, member.global_name) if name is not None]
+		return [name for name in (member.name, member.global_name, member.nick) if name is not None]
 
 	def _build_antispam_embeds(
 		self,
