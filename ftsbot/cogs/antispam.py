@@ -98,6 +98,9 @@ class AntiSpam(commands.Cog):
 		content_lower = content.lower()
 		return any(domain in content_lower for domain in data.discord_invite_domains)
 
+	def _member_names(self, member: discord.Member) -> list[str]:
+		return [name for name in (member.name, member.global_name) if name is not None]
+
 	def _build_antispam_embeds(
 		self,
 		*,
@@ -350,6 +353,15 @@ class AntiSpam(commands.Cog):
 
 		if member.nick is not None and 'twitter.com/h0nde' in member.nick.lower():
 			await self._ban_member(member, reason='Automated ban, spam')
+			return
+
+		names = self._member_names(member)
+		if any(pattern in name.lower() for name in names for pattern in data.name_patterns_to_report):
+			report_channel = self.bot.get_channel(config.reporttarget)
+			if isinstance(report_channel, discord.TextChannel):
+				await report_channel.send(
+					f'Suspicious name for new user: {member.mention}'
+				)
 
 	@commands.Cog.listener()
 	async def on_reaction_add(self, reaction: discord.Reaction, user: discord.User | discord.Member) -> None:
