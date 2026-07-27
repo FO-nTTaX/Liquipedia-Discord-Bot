@@ -359,9 +359,7 @@ class AntiSpam(commands.Cog):
 		if any(pattern in name.lower() for name in names for pattern in data.name_patterns_to_report):
 			report_channel = self.bot.get_channel(config.reporttarget)
 			if isinstance(report_channel, discord.TextChannel):
-				await report_channel.send(
-					f'Suspicious name for new user: {member.mention}'
-				)
+				await report_channel.send(f'Suspicious name for new user: {member.mention}')
 
 	@commands.Cog.listener()
 	async def on_reaction_add(self, reaction: discord.Reaction, user: discord.User | discord.Member) -> None:
