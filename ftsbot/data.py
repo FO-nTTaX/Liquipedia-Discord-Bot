@@ -309,6 +309,5 @@ liquipedia_misspellings = (
 )
 
 name_patterns_to_report = (
-    'liquid',
-    'liquipedia',
+	'liqui',  # Catches both Liquid and Liquipedia since it's a pattern check not a word check
 )
