@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # License MIT
 # Copyright 2016-2026 Alex Winkler
 # Version 5.0.0
