@@ -6,7 +6,7 @@
 
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 import discord
 from discord import ui

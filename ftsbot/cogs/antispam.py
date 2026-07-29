@@ -6,11 +6,11 @@
 
 from __future__ import annotations
 
+import re
+import time
 from collections import deque
 from datetime import timedelta
-import time
 from typing import TYPE_CHECKING
-import re
 
 import discord
 from discord import app_commands
@@ -258,17 +258,16 @@ class AntiSpam(commands.Cog):
 				return
 
 		# Block malicious steamcommunity phishing links
-		if self.steam_scam_regex.search(content_lower):
-			if not self._has_antispam_exception_role(message.author):
-				await self._timeout_and_report(
-					message,
-					report_title='Automod: Potential Steam scam link',
-					user_notice='you have been muted due to potential steam store scam link spam.',
-					reason='Automated timeout, steam scam spam',
-					trigger_reason='Potential phishing link disguised as steamcommunity.com.',
-				)
-				await self._delete_message(message)
-				return
+		if self.steam_scam_regex.search(content_lower) and not self._has_antispam_exception_role(message.author):
+			await self._timeout_and_report(
+				message,
+				report_title='Automod: Potential Steam scam link',
+				user_notice='you have been muted due to potential steam store scam link spam.',
+				reason='Automated timeout, steam scam spam',
+				trigger_reason='Potential phishing link disguised as steamcommunity.com.',
+			)
+			await self._delete_message(message)
+			return
 
 		# Block "Free Discord Nitro" scams
 		if 'nitro' in normalized_content and not self._has_antispam_exception_role(message.author):
