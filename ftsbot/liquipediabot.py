@@ -16,6 +16,7 @@ from ftsbot.cogs.pingcommands import PingCommands
 from ftsbot.cogs.presence import Presence
 from ftsbot.cogs.rolecommands import RoleCommands
 from ftsbot.cogs.textcommands import TextCommands
+from ftsbot.cogs.wikibirthday import WikiBirthday
 from ftsbot.cogs.wikicommands import WikiCommands
 from ftsbot.services.http import HttpClient
 from ftsbot.services.mediawiki import MediaWikiService
@@ -50,6 +51,7 @@ class LiquipediaBot(commands.Bot):
 		await self.add_cog(RoleCommands(self))
 		await self.add_cog(TextCommands(self))
 		await self.add_cog(WikiCommands(self))
+		await self.add_cog(WikiBirthday(self))
 
 		asyncio.create_task(self.startup())
 
